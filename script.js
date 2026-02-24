@@ -26,7 +26,11 @@ onScroll();
   function goTo(index) {
     slides[current].classList.remove('active');
     current = (index + slides.length) % slides.length;
-    slides[current].classList.add('active');
+    const next = slides[current];
+    // Force animation restart by removing & re-adding the class
+    next.classList.remove('active');
+    void next.offsetWidth; // reflow trigger
+    next.classList.add('active');
   }
 
   function start() {
