@@ -86,12 +86,12 @@
       margin-bottom: 24px;
       animation: floatLogo 3.6s ease-in-out infinite;
       box-shadow: 0 0 32px rgba(26,158,116,0.25);
+      overflow: hidden;
     }
     .logo-wrap img {
-      width: 78px;
-      height: 78px;
-      object-fit: contain;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     @keyframes floatLogo {
       0%, 100% { transform: translateY(0); }
