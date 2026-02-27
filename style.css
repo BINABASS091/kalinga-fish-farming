@@ -28,7 +28,7 @@
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Manrope", "Space Grotesk", "Inter", system-ui, sans-serif;
   color: var(--text-dark);
   background: #fff;
   -webkit-font-smoothing: antialiased;
