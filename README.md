@@ -1,26 +1,57 @@
-# Tanzania Fish Farm Website
+# Kalinga Fish Farm – React + Vite
 
-Premium, responsive fish farming website built with semantic HTML, Bootstrap, custom CSS, and JavaScript.
+Modern single-page marketing experience for Kalinga Fish Farm, rebuilt with React 18, Vite, Bootstrap 5, and modular EmailJS-powered contact handling.
 
-## Run locally
+## Development
 
-Open `index.html` directly in your browser, or use any static server.
+```bash
+npm install
+npm run dev
+```
 
-## Deploy
+The dev server (default `http://localhost:5173`) includes hot module replacement. Environment requires Node.js 18+.
 
-This project is static and ready for deployment on Netlify or Vercel:
+## Production Build / Preview
 
-- **Netlify**: drag and drop the folder or connect repository.
-- **Vercel**: import repository and deploy as a static site.
+```bash
+npm run build   # outputs to dist/
+npm run preview # serves the optimized build locally
+```
 
-## Files
+Deploy the `dist` folder to any static host (Netlify, Vercel, Cloudflare Pages, etc.).
 
-- `index.html` – page structure and content sections
-- `style.css` – visual design, responsiveness, and animations
-- `script.js` – lightbox, reveal animations, navbar behavior
+## Key Files
 
-## Replace placeholders
+- [src/App.jsx](src/App.jsx) – React components, data arrays, and interactive logic (hero slideshow, counters, gallery lightbox, EmailJS form, etc.)
+- [style.css](style.css) – Design system, splash screen styling, responsive layout, and motion rules
+- [vite.config.js](vite.config.js) – Vite + @vitejs/plugin-react configuration
 
-- WhatsApp number links (`wa.me/255700000000`)
-- Contact phone placeholders (`+255 7XX XXX XXX`)
-- Optional map location details
+## EmailJS & Contact Form
+
+The form uses EmailJS (`@emailjs/browser`). Update the IDs in `src/App.jsx`:
+
+```js
+const EMAIL_SERVICE_ID = 'service_scw44cq';
+const EMAIL_TEMPLATE_ID = 'template_nmx93r8';
+const EMAIL_PUBLIC_KEY = 'UHrSJdQPpgSgzp3a_';
+```
+
+Replace these with your own service, template, and public key. The form posts `from_name`, `phone_number`, `from_email`, and `message` fields.
+
+## Brand Placeholders
+
+- WhatsApp / phone references currently use `+255 672 411 558`
+- Map embed points to Tanzania (update to exact farm coordinates if available)
+- Cloudinary image/video links remain remote; swap with your own assets as needed
+
+## Scripts
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start Vite dev server |
+| `npm run build` | Create optimized production bundle |
+| `npm run preview` | Preview production build locally |
+
+---
+
+Built with ❤️ to showcase sustainable aquaculture in Iringa, Tanzania.
