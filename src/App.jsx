@@ -18,6 +18,12 @@ const heroImages = [
   'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848206/fish22_dlnbro.jpg'
 ];
 
+const heroMetrics = [
+  { value: '12', label: 'Active Ponds', detail: 'across Iringa Region' },
+  { value: '1.2T', label: 'Monthly Harvest', detail: 'tilapia & catfish' },
+  { value: '72h', label: 'Delivery Window', detail: 'from confirmed order' }
+];
+
 const statsData = [
   { target: 10, suffix: '+', label: 'Years Experience' },
   { target: 10, suffix: 'T', label: 'Tons Produced/Year' },
@@ -615,6 +621,15 @@ function MainSite() {
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="btn app-btn-outline">
                 <i className="bi bi-whatsapp me-2"></i>Chat on WhatsApp
               </a>
+            </div>
+            <div className="hero-meta-grid">
+              {heroMetrics.map(metric => (
+                <article className="hero-meta-card" key={metric.label}>
+                  <span className="hero-meta-value">{metric.value}</span>
+                  <span className="hero-meta-label">{metric.label}</span>
+                  <span className="hero-meta-detail">{metric.detail}</span>
+                </article>
+              ))}
             </div>
             <div className="hero-scroll-indicator">
               <span></span>
