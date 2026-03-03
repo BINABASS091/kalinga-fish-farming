@@ -13,10 +13,76 @@ const instagramLink = 'https://www.instagram.com/kalinga_fish_farm_iringa/';
 const remoteLogoSrc = 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771859623/kalinga_-_fish_farming_p1aof7.png';
 
 const navLinks = [
-  { label: 'Overview', href: '#home' },
+  { label: 'Home', href: '#home' },
+  { label: 'Why Us', href: '#why-us' },
   { label: 'Operations', href: '#operations' },
   { label: 'Media', href: '#gallery' },
   { label: 'Contact', href: '#contact' }
+];
+
+const coreValues = [
+  {
+    icon: 'bi-award',
+    tag: 'OUR STRENGTH',
+    title: 'Expertise & Experience',
+    description: 'Over a decade of freshwater aquaculture expertise ensuring top-notch fish quality and expert farm management.'
+  },
+  {
+    icon: 'bi-truck',
+    tag: 'OUR STRENGTH',
+    title: 'Reliable Supply Chain',
+    description: 'Structured harvest schedules and GPS-tracked dispatch vans delivering consistently to every verified buyer.'
+  },
+  {
+    icon: 'bi-patch-check',
+    tag: 'OUR STRENGTH',
+    title: 'Certified & Compliant',
+    description: 'Tanzania Fisheries Board certified and HACCP-ready, meeting every food safety standard required for institutional supply.'
+  },
+  {
+    icon: 'bi-headset',
+    tag: 'OUR STRENGTH',
+    title: 'Dedicated Support',
+    description: 'Our buyer desk responds within the same business day, coordinating RFQs, documentation, and farm access seamlessly.'
+  }
+];
+
+const testimonials = [
+  {
+    quote: "Kalinga's harvest schedule is rock solid. We've been receiving on-time deliveries for over two years — zero surprises, exceptional quality every time.",
+    name: 'Amina Rashid',
+    role: 'HOTEL PROCUREMENT'
+  },
+  {
+    quote: 'The documentation and transparency from Kalinga makes our compliance process effortless. They send photos and weights before the truck even arrives.',
+    name: 'Daudi Msangi',
+    role: 'INSTITUTIONAL BUYER'
+  },
+  {
+    quote: 'I switched from three different suppliers to Kalinga exclusively. The consistency in fish size and freshness is unmatched in the Iringa region.',
+    name: 'Fatuma Lema',
+    role: 'RESTAURANT OWNER'
+  },
+  {
+    quote: 'Their WhatsApp desk is incredibly responsive. I placed a bulk order on a Saturday morning and had confirmation within the hour. Highly professional.',
+    name: 'Juma Kileo',
+    role: 'RETAIL DISTRIBUTOR'
+  }
+];
+
+const footerCategories = [
+  {
+    title: 'FISH PRODUCTS',
+    links: ['Fresh Tilapia', 'Catfish', 'Nile Perch', 'Smoked Fish', 'Dried Fish']
+  },
+  {
+    title: 'OUR SERVICES',
+    links: ['Bulk Orders', 'Farm Visits', 'Custom Packaging', 'Training Programs', 'Hatchery Supply']
+  },
+  {
+    title: 'COMPANY',
+    links: ['About Kalinga', 'Certifications', 'Media Gallery', 'Contact Us', 'WhatsApp Desk']
+  }
 ];
 
 const socialLinks = [
@@ -53,6 +119,7 @@ const proofMetrics = [
 
 const capabilityTracks = [
   {
+    tag: 'ACTIVE NOW',
     title: 'Water & Habitat Engineering',
     description: 'Continuous data logging on pH, dissolved oxygen, and inflow velocity keeps every pond within target bands.',
     bullets: ['IoT probes + manual validation', 'Daily QA review at 06:30', 'Emergency aeration protocol'],
@@ -60,6 +127,7 @@ const capabilityTracks = [
     alt: 'Water-filled fish pond used for aquaculture.'
   },
   {
+    tag: 'FLAGSHIP',
     title: 'Harvest Logistics Program',
     description: 'Structured seine schedules, insulated packing, and rapid weigh-ins create dependable delivery slots.',
     bullets: ['Slotting calendar shared weekly', 'Pack-outs to 2.5T per day', 'GPS-tracked dispatch vans'],
@@ -67,6 +135,7 @@ const capabilityTracks = [
     alt: 'Group meeting discussing fish farming project.'
   },
   {
+    tag: 'CERTIFIED',
     title: 'Client Experience Office',
     description: 'Dedicated buyer desk handles RFQs, certifications, and spot checks so procurement teams stay confident.',
     bullets: ['Same-day paperwork turnaround', 'WhatsApp + email coordination', 'Transparent farm access'],
@@ -206,7 +275,6 @@ export default function App() {
       setFormStatus({ state: 'error', message: 'Email service is offline. Use phone or WhatsApp for immediate assistance.' });
       return;
     }
-
     setFormStatus({ state: 'loading', message: '' });
     emailjs
       .sendForm(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, formRef.current, { publicKey: EMAIL_PUBLIC_KEY })
@@ -221,6 +289,15 @@ export default function App() {
 
   return (
     <div className="app-shell">
+
+      {/* ── TOP INFO BAR ── */}
+      <div className="top-info-bar">
+        <span><i className="bi bi-geo-alt-fill"></i> IRINGA, TANZANIA</span>
+        <span><i className="bi bi-clock"></i> MON – SUN: 6AM – 6PM</span>
+        <span><i className="bi bi-headset"></i> BUYER SUPPORT AVAILABLE</span>
+      </div>
+
+      {/* ── HEADER ── */}
       <header className="global-header">
         <div className="brand-block">
           <img src={remoteLogoSrc} alt="Kalinga Fish Farm logo" onError={applyLogoFallback} />
@@ -231,14 +308,12 @@ export default function App() {
         </div>
         <nav className="primary-nav" aria-label="Primary">
           {navLinks.map(link => (
-            <a key={link.href} href={link.href}>
-              {link.label}
-            </a>
+            <a key={link.href} href={link.href}>{link.label}</a>
           ))}
         </nav>
         <div className="header-actions">
           <a className="nav-cta" href={whatsappLink} target="_blank" rel="noopener noreferrer">
-            WhatsApp desk
+            <i className="bi bi-whatsapp"></i> WhatsApp desk
           </a>
           <div className="header-socials">
             {socialLinks.map(link => (
@@ -254,13 +329,12 @@ export default function App() {
         <div className="hero-copy">
           <p className="status-chip">Trusted aquaculture supply · Since 2014</p>
           <h1>
-            Official harvest partner for{' '}
-            <span className="text-gradient">East African</span>{' '}
-            retailers, hoteliers, and institutional buyers.
+            Your Gateway to{' '}
+            <span className="text-gradient">Premium</span>{' '}
+            Freshwater Fish
           </h1>
           <p>
-            Our pond systems, documentation, and media transparency show every step of the journey—from water management to
-            final dispatch—so procurement leads have zero guesswork.
+            Official harvest partner for East African retailers, hoteliers, and institutional buyers. Full transparency from water management to final dispatch.
           </p>
           <div className="metric-grid">
             {proofMetrics.map(metric => (
@@ -270,12 +344,26 @@ export default function App() {
               </article>
             ))}
           </div>
-          <div className="hero-cta">
-            <a className="btn-solid" href="#contact">
-              Schedule a procurement call
-            </a>
-            <a className="btn-outline" href={whatsappLink} target="_blank" rel="noopener noreferrer">
-              Immediate WhatsApp support <i className="bi bi-arrow-up-right"></i>
+          <div className="inquiry-widget">
+            <div className="inquiry-field">
+              <label>PRODUCT</label>
+              <select>
+                <option>Tilapia</option>
+                <option>Catfish</option>
+                <option>Mixed Order</option>
+                <option>Nile Perch</option>
+              </select>
+            </div>
+            <div className="inquiry-field">
+              <label>PREFERRED DATE</label>
+              <input type="date" />
+            </div>
+            <div className="inquiry-field">
+              <label>VOLUME (KG)</label>
+              <input type="number" placeholder="e.g. 500" min="1" />
+            </div>
+            <a className="btn-solid inquiry-btn" href="#contact">
+              REQUEST QUOTE
             </a>
           </div>
         </div>
@@ -295,29 +383,55 @@ export default function App() {
       </section>
 
       <main>
+
+        {/* ── WHY CHOOSE US ── */}
+        <section className="why-us" id="why-us">
+          <header className="section-lede">
+            <p className="eyebrow">OUR CORE VALUES</p>
+            <h2>Why Partner With Kalinga?</h2>
+            <p>Four pillars that set us apart as the most reliable freshwater fish supplier in the Iringa highland region.</p>
+          </header>
+          <div className="values-grid">
+            {coreValues.map(val => (
+              <article className="value-card" key={val.title}>
+                <div className="value-icon">
+                  <i className={`bi ${val.icon}`}></i>
+                </div>
+                <span className="value-tag">{val.tag}</span>
+                <h3>{val.title}</h3>
+                <p>{val.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* ── OPERATIONS ── */}
         <section className="operations" id="operations">
           <header className="section-lede">
-            <p className="eyebrow">Operations intelligence</p>
-            <h2>Disciplined systems, broadcast in high fidelity.</h2>
-            <p>
-              Each capability track pairs an engineered workflow with live imagery so partners can audit us visually at any
-              time.
-            </p>
+            <p className="eyebrow">REAL-TIME OPERATIONS</p>
+            <h2>Live from Our Farm Floor.</h2>
+            <p>Each operational track combines an engineered workflow with live imagery so partners can audit us visually at any time.</p>
+            <div className="live-badge">
+              <span className="live-pulse"></span>
+              3 PROGRAMS CURRENTLY ACTIVE
+            </div>
           </header>
           <div className="operations-grid">
             {capabilityTracks.map(track => (
               <article className="capability-card" key={track.title}>
-                <figure>
+                <figure className="capability-img">
                   <img src={track.image} alt={track.alt} loading="lazy" onError={applyImageFallback} />
+                  <span className="capability-tag">{track.tag}</span>
                 </figure>
                 <div className="capability-body">
                   <h3>{track.title}</h3>
                   <p>{track.description}</p>
                   <ul>
                     {track.bullets.map(point => (
-                      <li key={point}>{point}</li>
+                      <li key={point}><i className="bi bi-check2"></i>{point}</li>
                     ))}
                   </ul>
+                  <a className="card-cta" href="#contact">VIEW DETAILS <i className="bi bi-arrow-right"></i></a>
                 </div>
               </article>
             ))}
@@ -326,10 +440,10 @@ export default function App() {
 
         <section className="video-showcase" id="video">
           <header className="section-lede">
-            <p className="eyebrow">Farm footage</p>
-            <h2>Watch the operation live.</h2>
+            <p className="eyebrow">FARM FOOTAGE</p>
+            <h2>Watch the Operation Live.</h2>
             <p>
-              Unedited video from our latest harvests—real conditions, real output, full transparency for every procurement decision.
+              Unedited video from our latest harvests — real conditions, real output, full transparency for every procurement decision.
             </p>
           </header>
           <div className="video-grid">
@@ -361,11 +475,10 @@ export default function App() {
 
         <section className="gallery" id="gallery">
           <header className="section-lede">
-            <p className="eyebrow">Verified imagery</p>
-            <h2>Visual logbook from pond to dispatch.</h2>
-            <p>
-              Every sequence below is timestamped footage from recent harvests. We rotate galleries weekly to keep stakeholders
-              current.
+            <p className="eyebrow">VISUAL JOURNEY</p>
+            <h2>Our Aquaculture Gallery</h2>
+            <p className="section-lede-italic">
+              A glimpse into the heart of the farm — through the eyes of our team and our partners.
             </p>
           </header>
           <div className="gallery-grid">
@@ -373,17 +486,47 @@ export default function App() {
               <figure className="gallery-card" key={story.src}>
                 <img src={story.src} alt={story.alt} loading="lazy" onError={applyImageFallback} />
                 <figcaption>
-                  <span>{story.tag}</span>
-                  <p>{story.alt}</p>
+                  <span className="gallery-ops-badge">KALINGA PHOTO OPS</span>
+                  <p>{story.tag}</p>
                 </figcaption>
               </figure>
             ))}
           </div>
         </section>
 
+        {/* ── TESTIMONIALS ── */}
+        <section className="testimonials" id="testimonials">
+          <header className="section-lede">
+            <p className="eyebrow">VOICE OF OUR BUYERS</p>
+            <h2>Client Testimonials</h2>
+          </header>
+          <div className="testimonials-grid">
+            {testimonials.map(t => (
+              <article className="testimonial-card" key={t.name}>
+                <div className="testimonial-stars">
+                  {[1,2,3,4,5].map(s => <i key={s} className="bi bi-star-fill"></i>)}
+                </div>
+                <p className="testimonial-quote">"{t.quote}"</p>
+                <div className="testimonial-author">
+                  <div className="testimonial-avatar">
+                    <i className="bi bi-person-fill"></i>
+                  </div>
+                  <div>
+                    <strong>{t.name}</strong>
+                    <span>{t.role}</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="photo-strip" aria-label="Photo highlights">
           <div className="strip-header">
-            <p className="eyebrow">Live from the farm floor</p>
+            <p className="eyebrow">FOLLOW OUR INSTAGRAM</p>
+            <a href={instagramLink} target="_blank" rel="noopener noreferrer" className="strip-ig-handle">
+              <i className="bi bi-instagram"></i> @KALINGA_FISH_FARM_IRINGA
+            </a>
           </div>
           <div className="strip-viewport">
             <div className="strip-track" aria-hidden="true">
@@ -398,8 +541,8 @@ export default function App() {
 
         <section className="credentials">
           <div className="section-lede">
-            <p className="eyebrow">Credentials & membership</p>
-            <h2>Independently audited programs, open for inspection.</h2>
+            <p className="eyebrow">CREDENTIALS & MEMBERSHIP</p>
+            <h2>Independently Audited. Open for Inspection.</h2>
           </div>
           <ul className="accolade-list">
             {accolades.map(item => (
@@ -413,11 +556,10 @@ export default function App() {
 
         <section className="contact" id="contact">
           <header className="section-lede">
-            <p className="eyebrow">Connect with operations</p>
-            <h2>Direct line to our harvest planning desk.</h2>
+            <p className="eyebrow">CONNECT WITH OPERATIONS</p>
+            <h2>Direct Line to Our Harvest Planning Desk.</h2>
             <p>
-              Share your volume targets, preferred dispatch windows, and compliance requirements. We respond within one business
-              day (often sooner).
+              Share your volume targets, preferred dispatch windows, and compliance requirements. We respond within one business day — often sooner.
             </p>
           </header>
           <div className="contact-grid">
@@ -489,23 +631,41 @@ export default function App() {
               <p className="footer-brand-name">Kalinga Fish Farm</p>
               <span>Premium freshwater aquaculture · Iringa, Tanzania</span>
             </div>
+            <p className="footer-desc">
+              Delivering certified, farm-fresh fish to East African retailers, hotels, and institutions since 2014. Transparency and quality at every step.
+            </p>
+            <address className="footer-contact-info">
+              <a href="tel:+255672411558"><i className="bi bi-telephone-fill"></i> +255 672 411 558</a>
+              <a href="mailto:ops@kalingafishfarm.com"><i className="bi bi-envelope-fill"></i> ops@kalingafishfarm.com</a>
+              <span><i className="bi bi-geo-alt-fill"></i> Iringa, Tanzania</span>
+            </address>
           </div>
-          <nav className="footer-nav" aria-label="Footer">
-            {navLinks.map(link => (
-              <a key={link.href} href={link.href}>{link.label}</a>
-            ))}
-          </nav>
-          <div className="footer-social">
-            {socialLinks.map(link => (
-              <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
-                <i className={`bi ${link.icon}`}></i>
-              </a>
-            ))}
+          {footerCategories.map(cat => (
+            <div className="footer-col" key={cat.title}>
+              <h4>{cat.title}</h4>
+              <ul>
+                {cat.links.map(link => (
+                  <li key={link}><a href="#contact">{link}</a></li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <div className="footer-social-col">
+            <h4>FOLLOW US</h4>
+            <div className="footer-social">
+              {socialLinks.map(link => (
+                <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
+                  <i className={`bi ${link.icon}`}></i>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
         <div className="footer-legal">
-          <p>© {currentYear} Kalinga Fish Farm – Iringa. All rights reserved.</p>
-          <p>Tanzania Fisheries Board Certified · On-spec delivery · Transparent operations</p>
+          <span>CERTIFIED AQUACULTURE OPERATORS</span>
+          <span>TANZANIA FISHERIES BOARD MEMBER</span>
+          <span>© {currentYear} KALINGA FISH FARM. ALL RIGHTS RESERVED.</span>
+          <span>DESIGNED FOR THE MODERN BUYER.</span>
         </div>
       </footer>
     </div>
