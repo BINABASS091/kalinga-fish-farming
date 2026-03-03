@@ -141,11 +141,14 @@ const galleryStories = [
 const videoShowcase = [
   {
     id: 'vid1',
-    src: 'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=WhatsApp_Video_2026-03-03_at_15.18.51_g3ifgz',
-    title: 'Overview of aquaculture project activities and community impact'
+    type: 'image',
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_900/v1772540689/WhatsApp_Image_2026-03-03_at_15.18.54_vbeqvw.jpg',
+    title: 'Live aquaculture demonstration during agricultural innovation event',
+    alt: 'Presenter showcasing fish tanks during exhibition.'
   },
   {
     id: 'vid2',
+    type: 'video',
     src: 'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=WhatsApp_Video_2026-03-03_at_15.18.51_1_dd8dba',
     title: 'Live demonstration of sustainable fish farming operations'
   }
@@ -334,13 +337,22 @@ export default function App() {
             {videoShowcase.map(video => (
               <div className="video-card" key={video.id}>
                 <div className="video-frame">
-                  <iframe
-                    src={video.src}
-                    title={video.title}
-                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-                    allowFullScreen
-                    loading="lazy"
-                  />
+                  {video.type === 'image' ? (
+                    <img
+                      src={video.src}
+                      alt={video.alt}
+                      loading="lazy"
+                      onError={applyImageFallback}
+                    />
+                  ) : (
+                    <iframe
+                      src={video.src}
+                      title={video.title}
+                      allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                      allowFullScreen
+                      loading="lazy"
+                    />
+                  )}
                 </div>
                 <p className="video-caption">{video.title}</p>
               </div>
