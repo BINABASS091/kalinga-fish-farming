@@ -141,10 +141,9 @@ const galleryStories = [
 const videoShowcase = [
   {
     id: 'vid1',
-    type: 'image',
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_900/v1772540689/WhatsApp_Image_2026-03-03_at_15.18.54_vbeqvw.jpg',
-    title: 'Live aquaculture demonstration during agricultural innovation event',
-    alt: 'Presenter showcasing fish tanks during exhibition.'
+    type: 'video',
+    src: 'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish35_orgaov',
+    title: 'Harvest operation — live footage from pond 4'
   },
   {
     id: 'vid2',
