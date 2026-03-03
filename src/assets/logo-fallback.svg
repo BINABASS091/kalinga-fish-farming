@@ -1,0 +1,12 @@
+<svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kalinga Fish Farm logo fallback">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#55f2c7" />
+      <stop offset="100%" stop-color="#4c9dff" />
+    </linearGradient>
+  </defs>
+  <circle cx="80" cy="80" r="76" fill="#06142a" stroke="url(#grad)" stroke-width="4" />
+  <path d="M30 94c16-18 32-27 50-27s34 9 50 27c-16 18-32 27-50 27S46 112 30 94z" fill="url(#grad)" opacity="0.9" />
+  <circle cx="108" cy="78" r="6" fill="#fff" opacity="0.85" />
+  <text x="50%" y="128" text-anchor="middle" fill="#cfeff0" font-family="'Space Grotesk', Arial, sans-serif" font-size="18" font-weight="600">Kalinga</text>
+</svg>

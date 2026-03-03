@@ -51,6 +51,18 @@ main {
   box-shadow: 0 -40px 120px rgba(3, 17, 38, 0.35);
 }
 img { display: block; }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+}
 
 /* ============================================================
    SPLASH EXPERIENCE

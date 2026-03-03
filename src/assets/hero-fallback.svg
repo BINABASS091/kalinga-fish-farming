@@ -1,0 +1,16 @@
+<svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stylized gradient background for Kalinga Fish Farm">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#031126" />
+      <stop offset="50%" stop-color="#06315c" />
+      <stop offset="100%" stop-color="#1a9e74" />
+    </linearGradient>
+    <radialGradient id="orb" cx="30%" cy="30%" r="40%">
+      <stop offset="0%" stop-color="#55f2c7" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#55f2c7" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#bg)" />
+  <circle cx="40%" cy="35%" r="35%" fill="url(#orb)" />
+  <circle cx="75%" cy="20%" r="25%" fill="url(#orb)" opacity="0.6" />
+</svg>

@@ -1,22 +1,63 @@
 import { useEffect, useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
+import heroFallback from './assets/hero-fallback.svg';
+import logoFallback from './assets/logo-fallback.svg';
 
-const EMAIL_SERVICE_ID = 'service_scw44cq';
-const EMAIL_TEMPLATE_ID = 'template_nmx93r8';
-const EMAIL_PUBLIC_KEY = 'UHrSJdQPpgSgzp3a_';
+const EMAIL_SERVICE_ID = import.meta.env.VITE_EMAIL_SERVICE_ID ?? '';
+const EMAIL_TEMPLATE_ID = import.meta.env.VITE_EMAIL_TEMPLATE_ID ?? '';
+const EMAIL_PUBLIC_KEY = import.meta.env.VITE_EMAIL_PUBLIC_KEY ?? '';
+
+const remoteLogoSrc = 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771859623/kalinga_-_fish_farming_p1aof7.png';
 
 const heroImages = [
-  'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848224/fish1_tbbpc4.jpg',
-  'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848223/fish5_zik1l7.jpg',
-  'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848218/fish14_o7o9vy.jpg',
-  'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848221/fish8_ayrrpc.jpg',
-  'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848215/fish17_njmu9m.jpg',
-  'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771856234/fish79_lyey5x.jpg',
-  'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771856246/fish70_x1oxm8.jpg',
-  'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771856241/fish74_c4lxma.jpg',
-  'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771856229/fish85_mu9he5.jpg',
-  'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848206/fish22_dlnbro.jpg'
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848224/fish1_tbbpc4.jpg',
+    alt: 'Morning harvest crew lifting tilapia from the earthen pond.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848223/fish5_zik1l7.jpg',
+    alt: 'Close-up of freshly caught catfish showing healthy sheen.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848218/fish14_o7o9vy.jpg',
+    alt: 'Aerial view of Iringa earthen ponds full of tilapia.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848221/fish8_ayrrpc.jpg',
+    alt: 'Fresh fish loaded into crates for delivery logistics.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848215/fish17_njmu9m.jpg',
+    alt: 'Workers inspecting pond water quality at sunset.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771856234/fish79_lyey5x.jpg',
+    alt: 'Basket of silver tilapia freshly harvested for bulk buyers.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771856246/fish70_x1oxm8.jpg',
+    alt: 'Farm manager demonstrating netting technique along the pond bank.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771856241/fish74_c4lxma.jpg',
+    alt: 'Row of harvested fish neatly arranged for quality checks.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771856229/fish85_mu9he5.jpg',
+    alt: 'Bulk catfish order packed with ice for transport.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848206/fish22_dlnbro.jpg',
+    alt: 'Team loading a truck with tubs of harvested fish.'
+  }
 ];
+
+const applyLogoFallback = event => {
+  const img = event.currentTarget;
+  if (img.dataset.fallbackApplied) return;
+  img.dataset.fallbackApplied = 'true';
+  img.src = logoFallback;
+};
 
 const heroMetrics = [
   { value: '12', label: 'Active Ponds', detail: 'across Iringa Region' },
@@ -327,7 +368,7 @@ const whatsappLink = 'https://wa.me/255672411558';
 const facebookLink = 'https://www.facebook.com/claus.angelo';
 const instagramLink = 'https://www.instagram.com/kalinga_fish_farm_iringa/';
 
-const SplashScreen = ({ progress }) => (
+const SplashScreen = ({ progress, logoSrc, onLogoError }) => (
   <div className="splash-layout">
     <div className="bg-bubbles" aria-hidden="true">
       {Array.from({ length: 7 }).map((_, idx) => (
@@ -338,8 +379,9 @@ const SplashScreen = ({ progress }) => (
     <div className="splash-card">
       <div className="logo-wrap">
         <img
-          src="https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771859623/kalinga_-_fish_farming_p1aof7.png"
+          src={logoSrc}
           alt="Kalinga Fish Farm logo"
+          onError={onLogoError}
         />
       </div>
       <span className="splash-tagline">Iringa, Tanzania</span>
@@ -371,20 +413,54 @@ const SplashScreen = ({ progress }) => (
   </div>
 );
 
+const isEmailConfigured = Boolean(EMAIL_SERVICE_ID && EMAIL_TEMPLATE_ID && EMAIL_PUBLIC_KEY);
+
 function MainSite() {
   const [heroIndex, setHeroIndex] = useState(0);
+  const [prevHeroIndex, setPrevHeroIndex] = useState(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const formRef = useRef(null);
   const [formStatus, setFormStatus] = useState({ state: 'idle', message: '' });
   const currentYear = new Date().getFullYear();
+  const fallbackHeroImage = { src: heroFallback, alt: 'Stylized gradient backdrop featuring Kalinga Fish Farm colors.' };
+  const currentHero = heroImages[heroIndex] ?? fallbackHeroImage;
+
+  const handleHeroImageError = event => {
+    const img = event.currentTarget;
+    if (img.dataset.fallbackApplied) return;
+    img.dataset.fallbackApplied = 'true';
+    img.src = heroFallback;
+  };
 
   useEffect(() => {
+    if (heroImages.length <= 1) return undefined;
     const interval = setInterval(() => {
-      setHeroIndex(prev => (prev + 1) % heroImages.length);
+      setHeroIndex(prev => {
+        setPrevHeroIndex(prev);
+        return (prev + 1) % heroImages.length;
+      });
     }, 7000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (prevHeroIndex === null) return undefined;
+    const timeout = setTimeout(() => setPrevHeroIndex(null), 1800);
+    return () => clearTimeout(timeout);
+  }, [prevHeroIndex]);
+
+  useEffect(() => {
+    if (heroImages.length <= 1) return undefined;
+    const nextIndex = (heroIndex + 1) % heroImages.length;
+    const nextSrc = heroImages[nextIndex]?.src;
+    if (!nextSrc) return undefined;
+    const preloader = new Image();
+    preloader.src = nextSrc;
+    return () => {
+      preloader.onload = null;
+    };
+  }, [heroIndex]);
 
   useEffect(() => {
     const navbar = document.getElementById('appNavbar');
@@ -498,9 +574,30 @@ function MainSite() {
     return () => document.removeEventListener('keydown', handleKey);
   }, [lightboxOpen]);
 
+  const heroSlides = [
+    {
+      ...currentHero,
+      key: `hero-${heroIndex}-active`,
+      isActive: true
+    }
+  ];
+
+  if (prevHeroIndex !== null && prevHeroIndex !== heroIndex) {
+    const previousHero = heroImages[prevHeroIndex] ?? fallbackHeroImage;
+    heroSlides.push({
+      ...previousHero,
+      key: `hero-${prevHeroIndex}-previous`,
+      isActive: false
+    });
+  }
+
   const handleContactSubmit = event => {
     event.preventDefault();
     if (!formRef.current) return;
+    if (!isEmailConfigured) {
+      setFormStatus({ state: 'error', message: 'Email service is unavailable. Please reach us via WhatsApp or phone.' });
+      return;
+    }
     setFormStatus({ state: 'loading', message: '' });
     emailjs
       .sendForm(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, formRef.current, {
@@ -549,8 +646,9 @@ function MainSite() {
             <a className="navbar-brand" href="#home">
               <span className="brand-icon">
                 <img
-                  src="https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771859623/kalinga_-_fish_farming_p1aof7.png"
+                  src={remoteLogoSrc}
                   alt="Kalinga Fish Farm logo"
+                  onError={applyLogoFallback}
                 />
               </span>
               <span className="brand-text">
@@ -592,19 +690,25 @@ function MainSite() {
 
       <main>
         <section id="home" className="hero-section">
-          <div className="hero-slides-wrap" aria-hidden="true">
-            {heroImages.map((src, idx) => (
+          <div className="hero-slides-wrap" role="img" aria-label={currentHero.alt}>
+            {heroSlides.map(slide => (
               <img
-                key={src}
-                className={`hero-slide ${heroIndex === idx ? 'active' : ''}`}
-                src={src}
+                key={slide.key}
+                className={`hero-slide ${slide.isActive ? 'active' : ''}`}
+                src={slide.src}
                 alt=""
-                loading={idx === 0 ? 'eager' : 'lazy'}
+                role="presentation"
+                aria-hidden="true"
+                loading={slide.isActive ? 'eager' : 'lazy'}
+                onError={handleHeroImageError}
               />
             ))}
           </div>
           <div className="hero-overlay"></div>
           <div className="container hero-content reveal">
+            <p className="visually-hidden" aria-live="polite" aria-atomic="true">
+              {currentHero.alt}
+            </p>
             <div className="hero-badge">
               <i className="bi bi-patch-check-fill"></i> Tanzania's Premium Aquaculture Farm
             </div>
@@ -897,7 +1001,7 @@ function MainSite() {
                       ></textarea>
                     </div>
                     <div className="col-12">
-                      <button type="submit" className="btn app-btn-primary px-5" disabled={isSubmitting}>
+                      <button type="submit" className="btn app-btn-primary px-5" disabled={isSubmitting || !isEmailConfigured}>
                         {isSubmitting ? (
                           <>
                             <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
@@ -910,6 +1014,13 @@ function MainSite() {
                         )}
                       </button>
                     </div>
+                    {!isEmailConfigured && (
+                      <div className="col-12">
+                        <div className="alert alert-warning mt-2 mb-0" role="alert">
+                          Online email delivery is disabled until VITE_EMAIL_* values are provided. Please use WhatsApp or call us directly.
+                        </div>
+                      </div>
+                    )}
                     {formStatus.state !== 'idle' && (
                       <div className="col-12" id="contact-feedback" role="alert">
                         <div className={`alert ${formStatus.state === 'success' ? 'alert-success' : 'alert-danger'} mt-2 mb-0`}>
@@ -974,9 +1085,10 @@ function MainSite() {
             <div className="col-lg-4">
               <div className="footer-brand">
                 <img
-                  src="https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771859623/kalinga_-_fish_farming_p1aof7.png"
+                  src={remoteLogoSrc}
                   alt="Kalinga Fish Farm logo"
                   className="footer-logo"
+                  onError={applyLogoFallback}
                 />
                 Kalinga Fish Farm – Iringa
               </div>
@@ -1117,5 +1229,9 @@ export default function App() {
     };
   }, []);
 
-  return showHome ? <MainSite /> : <SplashScreen progress={progress} />;
+  return showHome ? (
+    <MainSite />
+  ) : (
+    <SplashScreen progress={progress} logoSrc={remoteLogoSrc} onLogoError={applyLogoFallback} />
+  );
 }

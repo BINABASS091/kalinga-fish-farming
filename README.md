@@ -28,21 +28,23 @@ Deploy the `dist` folder to any static host (Netlify, Vercel, Cloudflare Pages, 
 
 ## EmailJS & Contact Form
 
-The form uses EmailJS (`@emailjs/browser`). Update the IDs in `src/App.jsx`:
+1. Copy `.env.example` to `.env`.
+2. Fill in your EmailJS credentials (service, template, public key):
 
-```js
-const EMAIL_SERVICE_ID = 'service_scw44cq';
-const EMAIL_TEMPLATE_ID = 'template_nmx93r8';
-const EMAIL_PUBLIC_KEY = 'UHrSJdQPpgSgzp3a_';
+```bash
+VITE_EMAIL_SERVICE_ID=service_xxxxxxx
+VITE_EMAIL_TEMPLATE_ID=template_xxxxxxx
+VITE_EMAIL_PUBLIC_KEY=public_xxxxxxxxxxxxxxxx
 ```
 
-Replace these with your own service, template, and public key. The form posts `from_name`, `phone_number`, `from_email`, and `message` fields.
+Vite exposes any `VITE_` prefixed variables to the browser build. Without these values the contact form stays disabled and the UI surfaces a warning. The form posts `from_name`, `phone_number`, `from_email`, and `message` fields to EmailJS.
 
 ## Brand Placeholders
 
 - WhatsApp / phone references currently use `+255 672 411 558`
 - Map embed points to Tanzania (update to exact farm coordinates if available)
 - Cloudinary image/video links remain remote; swap with your own assets as needed
+- Bundled fallbacks (`src/assets/hero-fallback.svg`, `src/assets/logo-fallback.svg`) ensure the hero background and logo remain visible if Cloudinary is unreachable—replace them with branded artwork when you have local files
 
 ## Scripts
 
