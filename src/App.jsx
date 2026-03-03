@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import heroFallback from './assets/hero-fallback.svg';
 import logoFallback from './assets/logo-fallback.svg';
@@ -7,49 +7,173 @@ const EMAIL_SERVICE_ID = import.meta.env.VITE_EMAIL_SERVICE_ID ?? '';
 const EMAIL_TEMPLATE_ID = import.meta.env.VITE_EMAIL_TEMPLATE_ID ?? '';
 const EMAIL_PUBLIC_KEY = import.meta.env.VITE_EMAIL_PUBLIC_KEY ?? '';
 
+const whatsappLink = 'https://wa.me/255672411558';
+const facebookLink = 'https://www.facebook.com/claus.angelo';
+const instagramLink = 'https://www.instagram.com/kalinga_fish_farm_iringa/';
 const remoteLogoSrc = 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771859623/kalinga_-_fish_farming_p1aof7.png';
 
-const heroImages = [
+const navLinks = [
+  { label: 'Overview', href: '#home' },
+  { label: 'Operations', href: '#operations' },
+  { label: 'Media', href: '#gallery' },
+  { label: 'Contact', href: '#contact' }
+];
+
+const socialLinks = [
+  { icon: 'bi-whatsapp', href: whatsappLink, label: 'WhatsApp' },
+  { icon: 'bi-instagram', href: instagramLink, label: 'Instagram' },
+  { icon: 'bi-facebook', href: facebookLink, label: 'Facebook' }
+];
+
+const heroMedia = {
+  primary: {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1600,h_1100/v1771856246/fish70_x1oxm8.jpg',
+    alt: 'Crew guiding a full net of catfish across the pond bank.'
+  },
+  trims: [
+    {
+      src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_800,h_800/v1772540691/WhatsApp_Image_2026-03-03_at_15.18.59_hsyuo7.jpg',
+      caption: 'Live harvest',
+      alt: 'Crew pulling nets during a live harvest session.'
+    },
+    {
+      src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_800,h_800/v1772540689/WhatsApp_Image_2026-03-03_at_15.18.54_vbeqvw.jpg',
+      caption: 'Fresh stock',
+      alt: 'Freshly harvested fish ready for grading.'
+    }
+  ]
+};
+
+const proofMetrics = [
+  { value: '12', label: 'Operational ponds' },
+  { value: '1.2T', label: 'Monthly harvest output' },
+  { value: '72h', label: 'Max dispatch window' },
+  { value: '200+', label: 'Regional buyers served' }
+];
+
+const capabilityTracks = [
   {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848224/fish1_tbbpc4.jpg',
-    alt: 'Morning harvest crew lifting tilapia from the earthen pond.'
+    title: 'Water & Habitat Engineering',
+    description: 'Continuous data logging on pH, dissolved oxygen, and inflow velocity keeps every pond within target bands.',
+    bullets: ['IoT probes + manual validation', 'Daily QA review at 06:30', 'Emergency aeration protocol'],
+    image: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_900/v1772540685/WhatsApp_Image_2026-03-03_at_15.19.07_qdknt1.jpg',
+    alt: 'Pond management and water quality operations.'
   },
   {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848223/fish5_zik1l7.jpg',
-    alt: 'Close-up of freshly caught catfish showing healthy sheen.'
+    title: 'Harvest Logistics Program',
+    description: 'Structured seine schedules, insulated packing, and rapid weigh-ins create dependable delivery slots.',
+    bullets: ['Slotting calendar shared weekly', 'Pack-outs to 2.5T per day', 'GPS-tracked dispatch vans'],
+    image: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_900/v1772540684/WhatsApp_Image_2026-03-03_at_15.19.01_e9fs06.jpg',
+    alt: 'Harvest team loading freshly caught fish for dispatch.'
   },
   {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848218/fish14_o7o9vy.jpg',
-    alt: 'Aerial view of Iringa earthen ponds full of tilapia.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848221/fish8_ayrrpc.jpg',
-    alt: 'Fresh fish loaded into crates for delivery logistics.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848215/fish17_njmu9m.jpg',
-    alt: 'Workers inspecting pond water quality at sunset.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771856234/fish79_lyey5x.jpg',
-    alt: 'Basket of silver tilapia freshly harvested for bulk buyers.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771856246/fish70_x1oxm8.jpg',
-    alt: 'Farm manager demonstrating netting technique along the pond bank.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771856241/fish74_c4lxma.jpg',
-    alt: 'Row of harvested fish neatly arranged for quality checks.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771856229/fish85_mu9he5.jpg',
-    alt: 'Bulk catfish order packed with ice for transport.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1920,h_1080/v1771848206/fish22_dlnbro.jpg',
-    alt: 'Team loading a truck with tubs of harvested fish.'
+    title: 'Client Experience Office',
+    description: 'Dedicated buyer desk handles RFQs, certifications, and spot checks so procurement teams stay confident.',
+    bullets: ['Same-day paperwork turnaround', 'WhatsApp + email coordination', 'Transparent farm access'],
+    image: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_900/v1772540683/WhatsApp_Image_2026-03-03_at_15.19.02_ll7cih.jpg',
+    alt: 'Clients inspecting and verifying harvest lots at the farm.'
   }
+];
+
+const galleryStories = [
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1772540689/WhatsApp_Image_2026-03-03_at_15.18.56_2_einjij.jpg',
+    tag: 'Live haul',
+    alt: 'Full net of fish being hauled to the bank.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1771848224/fish1_tbbpc4.jpg',
+    tag: 'Harvest line',
+    alt: 'Crew hauling a seine net from the pond.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1772540688/WhatsApp_Image_2026-03-03_at_15.19.08_2_yg1xpu.jpg',
+    tag: 'Pond overview',
+    alt: 'Wide shot of the operational pond area.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1771856251/fish66_kfhgex.jpg',
+    tag: 'Sorting',
+    alt: 'Catfish being graded for uniform sizing.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1772540688/WhatsApp_Image_2026-03-03_at_15.18.56_bwz1yq.jpg',
+    tag: 'Farm activity',
+    alt: 'Farm workers engaged in daily operations.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1771856241/fish74_c4lxma.jpg',
+    tag: 'Quality check',
+    alt: 'Fresh tilapia arranged for QA photos.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1772540688/WhatsApp_Image_2026-03-03_at_15.18.57_1_dbjsln.jpg',
+    tag: 'Team at work',
+    alt: 'Harvest team coordinating the morning collection.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1771856240/fish75_drzgls.jpg',
+    tag: 'Packaging',
+    alt: 'Crates being sealed for transport to Dar es Salaam.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1772540687/WhatsApp_Image_2026-03-03_at_15.18.57_qnxwml.jpg',
+    tag: 'Net haul',
+    alt: 'Large net being lifted from the earthen pond.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1771848223/fish5_zik1l7.jpg',
+    tag: 'Catfish detail',
+    alt: 'Close-up of catfish showing sheen and health.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1772540686/WhatsApp_Image_2026-03-03_at_15.18.59_1_davy2w.jpg',
+    tag: 'Fresh stock',
+    alt: 'Freshly sorted fish ready for buyer collection.'
+  },
+  {
+    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1771856264/fish57_mjcpsb.jpg',
+    tag: 'Pond sunrise',
+    alt: 'Sunlight reflecting on still pond water.'
+  }
+];
+
+const videoShowcase = [
+  {
+    id: 'vid1',
+    src: 'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=WhatsApp_Video_2026-03-03_at_15.18.51_g3ifgz',
+    title: 'Harvest operation — live footage from pond 4'
+  },
+  {
+    id: 'vid2',
+    src: 'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=WhatsApp_Video_2026-03-03_at_15.18.51_1_dd8dba',
+    title: 'Morning collection — crew and net workflow'
+  }
+];
+
+const photoStrip = [
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540686/WhatsApp_Image_2026-03-03_at_15.18.58_1_exllvc.jpg', alt: 'Farm worker carrying harvested fish.' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540685/WhatsApp_Image_2026-03-03_at_15.18.58_sh8nmq.jpg', alt: 'Fish grading station in action.' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540682/WhatsApp_Image_2026-03-03_at_15.19.08_m11ttn.jpg', alt: 'Loaded transport crates staged near the pond.' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540681/WhatsApp_Image_2026-03-03_at_15.19.09_sn0lme.jpg', alt: 'Final quality inspection before dispatch.' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540681/WhatsApp_Image_2026-03-03_at_15.19.08_3_jkhzwo.jpg', alt: 'Crew wrapping up the harvest session.' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1771856246/fish70_x1oxm8.jpg', alt: 'Crew guiding full net of catfish across the pond bank.' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1771856229/fish85_mu9he5.jpg', alt: 'Fresh catfish staged with ice before transport.' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1771856250/fish67_v3u9dl.jpg', alt: 'Clients inspecting harvest lots at the farm.' }
+];
+
+const accolades = [
+  'Tanzania Fisheries Board Certified',
+  'Hazard Analysis Critical Control Point (HACCP) ready',
+  'Preferred supplier to 18 hospitality groups',
+  'Member – African Aquaculture Alliance'
+];
+
+const contactChannels = [
+  { icon: 'bi-telephone', label: 'Call us', value: '+255 672 411 558', link: 'tel:+255672411558' },
+  { icon: 'bi-whatsapp', label: 'WhatsApp', value: '+255 672 411 558', link: whatsappLink },
+  { icon: 'bi-envelope', label: 'Email desk', value: 'ops@kalingafishfarm.com' },
+  { icon: 'bi-geo-alt', label: 'Visit us', value: 'Iringa, Tanzania' }
 ];
 
 const applyLogoFallback = event => {
@@ -59,1179 +183,320 @@ const applyLogoFallback = event => {
   img.src = logoFallback;
 };
 
-const heroMetrics = [
-  { value: '12', label: 'Active Ponds', detail: 'across Iringa Region' },
-  { value: '1.2T', label: 'Monthly Harvest', detail: 'tilapia & catfish' },
-  { value: '72h', label: 'Delivery Window', detail: 'from confirmed order' }
-];
+const applyImageFallback = event => {
+  const img = event.currentTarget;
+  if (img.dataset.fallbackApplied) return;
+  img.dataset.fallbackApplied = 'true';
+  img.src = heroFallback;
+};
 
-const statsData = [
-  { target: 10, suffix: '+', label: 'Years Experience' },
-  { target: 10, suffix: 'T', label: 'Tons Produced/Year' },
-  { target: 200, suffix: '+', label: 'Satisfied Buyers' },
-  { target: 2, suffix: '', label: 'Fish Species' }
-];
-
-const fishProducts = [
-  {
-    title: 'Tilapia',
-    description: 'Fresh, well-sized tilapia grown in clean earthen ponds with reliable harvesting schedules.',
-    badge: 'Available Now',
-    image: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_700/v1771848150/fish68_do5fqm.jpg',
-    featured: false
-  },
-  {
-    title: 'Catfish',
-    description: 'Strong-quality catfish production optimized for taste, growth consistency, and market demand.',
-    badge: 'Most Popular',
-    image: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_700/v1771856250/fish67_v3u9dl.jpg',
-    featured: true
-  },
-  {
-    title: 'Bulk Orders',
-    description: 'Scalable fish supply for traders, restaurants, and processors with organized delivery planning.',
-    badge: 'Wholesale',
-    image: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_700/v1771848206/fish22_dlnbro.jpg',
-    featured: false
-  }
-];
-
-const galleryCarouselSlides = [
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_600/v1771848224/fish1_tbbpc4.jpg',
-    caption: "Kalinga Fish Farm – Iringa",
-    alt: 'Harvest scene 1'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_600/v1771848218/fish14_o7o9vy.jpg',
-    caption: 'Earthen Pond Farming',
-    alt: 'Fish harvest operations'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_600/v1771856234/fish79_lyey5x.jpg',
-    caption: 'Fresh Catch',
-    alt: 'Fresh fish 79'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_600/v1771856246/fish70_x1oxm8.jpg',
-    caption: 'Pond Operations',
-    alt: 'Farm fish 70'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_600/v1771856241/fish74_c4lxma.jpg',
-    caption: 'Quality Tilapia',
-    alt: 'Farm fish 74'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_600/v1771856229/fish85_mu9he5.jpg',
-    caption: 'Bulk Supply Ready',
-    alt: 'Farm fish 85'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_600/v1771856251/fish66_kfhgex.jpg',
-    caption: 'Harvest Day',
-    alt: 'Farm fish 66'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_600/v1771856275/fish51_fvb6mq.jpg',
-    caption: 'Fresh Catfish',
-    alt: 'Farm fish 51'
-  }
-];
-
-const galleryImages = [
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848224/fish1_tbbpc4.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848224/fish1_tbbpc4.jpg',
-    alt: 'Harvest scene at the fish farm'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848224/fish3_kkwvbe.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848224/fish3_kkwvbe.jpg',
-    alt: 'Tilapia close-up'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848223/fish4_a7kyzw.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848223/fish4_a7kyzw.jpg',
-    alt: 'Fish harvest operations'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848223/fish5_zik1l7.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848223/fish5_zik1l7.jpg',
-    alt: 'Fish pond farming activity'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848222/fish6_zombuc.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848222/fish6_zombuc.jpg',
-    alt: 'Earthen pond overview'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848223/fish7_o5yggy.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848223/fish7_o5yggy.jpg',
-    alt: 'Fish sorting after harvest'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848221/fish8_ayrrpc.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848221/fish8_ayrrpc.jpg',
-    alt: 'Fresh fish ready for market'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848221/fish9_gcs2qz.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848221/fish9_gcs2qz.jpg',
-    alt: 'Catfish from the pond'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848220/fish10_xduu0j.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848220/fish10_xduu0j.jpg',
-    alt: 'Bulk fish catch'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848219/fish12_pb2ldb.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848219/fish12_pb2ldb.jpg',
-    alt: 'Fish harvest net haul'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848218/fish14_o7o9vy.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848218/fish14_o7o9vy.jpg',
-    alt: 'Pond full of tilapia'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848217/fish15_f2gzfx.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848217/fish15_f2gzfx.jpg',
-    alt: 'Fish ready for packing'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848216/fish16_a1btdb.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848216/fish16_a1btdb.jpg',
-    alt: 'Fish farm pond view'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848215/fish17_njmu9m.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848215/fish17_njmu9m.jpg',
-    alt: 'Aquaculture earthen pond'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848206/fish22_dlnbro.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848206/fish22_dlnbro.jpg',
-    alt: 'Bulk fish supply batch'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771848206/fish23_seow2x.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771848206/fish23_seow2x.jpg',
-    alt: 'Fresh fish delivery ready'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856229/fish85_mu9he5.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856229/fish85_mu9he5.jpg',
-    alt: 'Farm fish harvest 85'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856231/fish81_gejad8.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856231/fish81_gejad8.jpg',
-    alt: 'Farm fish harvest 81'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856232/fish80_gtrbxp.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856232/fish80_gtrbxp.jpg',
-    alt: 'Farm fish harvest 80'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856234/fish79_lyey5x.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856234/fish79_lyey5x.jpg',
-    alt: 'Farm fish harvest 79'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856240/fish75_drzgls.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856240/fish75_drzgls.jpg',
-    alt: 'Farm fish harvest 75'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856239/fish76_ji5lw6.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856239/fish76_ji5lw6.jpg',
-    alt: 'Farm fish harvest 76'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856241/fish74_c4lxma.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856241/fish74_c4lxma.jpg',
-    alt: 'Farm fish harvest 74'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856246/fish70_x1oxm8.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856246/fish70_x1oxm8.jpg',
-    alt: 'Farm fish harvest 70'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856247/fish69_m1pfqc.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856247/fish69_m1pfqc.jpg',
-    alt: 'Farm fish harvest 69'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856249/fish68_o8hwrg.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856249/fish68_o8hwrg.jpg',
-    alt: 'Farm fish harvest 68'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856250/fish67_v3u9dl.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856250/fish67_v3u9dl.jpg',
-    alt: 'Farm fish harvest 67'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856251/fish66_kfhgex.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856251/fish66_kfhgex.jpg',
-    alt: 'Farm fish harvest 66'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856254/fish64_qpsy1u.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856254/fish64_qpsy1u.jpg',
-    alt: 'Farm fish harvest 64'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856253/fish65_cy1nim.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856253/fish65_cy1nim.jpg',
-    alt: 'Farm fish harvest 65'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856264/fish57_mjcpsb.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856264/fish57_mjcpsb.jpg',
-    alt: 'Farm fish harvest 57'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856269/fish53_ry6jpc.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856269/fish53_ry6jpc.jpg',
-    alt: 'Farm fish harvest 53'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856267/fish54_a7dg9d.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856267/fish54_a7dg9d.jpg',
-    alt: 'Farm fish harvest 54'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856266/fish55_k89nsi.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856266/fish55_k89nsi.jpg',
-    alt: 'Farm fish harvest 55'
-  },
-  {
-    full: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto/v1771856275/fish51_fvb6mq.jpg',
-    thumb: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_420/v1771856275/fish51_fvb6mq.jpg',
-    alt: 'Farm fish harvest 51'
-  }
-];
-
-const videoEmbeds = [
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish25_nnfu7a&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish27_dmsszs&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish28_ihbhwj&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish24_qfwagk&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish50_nk8dax&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish49_k4w3vv&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish48_opdslb&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish43_wvngur&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish42_nqdobd&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish41_blhj1k&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish40_iimthq&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish39_lnlvzo&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish38_fm9v54&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish37_nnlmgg&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish36_gkjav4&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish35_orgaov&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish34_s19qia&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish33_apfzj3&profile=cld-default',
-  'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish32_yjq6im&profile=cld-default'
-];
-
-const qualityHighlights = [
-  {
-    icon: 'bi-droplet-half',
-    title: 'Water Quality Management',
-    description: 'Routine checks and practical pond management maintain healthy aquatic conditions year-round.'
-  },
-  {
-    icon: 'bi-basket2',
-    title: 'Responsible Feeding',
-    description: 'Balanced feed schedules support steady growth and efficient production performance.'
-  },
-  {
-    icon: 'bi-recycle',
-    title: 'Sustainable Production',
-    description: 'Our methods reduce waste and support long-term pond productivity and community supply.'
-  },
-  {
-    icon: 'bi-tree',
-    title: 'Natural Growth Environment',
-    description: 'Earthen ponds provide a stable, natural habitat that supports fish health and quality.'
-  }
-];
-
-const videoTitleCycle = ['Farm Harvest — Part 1', 'Pond Operations', 'Fresh Catch in Action'];
-
-const whatsappLink = 'https://wa.me/255672411558';
-const facebookLink = 'https://www.facebook.com/claus.angelo';
-const instagramLink = 'https://www.instagram.com/kalinga_fish_farm_iringa/';
-
-const SplashScreen = ({ progress, logoSrc, onLogoError }) => (
-  <div className="splash-layout">
-    <div className="bg-bubbles" aria-hidden="true">
-      {Array.from({ length: 7 }).map((_, idx) => (
-        <div className="bubble" key={`bubble-${idx}`} />
-      ))}
-    </div>
-
-    <div className="splash-card">
-      <div className="logo-wrap">
-        <img
-          src={logoSrc}
-          alt="Kalinga Fish Farm logo"
-          onError={onLogoError}
-        />
-      </div>
-      <span className="splash-tagline">Iringa, Tanzania</span>
-      <h1 className="splash-title">
-        Welcome to
-        <br />
-        <span>Kalinga Fish Farm</span>
-      </h1>
-      <p className="splash-sub">Fresh · Sustainable · Quality<br />Premium tilapia &amp; catfish from earthen ponds.</p>
-
-      <div className="progress-wrap">
-        <div className="progress-label">
-          <span>Loading your experience…</span>
-          <span>{progress}%</span>
-        </div>
-        <div className="progress-bar-track">
-          <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
-        </div>
-      </div>
-
-      <div className="dots">
-        <div className="dot active"></div>
-        <div className="dot active"></div>
-        <div className="dot active"></div>
-      </div>
-    </div>
-
-    <p className="splash-footer">kalingafishfarm-iringa.netlify.app</p>
-  </div>
-);
-
-const isEmailConfigured = Boolean(EMAIL_SERVICE_ID && EMAIL_TEMPLATE_ID && EMAIL_PUBLIC_KEY);
-
-function MainSite() {
-  const [heroIndex, setHeroIndex] = useState(0);
-  const [prevHeroIndex, setPrevHeroIndex] = useState(null);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
+export default function App() {
   const formRef = useRef(null);
   const [formStatus, setFormStatus] = useState({ state: 'idle', message: '' });
+  const isEmailConfigured = Boolean(EMAIL_SERVICE_ID && EMAIL_TEMPLATE_ID && EMAIL_PUBLIC_KEY);
+  const isSubmitting = formStatus.state === 'loading';
   const currentYear = new Date().getFullYear();
-  const fallbackHeroImage = { src: heroFallback, alt: 'Stylized gradient backdrop featuring Kalinga Fish Farm colors.' };
-  const currentHero = heroImages[heroIndex] ?? fallbackHeroImage;
-
-  const handleHeroImageError = event => {
-    const img = event.currentTarget;
-    if (img.dataset.fallbackApplied) return;
-    img.dataset.fallbackApplied = 'true';
-    img.src = heroFallback;
-  };
-
-  useEffect(() => {
-    if (heroImages.length <= 1) return undefined;
-    const interval = setInterval(() => {
-      setHeroIndex(prev => {
-        setPrevHeroIndex(prev);
-        return (prev + 1) % heroImages.length;
-      });
-    }, 7000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (prevHeroIndex === null) return undefined;
-    const timeout = setTimeout(() => setPrevHeroIndex(null), 1800);
-    return () => clearTimeout(timeout);
-  }, [prevHeroIndex]);
-
-  useEffect(() => {
-    if (heroImages.length <= 1) return undefined;
-    const nextIndex = (heroIndex + 1) % heroImages.length;
-    const nextSrc = heroImages[nextIndex]?.src;
-    if (!nextSrc) return undefined;
-    const preloader = new Image();
-    preloader.src = nextSrc;
-    return () => {
-      preloader.onload = null;
-    };
-  }, [heroIndex]);
-
-  useEffect(() => {
-    const navbar = document.getElementById('appNavbar');
-    const topbar = document.querySelector('.topbar');
-    const onScroll = () => {
-      const y = window.scrollY;
-      if (navbar) navbar.classList.toggle('scrolled', y > 40);
-      if (topbar) topbar.classList.toggle('hidden', y > 60);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
-    const revealElements = document.querySelectorAll('.reveal');
-    if (!revealElements.length) return;
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-    revealElements.forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const counters = document.querySelectorAll('.stat-number');
-    if (!counters.length) return;
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target;
-          const target = parseInt(el.dataset.target ?? '0', 10);
-          const duration = 1600;
-          const step = target / (duration / 16);
-          let current = 0;
-          const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-              el.textContent = String(target);
-              clearInterval(timer);
-            } else {
-              el.textContent = String(Math.floor(current));
-            }
-          }, 16);
-          observer.unobserve(el);
-        });
-      },
-      { threshold: 0.6 }
-    );
-    counters.forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const navLinks = document.querySelectorAll('.navbar .nav-link');
-    const navCollapse = document.getElementById('mainNav');
-    const handleClick = () => {
-      if (navCollapse?.classList.contains('show')) {
-        const instance = window.bootstrap?.Collapse.getOrCreateInstance(navCollapse);
-        instance?.hide();
-      }
-    };
-    navLinks.forEach(link => link.addEventListener('click', handleClick));
-    return () => navLinks.forEach(link => link.removeEventListener('click', handleClick));
-  }, []);
-
-  useEffect(() => {
-    const sections = document.querySelectorAll('main section[id]');
-    if (!sections.length) return;
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          const link = document.querySelector(`.navbar a[href="#${entry.target.id}"]`);
-          if (link) link.classList.toggle('active', entry.isIntersecting);
-        });
-      },
-      { threshold: 0.45 }
-    );
-    sections.forEach(section => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = lightboxOpen ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [lightboxOpen]);
-
-  useEffect(() => {
-    if (!lightboxOpen) return undefined;
-    const handleKey = event => {
-      if (event.key === 'Escape') setLightboxOpen(false);
-      if (event.key === 'ArrowLeft') {
-        setLightboxIndex(prev => (prev - 1 + galleryImages.length) % galleryImages.length);
-      }
-      if (event.key === 'ArrowRight') {
-        setLightboxIndex(prev => (prev + 1) % galleryImages.length);
-      }
-    };
-    document.addEventListener('keydown', handleKey);
-    return () => document.removeEventListener('keydown', handleKey);
-  }, [lightboxOpen]);
-
-  const heroSlides = [
-    {
-      ...currentHero,
-      key: `hero-${heroIndex}-active`,
-      isActive: true
-    }
-  ];
-
-  if (prevHeroIndex !== null && prevHeroIndex !== heroIndex) {
-    const previousHero = heroImages[prevHeroIndex] ?? fallbackHeroImage;
-    heroSlides.push({
-      ...previousHero,
-      key: `hero-${prevHeroIndex}-previous`,
-      isActive: false
-    });
-  }
 
   const handleContactSubmit = event => {
     event.preventDefault();
     if (!formRef.current) return;
     if (!isEmailConfigured) {
-      setFormStatus({ state: 'error', message: 'Email service is unavailable. Please reach us via WhatsApp or phone.' });
+      setFormStatus({ state: 'error', message: 'Email service is offline. Use phone or WhatsApp for immediate assistance.' });
       return;
     }
+
     setFormStatus({ state: 'loading', message: '' });
     emailjs
-      .sendForm(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, formRef.current, {
-        publicKey: EMAIL_PUBLIC_KEY
-      })
+      .sendForm(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, formRef.current, { publicKey: EMAIL_PUBLIC_KEY })
       .then(() => {
-        setFormStatus({ state: 'success', message: '✅ Message sent! We will get back to you shortly.' });
+        setFormStatus({ state: 'success', message: 'Message received. Our operations desk will call you shortly.' });
         formRef.current?.reset();
       })
       .catch(() => {
-        setFormStatus({ state: 'error', message: '❌ Failed to send message. Please try WhatsApp or call us directly.' });
+        setFormStatus({ state: 'error', message: 'Delivery failed. Kindly retry or reach out via WhatsApp.' });
       });
   };
 
-  const isSubmitting = formStatus.state === 'loading';
-  const currentLightboxImage = galleryImages[lightboxIndex];
-
   return (
-    <>
-      <header>
-        <div className="topbar">
-          <div className="container topbar-inner">
-            <div className="topbar-left">
-              <span>
-                <i className="bi bi-geo-alt-fill"></i> Iringa, Tanzania
-              </span>
-              <span>
-                <i className="bi bi-telephone-fill"></i> +255 672 411 558
-              </span>
-            </div>
-            <div className="topbar-right">
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-                <i className="bi bi-whatsapp"></i>
-              </a>
-              <a href={instagramLink} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <i className="bi bi-instagram"></i>
-              </a>
-              <a href={facebookLink} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                <i className="bi bi-facebook"></i>
-              </a>
-            </div>
+    <div className="app-shell">
+      <header className="global-header">
+        <div className="brand-block">
+          <img src={remoteLogoSrc} alt="Kalinga Fish Farm logo" onError={applyLogoFallback} />
+          <div>
+            <p className="brand-title">Kalinga Fish Farm</p>
+            <span>Iringa · Tanzania</span>
           </div>
         </div>
-        <nav className="navbar navbar-expand-lg fixed-top app-navbar" id="appNavbar">
-          <div className="container">
-            <a className="navbar-brand" href="#home">
-              <span className="brand-icon">
-                <img
-                  src={remoteLogoSrc}
-                  alt="Kalinga Fish Farm logo"
-                  onError={applyLogoFallback}
-                />
-              </span>
-              <span className="brand-text">
-                Kalinga <strong>Fish Farm – Iringa</strong>
-              </span>
+        <nav className="primary-nav" aria-label="Primary">
+          {navLinks.map(link => (
+            <a key={link.href} href={link.href}>
+              {link.label}
             </a>
-            <button
-              className="navbar-toggler hamburger"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#mainNav"
-              aria-controls="mainNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="ham-line"></span>
-              <span className="ham-line"></span>
-              <span className="ham-line"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="mainNav">
-              <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-1">
-                {['home', 'about', 'fish', 'gallery', 'videos'].map(section => (
-                  <li className="nav-item" key={section}>
-                    <a className="nav-link" href={`#${section}`}>
-                      <span>{section === 'fish' ? 'Our Fish' : section.charAt(0).toUpperCase() + section.slice(1)}</span>
-                    </a>
-                  </li>
-                ))}
-                <li className="nav-item ms-lg-2">
-                  <a className="nav-link nav-cta" href="#contact">
-                    Contact Us <i className="bi bi-arrow-right"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          ))}
         </nav>
-      </header>
-
-      <main>
-        <section id="home" className="hero-section">
-          <div className="hero-slides-wrap" role="img" aria-label={currentHero.alt}>
-            {heroSlides.map(slide => (
-              <img
-                key={slide.key}
-                className={`hero-slide ${slide.isActive ? 'active' : ''}`}
-                src={slide.src}
-                alt=""
-                role="presentation"
-                aria-hidden="true"
-                loading={slide.isActive ? 'eager' : 'lazy'}
-                onError={handleHeroImageError}
-              />
+        <div className="header-actions">
+          <a className="nav-cta" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+            WhatsApp desk
+          </a>
+          <div className="header-socials">
+            {socialLinks.map(link => (
+              <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
+                <i className={`bi ${link.icon}`}></i>
+              </a>
             ))}
           </div>
-          <div className="hero-overlay"></div>
-          <div className="container hero-content reveal">
-            <p className="visually-hidden" aria-live="polite" aria-atomic="true">
-              {currentHero.alt}
+        </div>
+      </header>
+
+      <section className="hero" id="home">
+        <div className="hero-copy">
+          <p className="status-chip">Trusted aquaculture supply · Since 2014</p>
+          <h1>
+            Official harvest partner for{' '}
+            <span className="text-gradient">East African</span>{' '}
+            retailers, hoteliers, and institutional buyers.
+          </h1>
+          <p>
+            Our pond systems, documentation, and media transparency show every step of the journey—from water management to
+            final dispatch—so procurement leads have zero guesswork.
+          </p>
+          <div className="metric-grid">
+            {proofMetrics.map(metric => (
+              <article className="metric" key={metric.label}>
+                <span>{metric.value}</span>
+                <p>{metric.label}</p>
+              </article>
+            ))}
+          </div>
+          <div className="hero-cta">
+            <a className="btn-solid" href="#contact">
+              Schedule a procurement call
+            </a>
+            <a className="btn-outline" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+              Immediate WhatsApp support <i className="bi bi-arrow-up-right"></i>
+            </a>
+          </div>
+        </div>
+        <div className="hero-media" aria-label={heroMedia.primary.alt}>
+          <figure className="hero-primary">
+            <img src={heroMedia.primary.src} alt={heroMedia.primary.alt} loading="eager" onError={applyImageFallback} />
+          </figure>
+          <div className="hero-trims">
+            {heroMedia.trims.map(item => (
+              <figure className="hero-trim" key={item.caption}>
+                <img src={item.src} alt={item.alt} loading="lazy" onError={applyImageFallback} />
+                <figcaption>{item.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <main>
+        <section className="operations" id="operations">
+          <header className="section-lede">
+            <p className="eyebrow">Operations intelligence</p>
+            <h2>Disciplined systems, broadcast in high fidelity.</h2>
+            <p>
+              Each capability track pairs an engineered workflow with live imagery so partners can audit us visually at any
+              time.
             </p>
-            <div className="hero-badge">
-              <i className="bi bi-patch-check-fill"></i> Tanzania's Premium Aquaculture Farm
-            </div>
-            <h1>
-              Premium Farmed
-              <br />
-              <span className="hero-highlight">Tilapia &amp; Catfish</span>
-            </h1>
-            <p>Sustainable Earthen Pond Aquaculture in Tanzania</p>
-            <div className="hero-actions d-flex flex-wrap gap-3 justify-content-center">
-              <a href="#fish" className="btn app-btn-primary">
-                <i className="bi bi-grid-fill me-2"></i>View Our Fish
-              </a>
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="btn app-btn-outline">
-                <i className="bi bi-whatsapp me-2"></i>Chat on WhatsApp
-              </a>
-            </div>
-            <div className="hero-meta-grid">
-              {heroMetrics.map(metric => (
-                <article className="hero-meta-card" key={metric.label}>
-                  <span className="hero-meta-value">{metric.value}</span>
-                  <span className="hero-meta-label">{metric.label}</span>
-                  <span className="hero-meta-detail">{metric.detail}</span>
-                </article>
-              ))}
-            </div>
-            <div className="hero-scroll-indicator">
-              <span></span>
-            </div>
-          </div>
-        </section>
-
-        <section className="stats-strip">
-          <div className="container">
-            <div className="row g-0 text-center">
-              {statsData.map(({ target, suffix, label }) => (
-                <div className="col-6 col-md-3 stat-item reveal" key={label}>
-                  <span className="stat-number" data-target={target}>
-                    0
-                  </span>
-                  <span className="stat-suffix">{suffix}</span>
-                  <p>{label}</p>
+          </header>
+          <div className="operations-grid">
+            {capabilityTracks.map(track => (
+              <article className="capability-card" key={track.title}>
+                <figure>
+                  <img src={track.image} alt={track.alt} loading="lazy" onError={applyImageFallback} />
+                </figure>
+                <div className="capability-body">
+                  <h3>{track.title}</h3>
+                  <p>{track.description}</p>
+                  <ul>
+                    {track.bullets.map(point => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
                 </div>
-              ))}
-            </div>
+              </article>
+            ))}
           </div>
         </section>
 
-        <section id="about" className="section-space">
-          <div className="container">
-            <div className="row g-5 align-items-center">
-              <div className="col-lg-6 reveal">
-                <div className="about-img-wrap">
-                  <img
-                    src="https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1200,h_800/v1771848218/fish14_o7o9vy.jpg"
-                    className="img-fluid rounded-4 section-image"
-                    alt="Earthen pond fish farming in Tanzania"
+        <section className="video-showcase" id="video">
+          <header className="section-lede">
+            <p className="eyebrow">Farm footage</p>
+            <h2>Watch the operation live.</h2>
+            <p>
+              Unedited video from our latest harvests—real conditions, real output, full transparency for every procurement decision.
+            </p>
+          </header>
+          <div className="video-grid">
+            {videoShowcase.map(video => (
+              <div className="video-card" key={video.id}>
+                <div className="video-frame">
+                  <iframe
+                    src={video.src}
+                    title={video.title}
+                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                    allowFullScreen
                     loading="lazy"
                   />
-                  <div className="about-img-badge">
-                    <i className="bi bi-award-fill"></i>
-                    <span>Certified Farm</span>
-                  </div>
                 </div>
+                <p className="video-caption">{video.title}</p>
               </div>
-              <div className="col-lg-6 reveal">
-                <div className="section-label">Who We Are</div>
-                <h2>
-                  Tanzania's Leading
-                  <br />Freshwater Fish Farm
-                </h2>
-                <p className="lead-text">
-                  We produce high-quality tilapia and catfish in carefully managed earthen ponds designed for healthy, natural fish growth.
-                </p>
-                <p>
-                  Our team follows sustainable aquaculture practices, balancing water quality, responsible feeding, and pond ecology for consistent harvest performance.
-                </p>
-                <div className="about-features">
-                  {['Earthen Pond Farming', 'Fresh Harvest Model', 'Bulk Supply Ready', 'Quality Certified'].map(feature => (
-                    <span className="feature-pill" key={feature}>
-                      <i className="bi bi-check-circle-fill"></i>
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-                <a href="#contact" className="btn app-btn-primary mt-4">
-                  Get In Touch
-                </a>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
-        <section id="fish" className="section-space bg-nearwhite">
-          <div className="container">
-            <div className="section-heading text-center reveal">
-              <div className="section-label mx-auto">Our Products</div>
-              <h2>Fresh From Our Ponds</h2>
-              <p>Commercial-scale supply for local markets, retailers, and institutional buyers.</p>
-            </div>
-            <div className="row g-4 mt-2">
-              {fishProducts.map(product => (
-                <div className="col-md-6 col-lg-4 reveal" key={product.title}>
-                  <article className={`fish-card h-100 ${product.featured ? 'fish-card--featured' : ''}`}>
-                    <div className="fish-card-img-wrap">
-                      <img src={product.image} alt={product.title} loading="lazy" />
-                      <span className={`fish-card-badge ${product.featured ? 'fish-card-badge--popular' : ''}`}>
-                        {product.badge}
-                      </span>
-                    </div>
-                    <div className="p-4">
-                      <h3>{product.title}</h3>
-                      <p>{product.description}</p>
-                      <a href="#contact" className="btn app-btn-primary w-100">
-                        Request Quote <i className="bi bi-arrow-right ms-1"></i>
-                      </a>
-                    </div>
-                  </article>
-                </div>
+        <section className="gallery" id="gallery">
+          <header className="section-lede">
+            <p className="eyebrow">Verified imagery</p>
+            <h2>Visual logbook from pond to dispatch.</h2>
+            <p>
+              Every sequence below is timestamped footage from recent harvests. We rotate galleries weekly to keep stakeholders
+              current.
+            </p>
+          </header>
+          <div className="gallery-grid">
+            {galleryStories.map(story => (
+              <figure className="gallery-card" key={story.src}>
+                <img src={story.src} alt={story.alt} loading="lazy" onError={applyImageFallback} />
+                <figcaption>
+                  <span>{story.tag}</span>
+                  <p>{story.alt}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+
+        <section className="photo-strip" aria-label="Photo highlights">
+          <div className="strip-header">
+            <p className="eyebrow">Live from the farm floor</p>
+          </div>
+          <div className="strip-viewport">
+            <div className="strip-track" aria-hidden="true">
+              {[...photoStrip, ...photoStrip].map((item, i) => (
+                <figure className="strip-item" key={i}>
+                  <img src={item.src} alt={item.alt} loading="lazy" onError={applyImageFallback} />
+                </figure>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="gallery" className="section-space">
-          <div className="container">
-            <div className="section-heading text-center reveal">
-              <div className="section-label mx-auto">Photo Gallery</div>
-              <h2>Harvest Gallery</h2>
-              <p>Real moments from pond to harvest operations.</p>
-            </div>
+        <section className="credentials">
+          <div className="section-lede">
+            <p className="eyebrow">Credentials & membership</p>
+            <h2>Independently audited programs, open for inspection.</h2>
+          </div>
+          <ul className="accolade-list">
+            {accolades.map(item => (
+              <li key={item}>
+                <i className="bi bi-check-circle"></i>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
 
-            <div id="galleryCarousel" className="carousel slide gallery-carousel mt-4" data-bs-ride="carousel" data-bs-interval="3500">
-              <div className="carousel-indicators">
-                {galleryCarouselSlides.map((_, idx) => (
-                  <button
-                    type="button"
-                    data-bs-target="#galleryCarousel"
-                    data-bs-slide-to={idx}
-                    className={idx === 0 ? 'active' : ''}
-                    aria-current={idx === 0 ? 'true' : undefined}
-                    aria-label={`Slide ${idx + 1}`}
-                    key={`indicator-${idx}`}
-                  ></button>
-                ))}
-              </div>
-              <div className="carousel-inner rounded-4">
-                {galleryCarouselSlides.map((slide, idx) => (
-                  <div className={`carousel-item ${idx === 0 ? 'active' : ''}`} key={slide.src}>
-                    <img src={slide.src} className="d-block w-100" alt={slide.alt} loading={idx === 0 ? 'eager' : 'lazy'} />
-                    <div className="carousel-caption d-none d-md-block">
-                      <p className="carousel-tag">{slide.caption}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <button className="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
-                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span className="visually-hidden">Previous</span>
-              </button>
-              <button className="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
-                <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                <span className="visually-hidden">Next</span>
-              </button>
-            </div>
-
-            <div className="gallery-grid mt-5">
-              {galleryImages.map((image, idx) => (
-                <button
-                  className="gallery-item reveal"
-                  key={image.full}
-                  onClick={() => {
-                    setLightboxIndex(idx);
-                    setLightboxOpen(true);
-                  }}
-                  aria-label={`Open ${image.alt}`}
+        <section className="contact" id="contact">
+          <header className="section-lede">
+            <p className="eyebrow">Connect with operations</p>
+            <h2>Direct line to our harvest planning desk.</h2>
+            <p>
+              Share your volume targets, preferred dispatch windows, and compliance requirements. We respond within one business
+              day (often sooner).
+            </p>
+          </header>
+          <div className="contact-grid">
+            <div className="contact-channels">
+              {contactChannels.map(channel => (
+                <a
+                  key={channel.label}
+                  className="channel-card"
+                  href={channel.link ?? '#'}
+                  target={channel.link?.startsWith('http') ? '_blank' : undefined}
+                  rel={channel.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
                 >
-                  <img src={image.thumb} alt={image.alt} loading="lazy" />
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="videos" className="section-space bg-nearwhite">
-          <div className="container">
-            <div className="section-heading text-center reveal">
-              <div className="section-label mx-auto">Video Showcase</div>
-              <h2>See Our Harvest in Action</h2>
-              <p>Watch live operations from our ponds to packaging.</p>
-            </div>
-            <div className="row g-4 mt-1">
-              {videoEmbeds.map((url, idx) => (
-                <div className="col-md-6 col-lg-4 reveal" key={url}>
-                  <div className="video-card h-100">
-                    <div className="video-card-header">
-                      <i className="bi bi-play-circle-fill"></i>
-                      {videoTitleCycle[idx % videoTitleCycle.length] || 'Farm Video'}
-                    </div>
-                    <div className="video-embed-wrap rounded-4">
-                      <iframe
-                        src={url}
-                        title={`Fish farm video ${idx + 1}`}
-                        allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-                        loading="lazy"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
+                  <i className={`bi ${channel.icon}`}></i>
+                  <div>
+                    <span>{channel.label}</span>
+                    <strong>{channel.value}</strong>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section-space quality-section">
-          <div className="container">
-            <div className="row g-5 align-items-center">
-              <div className="col-lg-5 reveal">
-                <div className="section-label section-label--light">Our Standards</div>
-                <h2 className="text-white">
-                  Quality &amp;
-                  <br />Sustainability
-                </h2>
-                <p className="text-white opacity-75 mt-3">
-                  Every fish we deliver meets the highest quality benchmarks, backed by responsible farming practices designed for long-term environmental and economic sustainability.
-                </p>
-                <a href="#contact" className="btn app-btn-outline mt-3">
-                  Partner With Us
                 </a>
-              </div>
-              <div className="col-lg-7">
-                <div className="row g-4">
-                  {qualityHighlights.map((item, idx) => (
-                    <div className="col-sm-6 reveal" key={item.title}>
-                      <article className="quality-card h-100">
-                        <div className="quality-card-number">{String(idx + 1).padStart(2, '0')}</div>
-                        <i className={`bi ${item.icon}`}></i>
-                        <h3>{item.title}</h3>
-                        <p>{item.description}</p>
-                      </article>
-                    </div>
-                  ))}
-                </div>
+              ))}
+              <div className="channel-socials">
+                {socialLinks.map(link => (
+                  <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
+                    <i className={`bi ${link.icon}`}></i>
+                  </a>
+                ))}
               </div>
             </div>
-          </div>
-        </section>
 
-        <section id="contact" className="section-space contact-section">
-          <div className="container">
-            <div className="section-heading text-center reveal">
-              <div className="section-label mx-auto">Get In Touch</div>
-              <h2>Contact Us</h2>
-              <p>Request pricing, supply details, or farm partnership information.</p>
-            </div>
-            <div className="row g-4 mt-2">
-              <div className="col-lg-7 reveal">
-                <form className="contact-form" ref={formRef} onSubmit={handleContactSubmit} noValidate>
-                  <div className="row g-3">
-                    <div className="col-sm-6">
-                      <label className="form-label" htmlFor="from_name">
-                        Full Name
-                      </label>
-                      <input className="form-control" id="from_name" name="from_name" type="text" placeholder="John Doe" required />
-                    </div>
-                    <div className="col-sm-6">
-                      <label className="form-label" htmlFor="phone_number">
-                        Phone Number
-                      </label>
-                      <input className="form-control" id="phone_number" name="phone_number" type="tel" placeholder="+255 7XX XXX XXX" required />
-                    </div>
-                    <div className="col-12">
-                      <label className="form-label" htmlFor="from_email">
-                        Email Address
-                      </label>
-                      <input className="form-control" id="from_email" name="from_email" type="email" placeholder="you@example.com" required />
-                    </div>
-                    <div className="col-12">
-                      <label className="form-label" htmlFor="message">
-                        Message
-                      </label>
-                      <textarea
-                        className="form-control"
-                        id="message"
-                        name="message"
-                        rows="5"
-                        placeholder="Tell us about your requirements..."
-                        required
-                      ></textarea>
-                    </div>
-                    <div className="col-12">
-                      <button type="submit" className="btn app-btn-primary px-5" disabled={isSubmitting || !isEmailConfigured}>
-                        {isSubmitting ? (
-                          <>
-                            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                            Sending…
-                          </>
-                        ) : (
-                          <>
-                            Send Message <i className="bi bi-send ms-2"></i>
-                          </>
-                        )}
-                      </button>
-                    </div>
-                    {!isEmailConfigured && (
-                      <div className="col-12">
-                        <div className="alert alert-warning mt-2 mb-0" role="alert">
-                          Online email delivery is disabled until VITE_EMAIL_* values are provided. Please use WhatsApp or call us directly.
-                        </div>
-                      </div>
-                    )}
-                    {formStatus.state !== 'idle' && (
-                      <div className="col-12" id="contact-feedback" role="alert">
-                        <div className={`alert ${formStatus.state === 'success' ? 'alert-success' : 'alert-danger'} mt-2 mb-0`}>
-                          {formStatus.message}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </form>
-              </div>
-              <div className="col-lg-5 reveal">
-                <div className="contact-info-card h-100 d-flex flex-column gap-3">
-                  <div className="contact-info-item">
-                    <div className="contact-info-icon">
-                      <i className="bi bi-telephone-fill"></i>
-                    </div>
-                    <div>
-                      <strong>Phone</strong>
-                      <p>
-                        <a href="tel:+255672411558" style={{ color: 'inherit', textDecoration: 'none' }}>
-                          +255 672 411 558
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="contact-info-item">
-                    <div className="contact-info-icon contact-info-icon--green">
-                      <i className="bi bi-whatsapp"></i>
-                    </div>
-                    <div>
-                      <strong>WhatsApp</strong>
-                      <p>+255 672 411 558</p>
-                    </div>
-                  </div>
-                  <div className="contact-info-item">
-                    <div className="contact-info-icon">
-                      <i className="bi bi-geo-alt-fill"></i>
-                    </div>
-                    <div>
-                      <strong>Location</strong>
-                      <p>Iringa, Tanzania</p>
-                    </div>
-                  </div>
-                  <div className="map-wrap mt-auto">
-                    <iframe
-                      title="Google Maps location placeholder"
-                      src="https://maps.google.com/maps?q=Tanzania&t=&z=6&ie=UTF8&iwloc=&output=embed"
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    ></iframe>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <form className="contact-form" ref={formRef} onSubmit={handleContactSubmit} noValidate>
+              <label>
+                Full name
+                <input type="text" name="from_name" placeholder="Jane Doe" required />
+              </label>
+              <label>
+                Phone number
+                <input type="tel" name="phone_number" placeholder="+255 7XX XXX XXX" required />
+              </label>
+              <label>
+                Email address
+                <input type="email" name="from_email" placeholder="you@example.com" required />
+              </label>
+              <label>
+                Message
+                <textarea name="message" rows="6" placeholder="Volume, product mix, delivery cadence" required></textarea>
+              </label>
+              <button type="submit" className="btn-solid" disabled={isSubmitting || !isEmailConfigured}>
+                {isSubmitting ? 'Dispatching…' : 'Submit request'}
+              </button>
+              {!isEmailConfigured && (
+                <p className="form-hint">
+                  Email dispatch disabled until VITE_EMAIL_* variables are configured. Please contact us via phone or WhatsApp.
+                </p>
+              )}
+              {formStatus.state !== 'idle' && (
+                <p className={`form-feedback form-feedback--${formStatus.state === 'success' ? 'success' : 'error'}`}>
+                  {formStatus.message}
+                </p>
+              )}
+            </form>
           </div>
         </section>
       </main>
 
-      <footer className="app-footer">
-        <div className="container">
-          <div className="row g-4 footer-top">
-            <div className="col-lg-4">
-              <div className="footer-brand">
-                <img
-                  src={remoteLogoSrc}
-                  alt="Kalinga Fish Farm logo"
-                  className="footer-logo"
-                  onError={applyLogoFallback}
-                />
-                Kalinga Fish Farm – Iringa
-              </div>
-              <p className="footer-tagline">
-                Premium freshwater aquaculture from the heart of Tanzania. Tilapia and catfish raised in sustainable earthen ponds.
-              </p>
-              <div className="footer-socials">
-                <a href={whatsappLink} aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
-                  <i className="bi bi-whatsapp"></i>
-                </a>
-                <a href={facebookLink} aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                  <i className="bi bi-facebook"></i>
-                </a>
-                <a href={instagramLink} aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                  <i className="bi bi-instagram"></i>
-                </a>
-              </div>
+      <footer className="site-footer">
+        <div className="footer-inner">
+          <div className="footer-brand">
+            <img src={remoteLogoSrc} alt="Kalinga Fish Farm" onError={applyLogoFallback} />
+            <div>
+              <p className="footer-brand-name">Kalinga Fish Farm</p>
+              <span>Premium freshwater aquaculture · Iringa, Tanzania</span>
             </div>
-            <div className="col-sm-6 col-lg-2 offset-lg-1">
-              <h6 className="footer-heading">Site</h6>
-              <ul className="footer-links">
-                {['home', 'about', 'fish', 'gallery', 'videos', 'contact'].map(section => (
-                  <li key={`footer-${section}`}>
-                    <a href={`#${section}`}>{section === 'fish' ? 'Our Fish' : section.charAt(0).toUpperCase() + section.slice(1)}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="col-sm-6 col-lg-2">
-              <h6 className="footer-heading">Products</h6>
-              <ul className="footer-links">
-                <li>
-                  <a href="#fish">Tilapia</a>
-                </li>
-                <li>
-                  <a href="#fish">Catfish</a>
-                </li>
-                <li>
-                  <a href="#fish">Bulk Orders</a>
-                </li>
-                <li>
-                  <a href="#contact">Request Quote</a>
-                </li>
-              </ul>
-            </div>
-            <div className="col-lg-3">
-              <h6 className="footer-heading">Contact</h6>
-              <p className="footer-contact-item">
-                <i className="bi bi-telephone"></i> +255 672 411 558
-              </p>
-              <p className="footer-contact-item">
-                <i className="bi bi-geo-alt"></i> Iringa, Tanzania
-              </p>
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="btn app-btn-primary btn-sm mt-2">
-                <i className="bi bi-whatsapp me-1"></i> WhatsApp Us
+          </div>
+          <nav className="footer-nav" aria-label="Footer">
+            {navLinks.map(link => (
+              <a key={link.href} href={link.href}>{link.label}</a>
+            ))}
+          </nav>
+          <div className="footer-social">
+            {socialLinks.map(link => (
+              <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
+                <i className={`bi ${link.icon}`}></i>
               </a>
-            </div>
+            ))}
           </div>
-          <div className="footer-bottom">
-            <p className="mb-0">© {currentYear} Kalinga Fish Farm – Iringa. All rights reserved.</p>
-            <p className="mb-0">Premium aquaculture supply for Tanzania and beyond.</p>
-          </div>
+        </div>
+        <div className="footer-legal">
+          <p>© {currentYear} Kalinga Fish Farm – Iringa. All rights reserved.</p>
+          <p>Tanzania Fisheries Board Certified · On-spec delivery · Transparent operations</p>
         </div>
       </footer>
-
-      <a href={whatsappLink} className="whatsapp-float" aria-label="Chat on WhatsApp" target="_blank" rel="noopener noreferrer">
-        <i className="bi bi-whatsapp"></i>
-      </a>
-
-      <div className="social-float">
-        <a href={instagramLink} className="social-float-btn social-float-btn--instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-          <i className="bi bi-instagram"></i>
-        </a>
-        <a href={facebookLink} className="social-float-btn social-float-btn--facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-          <i className="bi bi-facebook"></i>
-        </a>
-      </div>
-
-      <div
-        className={`lightbox ${lightboxOpen ? 'show' : ''}`}
-        id="lightbox"
-        aria-hidden={lightboxOpen ? 'false' : 'true'}
-        role="dialog"
-        aria-label="Image preview"
-        onClick={event => {
-          if (event.target.id === 'lightbox') {
-            setLightboxOpen(false);
-          }
-        }}
-      >
-        <div className="lightbox-inner">
-          <button className="lightbox-close" aria-label="Close image preview" onClick={() => setLightboxOpen(false)}>
-            <i className="bi bi-x-lg"></i>
-          </button>
-          {currentLightboxImage && (
-            <img src={currentLightboxImage.full} alt={currentLightboxImage.alt} />
-          )}
-          <div className="lightbox-nav">
-            <button onClick={() => setLightboxIndex(prev => (prev - 1 + galleryImages.length) % galleryImages.length)} aria-label="Previous image">
-              <i className="bi bi-chevron-left"></i>
-            </button>
-            <button onClick={() => setLightboxIndex(prev => (prev + 1) % galleryImages.length)} aria-label="Next image">
-              <i className="bi bi-chevron-right"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
-
-export default function App() {
-  const [showHome, setShowHome] = useState(false);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const duration = 3800;
-    let animationFrame;
-    const start = performance.now();
-
-    const tick = now => {
-      const elapsed = Math.min(now - start, duration);
-      const percent = Math.round((elapsed / duration) * 100);
-      setProgress(percent);
-      if (elapsed < duration) {
-        animationFrame = requestAnimationFrame(tick);
-      } else {
-        setProgress(100);
-      }
-    };
-
-    animationFrame = requestAnimationFrame(tick);
-    const timer = setTimeout(() => setShowHome(true), duration + 500);
-
-    return () => {
-      cancelAnimationFrame(animationFrame);
-      clearTimeout(timer);
-    };
-  }, []);
-
-  return showHome ? (
-    <MainSite />
-  ) : (
-    <SplashScreen progress={progress} logoSrc={remoteLogoSrc} onLogoError={applyLogoFallback} />
+    </div>
   );
 }
