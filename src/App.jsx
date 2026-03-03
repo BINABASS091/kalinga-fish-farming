@@ -33,13 +33,13 @@ const heroMedia = {
   trims: [
     {
       src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_800,h_800/v1772540691/WhatsApp_Image_2026-03-03_at_15.18.59_hsyuo7.jpg',
-      caption: 'Live harvest',
-      alt: 'Crew pulling nets during a live harvest session.'
+      caption: 'Sustainable water reservoir',
+      alt: 'Constructed water reservoir surrounded by natural vegetation.'
     },
     {
       src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_800,h_800/v1772540689/WhatsApp_Image_2026-03-03_at_15.18.54_vbeqvw.jpg',
-      caption: 'Fresh stock',
-      alt: 'Freshly harvested fish ready for grading.'
+      caption: 'Aquaculture demo',
+      alt: 'Presenter showcasing fish tanks during exhibition.'
     }
   ]
 };
@@ -57,29 +57,29 @@ const capabilityTracks = [
     description: 'Continuous data logging on pH, dissolved oxygen, and inflow velocity keeps every pond within target bands.',
     bullets: ['IoT probes + manual validation', 'Daily QA review at 06:30', 'Emergency aeration protocol'],
     image: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_900/v1772540685/WhatsApp_Image_2026-03-03_at_15.19.07_qdknt1.jpg',
-    alt: 'Pond management and water quality operations.'
+    alt: 'Water pond system designed for fish farming.'
   },
   {
     title: 'Harvest Logistics Program',
     description: 'Structured seine schedules, insulated packing, and rapid weigh-ins create dependable delivery slots.',
     bullets: ['Slotting calendar shared weekly', 'Pack-outs to 2.5T per day', 'GPS-tracked dispatch vans'],
     image: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_900/v1772540684/WhatsApp_Image_2026-03-03_at_15.19.01_e9fs06.jpg',
-    alt: 'Harvest team loading freshly caught fish for dispatch.'
+    alt: 'Community members attending development seminar.'
   },
   {
     title: 'Client Experience Office',
     description: 'Dedicated buyer desk handles RFQs, certifications, and spot checks so procurement teams stay confident.',
     bullets: ['Same-day paperwork turnaround', 'WhatsApp + email coordination', 'Transparent farm access'],
     image: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1400,h_900/v1772540683/WhatsApp_Image_2026-03-03_at_15.19.02_ll7cih.jpg',
-    alt: 'Clients inspecting and verifying harvest lots at the farm.'
+    alt: 'Participants touring fish farming facility.'
   }
 ];
 
 const galleryStories = [
   {
     src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1772540689/WhatsApp_Image_2026-03-03_at_15.18.56_2_einjij.jpg',
-    tag: 'Live haul',
-    alt: 'Full net of fish being hauled to the bank.'
+    tag: 'Community training',
+    alt: 'Group of participants engaged in hands-on aquaculture training.'
   },
   {
     src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1771848224/fish1_tbbpc4.jpg',
@@ -88,8 +88,8 @@ const galleryStories = [
   },
   {
     src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1772540688/WhatsApp_Image_2026-03-03_at_15.19.08_2_yg1xpu.jpg',
-    tag: 'Pond overview',
-    alt: 'Wide shot of the operational pond area.'
+    tag: 'Pond infrastructure',
+    alt: 'Outdoor fish pond facility designed for aquaculture farming.'
   },
   {
     src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1771856251/fish66_kfhgex.jpg',
@@ -98,8 +98,8 @@ const galleryStories = [
   },
   {
     src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1772540688/WhatsApp_Image_2026-03-03_at_15.18.56_bwz1yq.jpg',
-    tag: 'Farm activity',
-    alt: 'Farm workers engaged in daily operations.'
+    tag: 'Quality assessment',
+    alt: 'Individual holding freshly harvested fish during training.'
   },
   {
     src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1771856241/fish74_c4lxma.jpg',
@@ -108,8 +108,8 @@ const galleryStories = [
   },
   {
     src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1772540688/WhatsApp_Image_2026-03-03_at_15.18.57_1_dbjsln.jpg',
-    tag: 'Team at work',
-    alt: 'Harvest team coordinating the morning collection.'
+    tag: 'Community engagement',
+    alt: 'Participants listening during an agricultural awareness meeting.'
   },
   {
     src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1771856240/fish75_drzgls.jpg',
@@ -118,8 +118,8 @@ const galleryStories = [
   },
   {
     src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1772540687/WhatsApp_Image_2026-03-03_at_15.18.57_qnxwml.jpg',
-    tag: 'Net haul',
-    alt: 'Large net being lifted from the earthen pond.'
+    tag: 'Site supervision',
+    alt: 'Team inspecting fish farming setup outdoors.'
   },
   {
     src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1771848223/fish5_zik1l7.jpg',
@@ -128,8 +128,8 @@ const galleryStories = [
   },
   {
     src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1772540686/WhatsApp_Image_2026-03-03_at_15.18.59_1_davy2w.jpg',
-    tag: 'Fresh stock',
-    alt: 'Freshly sorted fish ready for buyer collection.'
+    tag: 'Harvest results',
+    alt: 'Fresh fish displayed after harvesting process.'
   },
   {
     src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_1100/v1771856264/fish57_mjcpsb.jpg',
@@ -142,21 +142,21 @@ const videoShowcase = [
   {
     id: 'vid1',
     src: 'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=WhatsApp_Video_2026-03-03_at_15.18.51_g3ifgz',
-    title: 'Harvest operation — live footage from pond 4'
+    title: 'Overview of aquaculture project activities and community impact'
   },
   {
     id: 'vid2',
     src: 'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=WhatsApp_Video_2026-03-03_at_15.18.51_1_dd8dba',
-    title: 'Morning collection — crew and net workflow'
+    title: 'Live demonstration of sustainable fish farming operations'
   }
 ];
 
 const photoStrip = [
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540686/WhatsApp_Image_2026-03-03_at_15.18.58_1_exllvc.jpg', alt: 'Farm worker carrying harvested fish.' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540685/WhatsApp_Image_2026-03-03_at_15.18.58_sh8nmq.jpg', alt: 'Fish grading station in action.' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540682/WhatsApp_Image_2026-03-03_at_15.19.08_m11ttn.jpg', alt: 'Loaded transport crates staged near the pond.' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540681/WhatsApp_Image_2026-03-03_at_15.19.09_sn0lme.jpg', alt: 'Final quality inspection before dispatch.' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540681/WhatsApp_Image_2026-03-03_at_15.19.08_3_jkhzwo.jpg', alt: 'Crew wrapping up the harvest session.' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540686/WhatsApp_Image_2026-03-03_at_15.18.58_1_exllvc.jpg', alt: 'Participants learning practical aquaculture methods.' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540685/WhatsApp_Image_2026-03-03_at_15.18.58_sh8nmq.jpg', alt: 'Group discussion during farming workshop.' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540682/WhatsApp_Image_2026-03-03_at_15.19.08_m11ttn.jpg', alt: 'Wide view of fish pond in rural setting.' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540681/WhatsApp_Image_2026-03-03_at_15.19.09_sn0lme.jpg', alt: 'Participants actively involved in fish farming activity.' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1772540681/WhatsApp_Image_2026-03-03_at_15.19.08_3_jkhzwo.jpg', alt: 'Aquaculture equipment displayed during training.' },
   { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1771856246/fish70_x1oxm8.jpg', alt: 'Crew guiding full net of catfish across the pond bank.' },
   { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1771856229/fish85_mu9he5.jpg', alt: 'Fresh catfish staged with ice before transport.' },
   { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_640/v1771856250/fish67_v3u9dl.jpg', alt: 'Clients inspecting harvest lots at the farm.' }
