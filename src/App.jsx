@@ -298,7 +298,6 @@ export default function App() {
       <div className="top-info-bar">
         <span><i className="bi bi-geo-alt-fill"></i> IRINGA, TANZANIA</span>
         <span><i className="bi bi-clock"></i> MON – SUN: 6AM – 6PM</span>
-        <span><i className="bi bi-headset"></i> BUYER SUPPORT AVAILABLE</span>
       </div>
 
       {/* ── HEADER ── */}
