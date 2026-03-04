@@ -88,6 +88,17 @@ const heroMedia = {
   ]
 };
 
+const heroSlides = [
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1600,h_1100/v1771856275/fish51_fvb6mq.jpg',                                              alt: 'Fresh tilapia harvest at Kalinga Fish Farm' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1600,h_1100/v1772540686/WhatsApp_Image_2026-03-03_at_15.18.59_1_davy2w.jpg',            alt: 'Farm crew managing fish ponds' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1600,h_1100/v1772540681/WhatsApp_Image_2026-03-03_at_15.19.08_3_jkhzwo.jpg',            alt: 'Aquaculture operations at Kalinga' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1600,h_1100/v1772540681/WhatsApp_Image_2026-03-03_at_15.19.09_sn0lme.jpg',             alt: 'Premium freshwater fish ready for dispatch' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1600,h_1100/v1772540691/WhatsApp_Image_2026-03-03_at_15.18.59_hsyuo7.jpg',             alt: 'Sustainable water reservoir at Kalinga Farm' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1600,h_1100/v1771856266/fish55_k89nsi.jpg',                                              alt: 'Catfish pond at Kalinga Fish Farm' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1600,h_1100/v1771856247/fish69_m1pfqc.jpg',                                              alt: 'Nile perch harvest in Iringa' },
+  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1600,h_1100/v1771848221/fish9_gcs2qz.jpg',                                               alt: 'Fish farming pond overview Kalinga' },
+];
+
 const proofMetrics = [
   { value: '12', label: 'Operational ponds' },
   { value: '1.2T', label: 'Monthly harvest output' },
@@ -250,6 +261,19 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const [heroSlide, setHeroSlide] = useState(0);
+  const [heroFading, setHeroFading] = useState(false);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setHeroFading(true);
+      setTimeout(() => {
+        setHeroSlide(prev => (prev + 1) % heroSlides.length);
+        setHeroFading(false);
+      }, 500);
+    }, 4500);
+    return () => clearInterval(id);
+  }, []);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -401,9 +425,27 @@ export default function App() {
             </button>
           </div>
         </div>
-        <div className="hero-media" aria-label={heroMedia.primary.alt}>
-          <figure className="hero-primary">
-            <img src={heroMedia.primary.src} alt={heroMedia.primary.alt} loading="eager" onError={applyImageFallback} />
+        <div className="hero-media" aria-label="Kalinga Fish Farm photo slideshow">
+          <figure className="hero-primary hero-slideshow">
+            <img
+              key={heroSlide}
+              src={heroSlides[heroSlide].src}
+              alt={heroSlides[heroSlide].alt}
+              loading="eager"
+              onError={applyImageFallback}
+              className={heroFading ? 'slide-fade-out' : 'slide-fade-in'}
+            />
+            {/* Dot indicators */}
+            <div className="slide-dots">
+              {heroSlides.map((_, i) => (
+                <button
+                  key={i}
+                  className={`slide-dot${i === heroSlide ? ' slide-dot--active' : ''}`}
+                  onClick={() => { setHeroFading(true); setTimeout(() => { setHeroSlide(i); setHeroFading(false); }, 300); }}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
           </figure>
           <div className="hero-trims">
             {heroMedia.trims.map(item => (
