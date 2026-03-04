@@ -314,8 +314,7 @@ button    { font-family:inherit; cursor:pointer; }
    ================================================================ */
 .hero {
   position: relative;
-  min-height: 100vh;         /* fallback */
-  min-height: 100svh;        /* mobile: excludes browser chrome */
+  min-height: clamp(420px, 70vw, 820px); /* proportional to 3:2 image ratio */
   width: 100%;
   display: flex;
   align-items: center;
@@ -332,6 +331,7 @@ button    { font-family:inherit; cursor:pointer; }
   height: 100%;
   z-index: 0;
   overflow: hidden;
+  background: #030a14; /* fills letterbox gaps when image doesn't span full area */
 }
 
 /* Layered dark overlay: top subtle, bottom heavy */
@@ -357,7 +357,7 @@ button    { font-family:inherit; cursor:pointer; }
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
-  padding: clamp(100px,14vw,160px) clamp(24px,6vw,80px) clamp(80px,10vw,130px);
+  padding: clamp(60px,8vw,100px) clamp(24px,6vw,80px) clamp(60px,8vw,100px);
 }
 
 .hero-copy {
@@ -483,7 +483,7 @@ button    { font-family:inherit; cursor:pointer; }
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;        /* show full image — no cropping */
   object-position: center center;
   display: block;
   opacity: 0;
@@ -1053,8 +1053,9 @@ main { display:flex; flex-direction:column; }
   .primary-nav a::after { bottom: 8px; left: 4px; right: auto; width: 28px; }
   .primary-nav a:hover::after { transform: scaleX(1); transform-origin: left; }
 
-  /* Hero full-screen content adjustments */
-  .hero-content    { padding: clamp(90px,12vw,130px) clamp(16px,4vw,28px) clamp(80px,10vw,120px); }
+  /* Hero content adjustments */
+  .hero            { min-height: clamp(340px, 70vw, 600px); }
+  .hero-content    { padding: clamp(48px,8vw,90px) clamp(16px,4vw,28px) clamp(48px,8vw,90px); }
   .hero-copy h1    { font-size: clamp(2rem,7vw,3rem); }
 
   /* Sections */
@@ -1089,7 +1090,7 @@ main { display:flex; flex-direction:column; }
 @media (max-width: 480px) {
   .operations, .gallery,
   .credentials, .contact        { padding: 52px 18px; }
-  .hero                          { padding: 0; min-height: 100vh; min-height: 100svh; }
+  .hero                          { padding: 0; min-height: clamp(280px, 66vw, 540px); }
   .hero-content                  { padding: 80px 18px 70px; }
   .hero-copy h1                  { font-size: clamp(1.7rem,8vw,2.4rem); }
   .metric-grid                   { grid-template-columns: repeat(2,1fr); }
