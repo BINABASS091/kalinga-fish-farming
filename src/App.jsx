@@ -48,29 +48,6 @@ const coreValues = [
   }
 ];
 
-const testimonials = [
-  {
-    quote: "Kalinga's harvest schedule is rock solid. We've been receiving on-time deliveries for over two years — zero surprises, exceptional quality every time.",
-    name: 'Amina Rashid',
-    role: 'HOTEL PROCUREMENT'
-  },
-  {
-    quote: 'The documentation and transparency from Kalinga makes our compliance process effortless. They send photos and weights before the truck even arrives.',
-    name: 'Daudi Msangi',
-    role: 'INSTITUTIONAL BUYER'
-  },
-  {
-    quote: 'I switched from three different suppliers to Kalinga exclusively. The consistency in fish size and freshness is unmatched in the Iringa region.',
-    name: 'Fatuma Lema',
-    role: 'RESTAURANT OWNER'
-  },
-  {
-    quote: 'Their WhatsApp desk is incredibly responsive. I placed a bulk order on a Saturday morning and had confirmation within the hour. Highly professional.',
-    name: 'Juma Kileo',
-    role: 'RETAIL DISTRIBUTOR'
-  }
-];
-
 const footerCategories = [
   {
     title: 'FISH PRODUCTS',
@@ -524,33 +501,6 @@ export default function App() {
                   <p>{story.tag}</p>
                 </figcaption>
               </figure>
-            ))}
-          </div>
-        </section>
-
-        {/* ── TESTIMONIALS ── */}
-        <section className="testimonials" id="testimonials">
-          <header className="section-lede">
-            <p className="eyebrow">VOICE OF OUR BUYERS</p>
-            <h2>Client Testimonials</h2>
-          </header>
-          <div className="testimonials-grid">
-            {testimonials.map(t => (
-              <article className="testimonial-card" key={t.name}>
-                <div className="testimonial-stars">
-                  {[1,2,3,4,5].map(s => <i key={s} className="bi bi-star-fill"></i>)}
-                </div>
-                <p className="testimonial-quote">"{t.quote}"</p>
-                <div className="testimonial-author">
-                  <div className="testimonial-avatar">
-                    <i className="bi bi-person-fill"></i>
-                  </div>
-                  <div>
-                    <strong>{t.name}</strong>
-                    <span>{t.role}</span>
-                  </div>
-                </div>
-              </article>
             ))}
           </div>
         </section>
