@@ -314,9 +314,22 @@ export default function App() {
       <div className="app-shell">
 
       {/* ── TOP INFO BAR ── */}
-      <div className="top-info-bar">
-        <span><i className="bi bi-geo-alt-fill"></i> IRINGA, TANZANIA</span>
-        <span><i className="bi bi-clock"></i> MON – SUN: 6AM – 6PM</span>
+      <div className="top-bar">
+        <div className="top-bar-inner">
+          <div className="top-bar-left">
+            <a href="tel:+255672411558"><i className="bi bi-telephone-fill"></i> +255 672 411 558</a>
+            <a href="mailto:kalingaklaus3@gmail.com"><i className="bi bi-envelope-fill"></i> kalingaklaus3@gmail.com</a>
+            <span><i className="bi bi-geo-alt-fill"></i> Iringa, Tanzania</span>
+          </div>
+          <div className="top-bar-right">
+            <span className="top-bar-badge"><i className="bi bi-patch-check-fill"></i> Certified Aquaculture</span>
+            {socialLinks.map(link => (
+              <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
+                <i className={`bi ${link.icon}`}></i>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* ── HEADER ── */}
