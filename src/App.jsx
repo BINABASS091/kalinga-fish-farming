@@ -232,7 +232,7 @@ const accolades = [
 const contactChannels = [
   { icon: 'bi-telephone', label: 'Call us', value: '+255 672 411 558', link: 'tel:+255672411558' },
   { icon: 'bi-whatsapp', label: 'WhatsApp', value: '+255 672 411 558', link: whatsappLink },
-  { icon: 'bi-envelope', label: 'Email desk', value: 'ops@kalingafishfarm.com' },
+  { icon: 'bi-envelope', label: 'Email desk', value: 'kalingaklaus3@gmail.com' },
   { icon: 'bi-geo-alt', label: 'Visit us', value: 'Iringa, Tanzania' }
 ];
 
@@ -681,7 +681,7 @@ export default function App() {
             </p>
             <address className="footer-contact-info">
               <a href="tel:+255672411558"><i className="bi bi-telephone-fill"></i> +255 672 411 558</a>
-              <a href="mailto:ops@kalingafishfarm.com"><i className="bi bi-envelope-fill"></i> ops@kalingafishfarm.com</a>
+              <a href="mailto:kalingaklaus3@gmail.com"><i className="bi bi-envelope-fill"></i> kalingaklaus3@gmail.com</a>
               <span><i className="bi bi-geo-alt-fill"></i> Iringa, Tanzania</span>
             </address>
           </div>
