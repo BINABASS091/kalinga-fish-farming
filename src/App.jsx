@@ -368,93 +368,92 @@ export default function App() {
       </header>
 
       <section className="hero" id="home">
-        <div className="hero-copy">
-          <p className="status-chip">Trusted aquaculture supply · Since 2014</p>
-          <h1>
-            Your Gateway to{' '}
-            <span className="text-gradient">Premium</span>{' '}
-            Freshwater Fish
-          </h1>
-          <p>
-            Official harvest partner for East African retailers, hoteliers, and institutional buyers. Full transparency from water management to final dispatch.
-          </p>
-          <div className="metric-grid">
-            {proofMetrics.map(metric => (
-              <article className="metric" key={metric.label}>
-                <span>{metric.value}</span>
-                <p>{metric.label}</p>
-              </article>
-            ))}
-          </div>
-          <div className="inquiry-widget">
-            <div className="inquiry-field">
-              <label>PRODUCT</label>
-              <select
-                name="product"
-                value={inquiry.product}
-                onChange={e => setInquiry(prev => ({ ...prev, product: e.target.value }))}
-              >
-                <option>Tilapia</option>
-                <option>Catfish</option>
-                <option>Mixed Order</option>
-                <option>Nile Perch</option>
-              </select>
-            </div>
-            <div className="inquiry-field">
-              <label>PREFERRED DATE</label>
-              <input
-                type="date"
-                name="preferred_date"
-                value={inquiry.date}
-                onChange={e => setInquiry(prev => ({ ...prev, date: e.target.value }))}
-              />
-            </div>
-            <div className="inquiry-field">
-              <label>VOLUME (KG)</label>
-              <input
-                type="number"
-                name="volume_kg"
-                placeholder="e.g. 500"
-                min="1"
-                value={inquiry.volume}
-                onChange={e => setInquiry(prev => ({ ...prev, volume: e.target.value }))}
-              />
-            </div>
-            <button type="button" className="btn-solid inquiry-btn" onClick={handleRequestQuote}>
-              REQUEST QUOTE
-            </button>
-          </div>
+        {/* ── Full-screen background slideshow ── */}
+        <div className="hero-bg">
+          <img
+            key={heroSlide}
+            src={heroSlides[heroSlide].src}
+            alt={heroSlides[heroSlide].alt}
+            loading="eager"
+            onError={applyImageFallback}
+            className={heroFading ? 'slide-fade-out' : 'slide-fade-in'}
+          />
         </div>
-        <div className="hero-media" aria-label="Kalinga Fish Farm photo slideshow">
-          <figure className="hero-primary hero-slideshow">
-            <img
-              key={heroSlide}
-              src={heroSlides[heroSlide].src}
-              alt={heroSlides[heroSlide].alt}
-              loading="eager"
-              onError={applyImageFallback}
-              className={heroFading ? 'slide-fade-out' : 'slide-fade-in'}
-            />
-            {/* Dot indicators */}
-            <div className="slide-dots">
-              {heroSlides.map((_, i) => (
-                <button
-                  key={i}
-                  className={`slide-dot${i === heroSlide ? ' slide-dot--active' : ''}`}
-                  onClick={() => { setHeroFading(true); setTimeout(() => { setHeroSlide(i); setHeroFading(false); }, 300); }}
-                  aria-label={`Go to slide ${i + 1}`}
-                />
+        {/* Multi-layer dark overlay */}
+        <div className="hero-overlay" />
+
+        {/* ── Centred content ── */}
+        <div className="hero-content">
+          <div className="hero-copy">
+            <p className="status-chip">Trusted aquaculture supply · Since 2014</p>
+            <h1>
+              Your Gateway to{' '}
+              <span className="text-gradient">Premium</span>{' '}
+              Freshwater Fish
+            </h1>
+            <p>
+              Official harvest partner for East African retailers, hoteliers, and institutional buyers.
+              Full transparency from water management to final dispatch.
+            </p>
+            <div className="metric-grid">
+              {proofMetrics.map(metric => (
+                <article className="metric" key={metric.label}>
+                  <span>{metric.value}</span>
+                  <p>{metric.label}</p>
+                </article>
               ))}
             </div>
-          </figure>
-          <div className="hero-trims">
-            {heroMedia.trims.map(item => (
-              <figure className="hero-trim" key={item.caption}>
-                <img src={item.src} alt={item.alt} loading="lazy" onError={applyImageFallback} />
-                <figcaption>{item.caption}</figcaption>
-              </figure>
-            ))}
+            <div className="inquiry-widget">
+              <div className="inquiry-field">
+                <label>PRODUCT</label>
+                <select
+                  name="product"
+                  value={inquiry.product}
+                  onChange={e => setInquiry(prev => ({ ...prev, product: e.target.value }))}
+                >
+                  <option>Tilapia</option>
+                  <option>Catfish</option>
+                  <option>Mixed Order</option>
+                  <option>Nile Perch</option>
+                </select>
+              </div>
+              <div className="inquiry-field">
+                <label>PREFERRED DATE</label>
+                <input
+                  type="date"
+                  name="preferred_date"
+                  value={inquiry.date}
+                  onChange={e => setInquiry(prev => ({ ...prev, date: e.target.value }))}
+                />
+              </div>
+              <div className="inquiry-field">
+                <label>VOLUME (KG)</label>
+                <input
+                  type="number"
+                  name="volume_kg"
+                  placeholder="e.g. 500"
+                  min="1"
+                  value={inquiry.volume}
+                  onChange={e => setInquiry(prev => ({ ...prev, volume: e.target.value }))}
+                />
+              </div>
+              <button type="button" className="btn-solid inquiry-btn" onClick={handleRequestQuote}>
+                REQUEST QUOTE
+              </button>
+            </div>
           </div>
+        </div>
+
+        {/* Slide dot indicators */}
+        <div className="slide-dots">
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              className={`slide-dot${i === heroSlide ? ' slide-dot--active' : ''}`}
+              onClick={() => { setHeroFading(true); setTimeout(() => { setHeroSlide(i); setHeroFading(false); }, 300); }}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
         </div>
       </section>
 
