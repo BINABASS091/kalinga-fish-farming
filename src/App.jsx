@@ -51,15 +51,33 @@ const coreValues = [
 const footerCategories = [
   {
     title: 'FISH PRODUCTS',
-    links: ['Fresh Tilapia', 'Catfish', 'Nile Perch', 'Smoked Fish', 'Dried Fish']
+    links: [
+      { label: 'Fresh Tilapia',  href: '#gallery' },
+      { label: 'Catfish',        href: '#gallery' },
+      { label: 'Nile Perch',     href: '#gallery' },
+      { label: 'Smoked Fish',    href: '#contact' },
+      { label: 'Dried Fish',     href: '#contact' },
+    ]
   },
   {
     title: 'OUR SERVICES',
-    links: ['Bulk Orders', 'Farm Visits', 'Custom Packaging', 'Training Programs', 'Hatchery Supply']
+    links: [
+      { label: 'Bulk Orders',        href: '#contact' },
+      { label: 'Farm Visits',        href: '#contact' },
+      { label: 'Custom Packaging',   href: '#contact' },
+      { label: 'Training Programs',  href: '#contact' },
+      { label: 'Hatchery Supply',    href: '#operations' },
+    ]
   },
   {
     title: 'COMPANY',
-    links: ['About Kalinga', 'Certifications', 'Media Gallery', 'Contact Us', 'WhatsApp Desk']
+    links: [
+      { label: 'About Kalinga',  href: '#why-us' },
+      { label: 'Certifications', href: '#why-us' },
+      { label: 'Media Gallery',  href: '#gallery' },
+      { label: 'Contact Us',     href: '#contact' },
+      { label: 'WhatsApp Desk',  href: whatsappLink },
+    ]
   }
 ];
 
@@ -68,25 +86,6 @@ const socialLinks = [
   { icon: 'bi-instagram', href: instagramLink, label: 'Instagram' },
   { icon: 'bi-facebook', href: facebookLink, label: 'Facebook' }
 ];
-
-const heroMedia = {
-  primary: {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_1600,h_1100/v1771856246/fish70_x1oxm8.jpg',
-    alt: 'Crew guiding a full net of catfish across the pond bank.'
-  },
-  trims: [
-    {
-      src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_800,h_800/v1772540691/WhatsApp_Image_2026-03-03_at_15.18.59_hsyuo7.jpg',
-      caption: 'Sustainable water reservoir',
-      alt: 'Man-made water reservoir surrounded by natural vegetation.'
-    },
-    {
-      src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_800,h_800/v1772540689/WhatsApp_Image_2026-03-03_at_15.18.54_vbeqvw.jpg',
-      caption: 'Aquaculture demo',
-      alt: 'Presenter showcasing fish tanks during aquaculture exhibition.'
-    }
-  ]
-};
 
 const heroSlides = [
   { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632446/catfish15_mpozfb.jpg',          alt: 'Catfish at Kalinga Fish Farm' },
@@ -736,7 +735,15 @@ export default function App() {
               <h4>{cat.title}</h4>
               <ul>
                 {cat.links.map(link => (
-                  <li key={link}><a href="#contact">{link}</a></li>
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target={link.href.startsWith('http') ? '_blank' : undefined}
+                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
                 ))}
               </ul>
             </div>
