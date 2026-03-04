@@ -687,7 +687,24 @@ main { display:flex; flex-direction:column; }
 .credentials,
 .contact {
   padding: clamp(80px,9vw,128px) clamp(24px,6vw,80px);
+  background: linear-gradient(170deg, #071222 0%, #0d1f3c 60%, #071a30 100%);
+  border-top: 1px solid rgba(255,255,255,.06);
+  position: relative;
+  overflow: hidden;
 }
+.contact::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #10b981, #0ea5e9);
+}
+
+/* Override section-lede colours inside dark contact section */
+.contact .section-lede h2 { color: #ffffff; }
+.contact .section-lede p  { color: rgba(255,255,255,.62); }
+.contact .eyebrow         { color: #2ed5a9; }
+.contact .eyebrow::before { background: #2ed5a9; }
 
 /* alternating section tones */
 .gallery {
@@ -938,55 +955,62 @@ main { display:flex; flex-direction:column; }
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 16px 20px;
+  padding: 18px 22px;
   border-radius: var(--r-lg);
-  background: var(--card);
-  border: 1px solid var(--border);
-  transition: border-color var(--t) var(--ease), background var(--t) var(--ease), transform var(--t) var(--ease-spring);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  transition: border-color var(--t) var(--ease), background var(--t) var(--ease), transform var(--t) var(--ease-spring), box-shadow var(--t) var(--ease);
+  text-decoration: none;
 }
 .channel-card:hover {
-  border-color: var(--border-hi);
-  background: var(--card-hover);
-  transform: translateX(5px);
+  border-color: rgba(46,213,169,.45);
+  background: rgba(46,213,169,.07);
+  transform: translateX(6px);
+  box-shadow: -3px 0 0 0 #2ed5a9;
 }
 
 .channel-card i {
-  font-size: 1.2rem;
-  color: var(--teal);
-  width: 28px;
+  font-size: 1.25rem;
+  color: #2ed5a9;
+  width: 32px; height: 32px;
   flex-shrink: 0;
-  text-align: center;
-  filter: drop-shadow(0 0 5px rgba(46,213,169,.4));
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(46,213,169,.12);
+  filter: drop-shadow(0 0 6px rgba(46,213,169,.45));
 }
-.channel-card div { display:flex; flex-direction:column; gap:2px; }
+.channel-card div { display:flex; flex-direction:column; gap:3px; }
 .channel-card span {
-  font-size: .67rem;
+  font-size: .64rem;
   font-weight: 700;
-  letter-spacing: .1em;
+  letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(255,255,255,.42);
 }
 .channel-card strong {
-  font-size: .9rem;
+  font-size: .93rem;
   font-weight: 700;
-  color: rgba(220,233,249,.9);
+  color: rgba(255,255,255,.92);
+  word-break: break-all;
 }
 
-.channel-socials { display:flex; gap:9px; padding-top:10px; }
+.channel-socials { display:flex; gap:9px; padding-top:14px; }
 .channel-socials a {
   width: 42px; height: 42px;
   display: grid; place-items: center;
   border-radius: 50%;
-  border: 1px solid var(--border);
-  color: var(--muted);
+  border: 1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.48);
   font-size: .98rem;
-  transition: border-color var(--t) var(--ease), color var(--t) var(--ease), transform var(--t) var(--ease-spring), box-shadow var(--t) var(--ease);
+  transition: border-color var(--t) var(--ease), color var(--t) var(--ease), background var(--t) var(--ease), transform var(--t) var(--ease-spring), box-shadow var(--t) var(--ease);
 }
 .channel-socials a:hover {
-  border-color: var(--teal);
-  color: var(--teal);
+  border-color: #2ed5a9;
+  color: #2ed5a9;
+  background: rgba(46,213,169,.1);
   transform: scale(1.14);
-  box-shadow: 0 0 0 3px rgba(46,213,169,.12);
+  box-shadow: 0 0 0 3px rgba(46,213,169,.15);
 }
 
 /* Form */
@@ -996,28 +1020,28 @@ main { display:flex; flex-direction:column; }
   gap: 18px;
   padding: 36px 32px;
   border-radius: var(--r-2xl);
-  background: rgba(6,18,34,.72);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(14px);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  backdrop-filter: blur(20px);
 }
 
 .contact-form label {
   display: flex;
   flex-direction: column;
   gap: 7px;
-  font-size: .72rem;
+  font-size: .68rem;
   font-weight: 800;
-  letter-spacing: .07em;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(255,255,255,.5);
 }
 .contact-form input,
 .contact-form textarea {
   padding: 13px 16px;
   border-radius: var(--r-md);
-  border: 1.5px solid var(--border);
-  background: rgba(3,10,20,.68);
-  color: var(--heading);
+  border: 1.5px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+  color: rgba(255,255,255,.92);
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: .94rem;
   line-height: 1.5;
@@ -1025,20 +1049,20 @@ main { display:flex; flex-direction:column; }
   -webkit-appearance: none;
 }
 .contact-form input::placeholder,
-.contact-form textarea::placeholder { color: var(--muted); opacity:.6; }
+.contact-form textarea::placeholder { color: rgba(255,255,255,.25); }
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: var(--teal);
-  background: rgba(46,213,169,.03);
-  box-shadow: 0 0 0 3px rgba(46,213,169,.16);
+  border-color: #2ed5a9;
+  background: rgba(46,213,169,.06);
+  box-shadow: 0 0 0 3px rgba(46,213,169,.18);
 }
-.contact-form textarea { resize:vertical; min-height:130px; }
+.contact-form textarea { resize:vertical; min-height:140px; }
 
-.contact-form .btn-solid { width:100%; justify-content:center; margin-top:6px; font-size:.93rem; }
+.contact-form .btn-solid { width:100%; justify-content:center; margin-top:8px; font-size:.93rem; }
 .contact-form .btn-solid:disabled { opacity:.38; cursor:not-allowed; transform:none !important; box-shadow:none !important; filter:none !important; }
 
-.form-hint { font-size:.78rem; color:var(--muted); text-align:center; line-height:1.6; }
+.form-hint { font-size:.78rem; color:rgba(255,255,255,.35); text-align:center; line-height:1.65; margin-top:4px; }
 .form-feedback {
   font-size:.86rem; font-weight:700; text-align:center;
   padding:11px 18px; border-radius:var(--r-md);

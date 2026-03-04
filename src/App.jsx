@@ -238,10 +238,10 @@ const accolades = [
 ];
 
 const contactChannels = [
-  { icon: 'bi-telephone', label: 'Call us', value: '+255 672 411 558', link: 'tel:+255672411558' },
-  { icon: 'bi-whatsapp', label: 'WhatsApp', value: '+255 672 411 558', link: whatsappLink },
-  { icon: 'bi-envelope', label: 'Email desk', value: 'kalingaklaus3@gmail.com' },
-  { icon: 'bi-geo-alt', label: 'Visit us', value: 'Iringa, Tanzania' }
+  { icon: 'bi-telephone', label: 'Call us',    value: '+255 672 411 558',        link: 'tel:+255672411558' },
+  { icon: 'bi-whatsapp', label: 'WhatsApp',   value: '+255 672 411 558',        link: whatsappLink },
+  { icon: 'bi-envelope', label: 'Email desk', value: 'kalingaklaus3@gmail.com', link: 'mailto:kalingaklaus3@gmail.com' },
+  { icon: 'bi-geo-alt',  label: 'Visit us',   value: 'Iringa, Tanzania',        link: 'https://maps.google.com/?q=Iringa,Tanzania' }
 ];
 
 const applyLogoFallback = event => {
@@ -700,7 +700,7 @@ export default function App() {
               </button>
               {!isEmailConfigured && (
                 <p className="form-hint">
-                  Email dispatch disabled until VITE_EMAIL_* variables are configured. Please contact us via phone or WhatsApp.
+                  Contact us directly via phone or WhatsApp — our team responds same business day.
                 </p>
               )}
               {formStatus.state !== 'idle' && (
