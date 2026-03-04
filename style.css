@@ -740,11 +740,11 @@ main { display:flex; flex-direction:column; }
   gap: 16px;
   padding: 20px 22px;
   border-radius: var(--r-lg);
-  background: rgba(255,255,255,.038);
+  background: var(--card);
   border: 1px solid var(--border);
   font-size: .88rem;
   font-weight: 600;
-  color: rgba(220,233,249,.84);
+  color: var(--text);
   transition: border-color var(--t) var(--ease), background var(--t) var(--ease), transform var(--t) var(--ease-spring);
 }
 .accolade-list li:hover {
