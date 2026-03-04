@@ -289,6 +289,9 @@ export default function App() {
   const isSubmitting = formStatus.state === 'loading';
   const currentYear = new Date().getFullYear();
 
+  const handlePrev = () => setHeroSlide(prev => (prev - 1 + heroSlides.length) % heroSlides.length);
+  const handleNext = () => setHeroSlide(prev => (prev + 1) % heroSlides.length);
+
   const handleContactSubmit = event => {
     event.preventDefault();
     if (!formRef.current) return;
@@ -376,7 +379,7 @@ export default function App() {
       </header>
 
       <section className="hero" id="home">
-        {/* ── Full-screen background slideshow ── */}
+        {/* Slideshow background */}
         <div className="hero-bg">
           {heroSlides.map((slide, i) => (
             <img
@@ -389,10 +392,11 @@ export default function App() {
             />
           ))}
         </div>
-        {/* Multi-layer dark overlay */}
+
+        {/* Cinematic dark overlay */}
         <div className="hero-overlay" />
 
-        {/* ── Centred content ── */}
+        {/* Left-aligned content */}
         <div className="hero-content">
           <div className="hero-copy">
             <p className="status-chip">Trusted aquaculture supply · Since 2014</p>
@@ -401,7 +405,7 @@ export default function App() {
               <span className="text-gradient">Premium</span>{' '}
               Freshwater Fish
             </h1>
-            <p>
+            <p className="hero-lead">
               Official harvest partner for East African retailers, hoteliers, and institutional buyers.
               Full transparency from water management to final dispatch.
             </p>
@@ -454,17 +458,37 @@ export default function App() {
           </div>
         </div>
 
-        {/* Slide dot indicators */}
-        <div className="slide-dots">
-          {heroSlides.map((_, i) => (
-            <button
-              key={i}
-              className={`slide-dot${i === heroSlide ? ' slide-dot--active' : ''}`}
-              onClick={() => setHeroSlide(i)}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
+        {/* Bottom controls bar */}
+        <div className="hero-controls">
+          <div className="hero-counter">
+            <span className="hero-counter-current">{String(heroSlide + 1).padStart(2, '0')}</span>
+            <span className="hero-counter-sep"> / </span>
+            <span className="hero-counter-total">{String(heroSlides.length).padStart(2, '0')}</span>
+          </div>
+          <div className="slide-dots">
+            {heroSlides.map((_, i) => (
+              <button
+                key={i}
+                className={`slide-dot${i === heroSlide ? ' slide-dot--active' : ''}`}
+                onClick={() => setHeroSlide(i)}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+          <div className="hero-arrows">
+            <button className="hero-arrow" onClick={handlePrev} aria-label="Previous slide">
+              <i className="bi bi-arrow-left"></i>
+            </button>
+            <button className="hero-arrow" onClick={handleNext} aria-label="Next slide">
+              <i className="bi bi-arrow-right"></i>
+            </button>
+          </div>
         </div>
+
+        {/* Scroll hint */}
+        <a className="hero-scroll-hint" href="#why-us" aria-label="Scroll down">
+          <i className="bi bi-chevron-double-down"></i>
+        </a>
       </section>
 
       <main>
