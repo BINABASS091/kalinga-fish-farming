@@ -8,10 +8,10 @@ export default function SplashScreen({ onDone }) {
   useEffect(() => {
     // Phase 1 — enter animations play (0 → 800ms)
     const holdTimer = setTimeout(() => setPhase('hold'), 800);
-    // Phase 2 — hold for 1.6s
-    const exitTimer = setTimeout(() => setPhase('exit'), 2400);
-    // Phase 3 — exit fade plays (400ms), then unmount
-    const doneTimer = setTimeout(() => onDone(), 2900);
+    // Phase 2 — hold for ~8.7s
+    const exitTimer = setTimeout(() => setPhase('exit'), 9500);
+    // Phase 3 — exit fade plays (500ms), then unmount at 10s
+    const doneTimer = setTimeout(() => onDone(), 10000);
     return () => {
       clearTimeout(holdTimer);
       clearTimeout(exitTimer);
