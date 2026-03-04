@@ -477,7 +477,7 @@ button    { font-family:inherit; cursor:pointer; }
   color: #021510 !important;
 }
 
-/* ── Slideshow animations ── */
+/* ── Slideshow: all images stacked, crossfade via opacity ── */
 .hero-bg img {
   position: absolute;
   top: 0; left: 0;
@@ -486,15 +486,12 @@ button    { font-family:inherit; cursor:pointer; }
   object-fit: cover;
   object-position: center center;
   display: block;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  will-change: opacity;
 }
-.slide-fade-in {
-  opacity: 1;
-  transition: opacity .7s var(--ease);
-}
-.slide-fade-out {
-  opacity: 0 !important;
-  transition: opacity .5s var(--ease) !important;
-}
+.hero-bg img.slide-active  { opacity: 1;  z-index: 1; }
+.hero-bg img.slide-inactive { opacity: 0; z-index: 0; }
 
 /* Slide dot indicators */
 .slide-dots {

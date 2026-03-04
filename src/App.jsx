@@ -262,15 +262,10 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [heroSlide, setHeroSlide] = useState(0);
-  const [heroFading, setHeroFading] = useState(false);
   useEffect(() => {
     const id = setInterval(() => {
-      setHeroFading(true);
-      setTimeout(() => {
-        setHeroSlide(prev => (prev + 1) % heroSlides.length);
-        setHeroFading(false);
-      }, 500);
-    }, 4500);
+      setHeroSlide(prev => (prev + 1) % heroSlides.length);
+    }, 5000);
     return () => clearInterval(id);
   }, []);
 
@@ -370,14 +365,16 @@ export default function App() {
       <section className="hero" id="home">
         {/* ── Full-screen background slideshow ── */}
         <div className="hero-bg">
-          <img
-            key={heroSlide}
-            src={heroSlides[heroSlide].src}
-            alt={heroSlides[heroSlide].alt}
-            loading="eager"
-            onError={applyImageFallback}
-            className={heroFading ? 'slide-fade-out' : 'slide-fade-in'}
-          />
+          {heroSlides.map((slide, i) => (
+            <img
+              key={slide.src}
+              src={slide.src}
+              alt={slide.alt}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              onError={applyImageFallback}
+              className={i === heroSlide ? 'slide-active' : 'slide-inactive'}
+            />
+          ))}
         </div>
         {/* Multi-layer dark overlay */}
         <div className="hero-overlay" />
@@ -450,7 +447,7 @@ export default function App() {
             <button
               key={i}
               className={`slide-dot${i === heroSlide ? ' slide-dot--active' : ''}`}
-              onClick={() => { setHeroFading(true); setTimeout(() => { setHeroSlide(i); setHeroFading(false); }, 300); }}
+              onClick={() => setHeroSlide(i)}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}
