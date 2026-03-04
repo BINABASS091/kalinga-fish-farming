@@ -400,14 +400,14 @@ button    { font-family:inherit; cursor:pointer; }
   font-size: clamp(2.4rem,5.5vw,4.8rem);
   font-weight: 800;
   letter-spacing: -.03em;
-  color: var(--heading);
+  color: var(--bg);
   line-height: 1.06;
   text-shadow: 0 2px 24px rgba(0,0,0,.55);
   max-width: 780px;
 }
 .hero-copy > p {
   font-size: clamp(.95rem,1.4vw,1.12rem);
-  color: rgba(220,233,249,.82);
+  color: rgba(255,255,255,.9);
   max-width: 560px;
   line-height: 1.78;
   text-shadow: 0 1px 8px rgba(0,0,0,.4);
@@ -888,7 +888,7 @@ main { display:flex; flex-direction:column; }
    ================================================================ */
 .site-footer {
   margin-top: auto;
-  background: rgba(2,7,15,.97);
+  background: var(--bg-alt);
   border-top: 1px solid var(--border);
 }
 
@@ -924,7 +924,7 @@ main { display:flex; flex-direction:column; }
 .footer-brand > div > span {
   display: block;
   font-size: .62rem;
-  color: var(--muted);
+  color: var(--text-2);
   letter-spacing: .04em;
   margin-top: 2px;
   line-height: 1;
@@ -939,7 +939,7 @@ main { display:flex; flex-direction:column; }
 .footer-nav a {
   font-size: .8rem;
   font-weight: 600;
-  color: var(--muted);
+  color: var(--text-2);
   padding: 5px 12px;
   border-radius: 999px;
   transition: color var(--t) var(--ease), background var(--t) var(--ease);
@@ -953,7 +953,7 @@ main { display:flex; flex-direction:column; }
   border-radius: 50%;
   border: 1px solid var(--border);
   font-size: .84rem;
-  color: var(--muted);
+  color: var(--text-2);
   transition: border-color var(--t) var(--ease), color var(--t) var(--ease), transform var(--t) var(--ease-spring);
 }
 .footer-social a:hover { border-color:var(--teal); color:var(--teal); transform:scale(1.12); }
@@ -969,7 +969,7 @@ main { display:flex; flex-direction:column; }
 }
 .footer-legal span {
   font-size: .74rem;
-  color: var(--muted);
+  color: var(--text-2);
   margin: 0;
   line-height: 1.5;
   letter-spacing: .06em;
@@ -977,7 +977,7 @@ main { display:flex; flex-direction:column; }
 }
 .footer-legal p {
   font-size: .74rem;
-  color: var(--muted);
+  color: var(--text-2);
   margin: 0;
   line-height: 1.5;
 }
@@ -1296,7 +1296,7 @@ main { display:flex; flex-direction:column; }
   font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--text-2);
 }
 .inquiry-field select,
 .inquiry-field input {
