@@ -404,7 +404,7 @@ export default function App() {
         {/* Cinematic dark overlay */}
         <div className="hero-overlay" />
 
-        {/* Left-aligned content */}
+        {/* Centred content */}
         <div className="hero-content">
           <div className="hero-copy">
             <p className="status-chip">Trusted aquaculture supply · Since 2014</p>
