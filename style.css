@@ -328,14 +328,6 @@ button    { font-family:inherit; cursor:pointer; }
   inset: 0;
   z-index: 0;
 }
-.hero-bg img {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
 
 /* Layered dark overlay: top subtle, bottom heavy */
 .hero-overlay {
@@ -486,15 +478,12 @@ button    { font-family:inherit; cursor:pointer; }
   inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-}
-@keyframes slide-ken-burns {
-  from { transform: scale(1);    }
-  to   { transform: scale(1.07); }
+  object-position: center 40%;
+  transform-origin: center center;
 }
 .slide-fade-in {
   opacity: 1;
-  animation: slide-ken-burns 8s ease-out forwards;
-  transition: opacity .6s var(--ease);
+  transition: opacity .7s var(--ease);
 }
 .slide-fade-out {
   opacity: 0 !important;
