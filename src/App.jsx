@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import emailjs from '@emailjs/browser';
 import heroFallback from './assets/hero-fallback.svg';
 import logoFallback from './assets/logo-fallback.svg';
+import SplashScreen from './SplashScreen';
 
 const EMAIL_SERVICE_ID = import.meta.env.VITE_EMAIL_SERVICE_ID ?? '';
 const EMAIL_TEMPLATE_ID = import.meta.env.VITE_EMAIL_TEMPLATE_ID ?? '';
@@ -266,6 +267,8 @@ export default function App() {
   const messageRef  = useRef(null);
   const [formStatus, setFormStatus] = useState({ state: 'idle', message: '' });
   const [inquiry, setInquiry] = useState({ product: 'Tilapia', date: '', volume: '' });
+  const [showSplash, setShowSplash] = useState(true);
+  const handleSplashDone = useCallback(() => setShowSplash(false), []);
 
   const handleRequestQuote = () => {
     const parts = [
@@ -301,7 +304,9 @@ export default function App() {
   };
 
   return (
-    <div className="app-shell">
+    <>
+      {showSplash && <SplashScreen onDone={handleSplashDone} />}
+      <div className="app-shell">
 
       {/* ── TOP INFO BAR ── */}
       <div className="top-info-bar">
@@ -699,5 +704,6 @@ export default function App() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
