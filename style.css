@@ -643,7 +643,7 @@ main { display:flex; flex-direction:column; }
 }
 .capability-body > p {
   font-size: .86rem;
-  color: var(--text-2);
+  color: var(--text);
   line-height: 1.68;
   flex: 1;
 }
@@ -655,7 +655,7 @@ main { display:flex; flex-direction:column; }
   gap: 10px;
   font-size: .8rem;
   font-weight: 500;
-  color: rgba(220,233,249,.58);
+  color: var(--text-2);
 }
 .capability-body li::before {
   content: '';
