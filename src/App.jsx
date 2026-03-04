@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import heroFallback from './assets/hero-fallback.svg';
 import logoFallback from './assets/logo-fallback.svg';
@@ -247,6 +247,15 @@ export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const handleSplashDone = useCallback(() => setShowSplash(false), []);
 
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const handleRequestQuote = () => {
     const parts = [
       `Product: ${inquiry.product}`,
@@ -293,22 +302,29 @@ export default function App() {
       </div>
 
       {/* ── HEADER ── */}
-      <header className="global-header">
-        <div className="brand-block">
-          <img src={remoteLogoSrc} alt="Kalinga Fish Farm logo" onError={applyLogoFallback} />
+      <header className={`global-header${scrolled ? ' header--scrolled' : ''}`}>
+        <a className="brand-block" href="#home">
+          <div className="brand-logo-ring">
+            <img src={remoteLogoSrc} alt="Kalinga Fish Farm logo" onError={applyLogoFallback} />
+          </div>
           <div>
             <p className="brand-title">Kalinga Fish Farm</p>
             <span>Iringa · Tanzania</span>
           </div>
-        </div>
-        <nav className="primary-nav" aria-label="Primary">
+        </a>
+
+        <nav className={`primary-nav${menuOpen ? ' nav--open' : ''}`} aria-label="Primary">
           {navLinks.map(link => (
-            <a key={link.href} href={link.href}>{link.label}</a>
+            <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>
+              <span>{link.label}</span>
+            </a>
           ))}
         </nav>
+
         <div className="header-actions">
           <a className="nav-cta" href={whatsappLink} target="_blank" rel="noopener noreferrer">
-            <i className="bi bi-whatsapp"></i> WhatsApp desk
+            <i className="bi bi-whatsapp"></i>
+            <span>WhatsApp</span>
           </a>
           <div className="header-socials">
             {socialLinks.map(link => (
@@ -317,6 +333,14 @@ export default function App() {
               </a>
             ))}
           </div>
+          <button
+            className={`nav-toggle${menuOpen ? ' nav-toggle--open' : ''}`}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(prev => !prev)}
+          >
+            <span /><span /><span />
+          </button>
         </div>
       </header>
 
