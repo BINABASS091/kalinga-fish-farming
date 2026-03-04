@@ -262,8 +262,21 @@ const applyImageFallback = event => {
 };
 
 export default function App() {
-  const formRef = useRef(null);
+  const formRef    = useRef(null);
+  const messageRef  = useRef(null);
   const [formStatus, setFormStatus] = useState({ state: 'idle', message: '' });
+  const [inquiry, setInquiry] = useState({ product: 'Tilapia', date: '', volume: '' });
+
+  const handleRequestQuote = () => {
+    const parts = [
+      `Product: ${inquiry.product}`,
+      `Preferred date: ${inquiry.date || 'Flexible'}`,
+      `Volume: ${inquiry.volume ? inquiry.volume + ' kg' : 'To discuss'}`,
+    ];
+    if (messageRef.current) messageRef.current.value = parts.join('\n');
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => messageRef.current?.focus(), 600);
+  };
   const isEmailConfigured = Boolean(EMAIL_SERVICE_ID && EMAIL_TEMPLATE_ID && EMAIL_PUBLIC_KEY);
   const isSubmitting = formStatus.state === 'loading';
   const currentYear = new Date().getFullYear();
@@ -347,7 +360,11 @@ export default function App() {
           <div className="inquiry-widget">
             <div className="inquiry-field">
               <label>PRODUCT</label>
-              <select>
+              <select
+                name="product"
+                value={inquiry.product}
+                onChange={e => setInquiry(prev => ({ ...prev, product: e.target.value }))}
+              >
                 <option>Tilapia</option>
                 <option>Catfish</option>
                 <option>Mixed Order</option>
@@ -356,15 +373,27 @@ export default function App() {
             </div>
             <div className="inquiry-field">
               <label>PREFERRED DATE</label>
-              <input type="date" />
+              <input
+                type="date"
+                name="preferred_date"
+                value={inquiry.date}
+                onChange={e => setInquiry(prev => ({ ...prev, date: e.target.value }))}
+              />
             </div>
             <div className="inquiry-field">
               <label>VOLUME (KG)</label>
-              <input type="number" placeholder="e.g. 500" min="1" />
+              <input
+                type="number"
+                name="volume_kg"
+                placeholder="e.g. 500"
+                min="1"
+                value={inquiry.volume}
+                onChange={e => setInquiry(prev => ({ ...prev, volume: e.target.value }))}
+              />
             </div>
-            <a className="btn-solid inquiry-btn" href="#contact">
+            <button type="button" className="btn-solid inquiry-btn" onClick={handleRequestQuote}>
               REQUEST QUOTE
-            </a>
+            </button>
           </div>
         </div>
         <div className="hero-media" aria-label={heroMedia.primary.alt}>
@@ -603,7 +632,7 @@ export default function App() {
               </label>
               <label>
                 Message
-                <textarea name="message" rows="6" placeholder="Volume, product mix, delivery cadence" required></textarea>
+                <textarea name="message" rows="6" placeholder="Volume, product mix, delivery cadence" ref={messageRef} required></textarea>
               </label>
               <button type="submit" className="btn-solid" disabled={isSubmitting || !isEmailConfigured}>
                 {isSubmitting ? 'Dispatching…' : 'Submit request'}
@@ -656,6 +685,7 @@ export default function App() {
               {socialLinks.map(link => (
                 <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
                   <i className={`bi ${link.icon}`}></i>
+                  <span>{link.label}</span>
                 </a>
               ))}
             </div>
