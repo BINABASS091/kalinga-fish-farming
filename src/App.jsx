@@ -204,13 +204,19 @@ const videoShowcase = [
     id: 'vid1',
     type: 'video',
     src: 'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish35_orgaov',
-    title: 'Harvest operation — live footage from pond 4'
+    num: '01',
+    tag: 'POND 4 · HARVEST DAY',
+    title: 'Harvest Operation',
+    subtitle: 'Seine net pull, live weigh-in, and iced packing — unedited footage from our last major dispatch run.'
   },
   {
     id: 'vid2',
     type: 'video',
     src: 'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=WhatsApp_Video_2026-03-03_at_15.18.51_1_dd8dba',
-    title: 'Live Demonstration of Sustainable Fish Farming'
+    num: '02',
+    tag: 'FARM WALK · TRAINING',
+    title: 'Sustainable Farming Demo',
+    subtitle: 'Guided walkthrough of our water-management system and hatchery protocols with our aquaculture team.'
   }
 ];
 
@@ -536,37 +542,58 @@ export default function App() {
         </section>
 
         <section className="video-showcase" id="video">
-          <header className="section-lede">
-            <p className="eyebrow">FARM FOOTAGE</p>
-            <h2>Watch the Operation Live.</h2>
-            <p>
-              Unedited video from our latest harvests — real conditions, real output, full transparency for every procurement decision.
-            </p>
-          </header>
-          <div className="video-grid">
-            {videoShowcase.map(video => (
-              <div className="video-card" key={video.id}>
-                <div className="video-frame">
-                  {video.type === 'image' ? (
-                    <img
-                      src={video.src}
-                      alt={video.alt}
-                      loading="lazy"
-                      onError={applyImageFallback}
-                    />
-                  ) : (
-                    <iframe
-                      src={video.src}
-                      title={video.title}
-                      allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                    />
-                  )}
-                </div>
-                <p className="video-caption">{video.title}</p>
+          <div className="video-showcase-inner">
+            <header className="section-lede">
+              <p className="eyebrow">FARM FOOTAGE</p>
+              <h2>Watch the Operation Live.</h2>
+              <p>
+                Unedited footage from our latest harvests — real conditions, real output,
+                full transparency for every procurement decision.
+              </p>
+              <div className="video-rec-badge">
+                <span className="rec-dot"></span>
+                2 RECORDINGS AVAILABLE
               </div>
-            ))}
+            </header>
+            <div className="video-grid">
+              {videoShowcase.map(video => (
+                <div className="video-card" key={video.id}>
+                  <div className="video-frame">
+                    {video.type === 'image' ? (
+                      <img
+                        src={video.src}
+                        alt={video.title}
+                        loading="lazy"
+                        onError={applyImageFallback}
+                      />
+                    ) : (
+                      <iframe
+                        src={video.src}
+                        title={video.title}
+                        allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                        allowFullScreen
+                        loading="lazy"
+                      />
+                    )}
+                    <div className="video-frame-overlay">
+                      <span className="video-live-chip">
+                        <span className="rec-dot rec-dot--red"></span>
+                        REC
+                      </span>
+                      <span className="video-num">{video.num}</span>
+                    </div>
+                  </div>
+                  <div className="video-caption">
+                    <span className="video-tag">{video.tag}</span>
+                    <strong className="video-title">{video.title}</strong>
+                    <p className="video-sub">{video.subtitle}</p>
+                    <a className="video-cta" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                      <i className="bi bi-whatsapp"></i> Request farm visit
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
