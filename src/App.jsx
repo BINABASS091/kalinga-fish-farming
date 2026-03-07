@@ -87,9 +87,18 @@ const socialLinks = [
 ];
 
 // Product-shot transform: c_pad fills white/transparent bg with dark navy, ar_16:9 fits the hero frame
-const PAD = 'f_auto,q_auto,c_pad,b_rgb:04090f,ar_16:9,w_1400,g_center';
+const PAD   = 'f_auto,q_auto,c_pad,b_rgb:04090f,ar_16:9,w_1400,g_center';
 // Natural/contextual photo transform: standard cover crop
 const COVER = 'f_auto,q_auto,c_fill,ar_16:9,w_1400,g_auto';
+// Mobile portrait variants (3:4 ratio, 800px wide)
+const MOBILE_PAD   = 'f_auto,q_auto,c_pad,b_rgb:04090f,w_800,h_1066,g_center';
+const MOBILE_COVER = 'f_auto,q_auto,c_fill,w_800,h_1066,g_auto';
+
+// Swap desktop transform for mobile portrait crop
+function toMobileSrc(src) {
+  if (src.includes('c_pad')) return src.replace(PAD, MOBILE_PAD);
+  return src.replace(COVER, MOBILE_COVER);
+}
 
 const heroSlides = [
   { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${COVER}/v1772632446/catfish15_mpozfb.jpg`,           alt: 'Catfish at Kalinga Fish Farm' },
@@ -372,14 +381,19 @@ export default function App() {
         {/* Slideshow background */}
         <div className="hero-bg">
           {heroSlides.map((slide, i) => (
-            <img
+            <picture
               key={slide.src}
-              src={slide.src}
-              alt={slide.alt}
-              loading={i === 0 ? 'eager' : 'lazy'}
-              onError={applyImageFallback}
               className={i === heroSlide ? 'slide-active' : 'slide-inactive'}
-            />
+            >
+              {/* Portrait crop for mobile */}
+              <source media="(max-width: 767px)" srcSet={toMobileSrc(slide.src)} />
+              <img
+                src={slide.src}
+                alt={slide.alt}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                onError={applyImageFallback}
+              />
+            </picture>
           ))}
         </div>
 
