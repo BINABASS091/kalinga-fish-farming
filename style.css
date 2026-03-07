@@ -886,7 +886,6 @@ button    { font-family:inherit; cursor:pointer; }
 main { display:flex; flex-direction:column; }
 
 .operations,
-.gallery,
 .contact {
   padding: clamp(80px,9vw,128px) clamp(24px,6vw,80px);
   background: linear-gradient(170deg, #030c1e 0%, #081832 60%, #050d1c 100%);
@@ -907,17 +906,6 @@ main { display:flex; flex-direction:column; }
 .contact .section-lede p  { color: rgba(255,255,255,.62); }
 .contact .eyebrow         { color: #2ed5a9; }
 .contact .eyebrow::before { background: #2ed5a9; }
-
-/* Gallery section overrides to light theme */
-.gallery {
-  background: var(--bg-alt);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.gallery .section-lede h2 { color: var(--heading); }
-.gallery .section-lede p  { color: var(--text-2); }
-.gallery .eyebrow         { color: var(--teal); }
-.gallery .eyebrow::before { background: var(--teal); }
 
 .operations {
   padding: clamp(80px,9vw,128px) clamp(24px,6vw,80px);
@@ -997,67 +985,6 @@ main { display:flex; flex-direction:column; }
 }
 
 /* capability-card styles moved to live-badge section below */
-
-/* ================================================================
-   GALLERY
-   ================================================================ */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  grid-template-rows: auto auto;
-  gap: 14px;
-}
-
-/* First card spans 2 rows for editorial feel on large screens */
-.gallery-card:first-child {
-  grid-row: span 2;
-}
-.gallery-card:first-child { aspect-ratio: unset; min-height: 360px; }
-
-.gallery-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--r-xl);
-  border: 1px solid var(--border);
-  aspect-ratio: 4 / 3;
-  background: var(--surface);
-  cursor: pointer;
-  width: 100%;
-}
-.gallery-card img {
-  width:100%; height:100%;
-  object-fit:cover;
-  object-position: center center;
-  display: block;
-  transition:transform var(--t-lg) var(--ease);
-}
-.gallery-card:hover img { transform:scale(1.08); }
-
-.gallery-card figcaption {
-  position: absolute;
-  inset: auto 0 0;
-  padding: 28px 18px 18px;
-  background: linear-gradient(180deg, transparent 0%, rgba(3,10,20,.94) 100%);
-  transform: translateY(8px);
-  transition: transform var(--t) var(--ease);
-}
-.gallery-card:hover figcaption { transform:translateY(0); }
-
-.gallery-card figcaption span {
-  display: inline-block;
-  font-size: .62rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--teal);
-  margin-bottom: 5px;
-}
-.gallery-card figcaption p {
-  font-size: .78rem;
-  color: rgba(255,255,255,.76);
-  line-height: 1.44;
-  margin: 0;
-}
 
 /* ================================================================
    CREDENTIALS — redesigned trust section
@@ -1689,20 +1616,6 @@ main { display:flex; flex-direction:column; }
 }
 .strip-item:hover { transform: scale(1.04); border-color: var(--border-hi); }
 .strip-item img { width:100%; height:100%; object-fit:cover; display:block; }
-
-/* ================================================================
-   GALLERY GRID — 12-item masonry-style layout
-   ================================================================ */
-
-/* 4-column layout with featured cards on wide screens */
-@media (min-width: 1081px) {
-  .gallery-grid {
-    grid-template-columns: repeat(4,1fr);
-    grid-auto-rows: auto;
-  }
-  .gallery-card:first-child  { grid-row: span 2; aspect-ratio: unset; height: 100%; min-height: 440px; }
-  .gallery-card:nth-child(6) { grid-column: span 2; aspect-ratio: 16/9; }
-}
 
 /* ================================================================
    TOP INFO BAR (legacy — replaced by .top-bar)

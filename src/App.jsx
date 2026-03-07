@@ -13,7 +13,7 @@ const navLinks = [
   { label: 'Home', href: '#home' },
   { label: 'Why Us', href: '#why-us' },
   { label: 'Operations', href: '#operations' },
-  { label: 'Media', href: '#gallery' },
+  { label: 'Media', href: '#video' },
   { label: 'Contact', href: '#contact' }
 ];
 
@@ -48,9 +48,9 @@ const footerCategories = [
   {
     title: 'FISH PRODUCTS',
     links: [
-      { label: 'Fresh Tilapia',  href: '#gallery' },
-      { label: 'Catfish',        href: '#gallery' },
-      { label: 'Nile Perch',     href: '#gallery' },
+      { label: 'Fresh Tilapia',  href: '#operations' },
+      { label: 'Catfish',        href: '#operations' },
+      { label: 'Nile Perch',     href: '#operations' },
       { label: 'Smoked Fish',    href: '#contact' },
       { label: 'Dried Fish',     href: '#contact' },
     ]
@@ -70,7 +70,7 @@ const footerCategories = [
     links: [
       { label: 'About Kalinga',  href: '#why-us' },
       { label: 'Certifications', href: '#why-us' },
-      { label: 'Media Gallery',  href: '#gallery' },
+      { label: 'Media Gallery',  href: '#video' },
       { label: 'Contact Us',     href: '#contact' },
       { label: 'WhatsApp Desk',  href: whatsappLink },
     ]
@@ -140,69 +140,6 @@ const capabilityTracks = [
     bullets: ['Same-day paperwork turnaround', 'WhatsApp + email coordination', 'Transparent farm access'],
     image: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_580/v1772540683/WhatsApp_Image_2026-03-03_at_15.19.02_ll7cih.jpg',
     alt: 'Participants touring aquaculture facility.'
-  }
-];
-
-const galleryStories = [
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540689/WhatsApp_Image_2026-03-03_at_15.18.56_2_einjij.jpg',
-    tag: 'Aquaculture training',
-    alt: 'Group participating in practical fish farming training.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771848224/fish1_tbbpc4.jpg',
-    tag: 'Harvest line',
-    alt: 'Crew hauling a seine net from the pond.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540688/WhatsApp_Image_2026-03-03_at_15.19.08_2_yg1xpu.jpg',
-    tag: 'Pond infrastructure',
-    alt: 'Outdoor fish pond facility for aquaculture production.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771856251/fish66_kfhgex.jpg',
-    tag: 'Sorting',
-    alt: 'Catfish being graded for uniform sizing.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540688/WhatsApp_Image_2026-03-03_at_15.18.56_bwz1yq.jpg',
-    tag: 'Quality inspection',
-    alt: 'Individual holding freshly harvested fish from pond.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771856241/fish74_c4lxma.jpg',
-    tag: 'Quality check',
-    alt: 'Fresh tilapia arranged for QA photos.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540688/WhatsApp_Image_2026-03-03_at_15.18.57_1_dbjsln.jpg',
-    tag: 'Community engagement',
-    alt: 'Participants attending aquaculture awareness meeting.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771856240/fish75_drzgls.jpg',
-    tag: 'Packaging',
-    alt: 'Crates being sealed for transport to Dar es Salaam.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540687/WhatsApp_Image_2026-03-03_at_15.18.57_qnxwml.jpg',
-    tag: 'Field supervision',
-    alt: 'Team inspecting fish pond during field visit.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771848223/fish5_zik1l7.jpg',
-    tag: 'Catfish detail',
-    alt: 'Close-up of catfish showing sheen and health.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540686/WhatsApp_Image_2026-03-03_at_15.18.59_1_davy2w.jpg',
-    tag: 'Harvest yield',
-    alt: 'Display of harvested fish after pond draining.'
-  },
-  {
-    src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771856264/fish57_mjcpsb.jpg',
-    tag: 'Pond sunrise',
-    alt: 'Sunlight reflecting on still pond water.'
   }
 ];
 
@@ -347,7 +284,7 @@ export default function App() {
           <a href="#home"    onClick={() => setMenuOpen(false)}><span>{t.navHome}</span></a>
           <a href="#why-us"  onClick={() => setMenuOpen(false)}><span>{t.navWhyUs}</span></a>
           <a href="#operations" onClick={() => setMenuOpen(false)}><span>{t.navOperations}</span></a>
-          <a href="#gallery" onClick={() => setMenuOpen(false)}><span>{t.navMedia}</span></a>
+          <a href="#video" onClick={() => setMenuOpen(false)}><span>{t.navMedia}</span></a>
           <a href="#contact" onClick={() => setMenuOpen(false)}><span>{t.navContact}</span></a>
         </nav>
 
@@ -586,38 +523,6 @@ export default function App() {
           </div>
         </section>
 
-        <section className="gallery" id="gallery">
-          <header className="section-lede">
-            <p className="eyebrow">{t.galEyebrow}</p>
-            <h2>{t.galH2}</h2>
-            <p className="section-lede-italic">{t.galSub}</p>
-          </header>
-          <div className="gallery-grid">
-            {[
-              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540689/WhatsApp_Image_2026-03-03_at_15.18.56_2_einjij.jpg',  tag:t.gal1Tag,  alt:'Group participating in practical fish farming training.' },
-              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771848224/fish1_tbbpc4.jpg',  tag:t.gal2Tag,  alt:'Crew hauling a seine net from the pond.' },
-              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540688/WhatsApp_Image_2026-03-03_at_15.19.08_2_yg1xpu.jpg',  tag:t.gal3Tag,  alt:'Outdoor fish pond facility for aquaculture production.' },
-              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771856251/fish66_kfhgex.jpg',  tag:t.gal4Tag,  alt:'Catfish being graded for uniform sizing.' },
-              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540688/WhatsApp_Image_2026-03-03_at_15.18.56_bwz1yq.jpg',  tag:t.gal5Tag,  alt:'Individual holding freshly harvested fish from pond.' },
-              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771856241/fish74_c4lxma.jpg',  tag:t.gal6Tag,  alt:'Fresh tilapia arranged for QA photos.' },
-              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540688/WhatsApp_Image_2026-03-03_at_15.18.57_1_dbjsln.jpg',  tag:t.gal7Tag,  alt:'Participants attending aquaculture awareness meeting.' },
-              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771856240/fish75_drzgls.jpg',  tag:t.gal8Tag,  alt:'Crates being sealed for transport to Dar es Salaam.' },
-              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540687/WhatsApp_Image_2026-03-03_at_15.18.57_qnxwml.jpg',  tag:t.gal9Tag,  alt:'Team inspecting fish pond during field visit.' },
-              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771848223/fish5_zik1l7.jpg',  tag:t.gal10Tag, alt:'Close-up of catfish showing sheen and health.' },
-              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540686/WhatsApp_Image_2026-03-03_at_15.18.59_1_davy2w.jpg',  tag:t.gal11Tag, alt:'Display of harvested fish after pond draining.' },
-              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771856264/fish57_mjcpsb.jpg',  tag:t.gal12Tag, alt:'Sunlight reflecting on still pond water.' },
-            ].map(story => (
-              <figure className="gallery-card" key={story.src}>
-                <img src={story.src} alt={story.alt} loading="lazy" onError={applyImageFallback} />
-                <figcaption>
-                  <span className="gallery-ops-badge">{t.galBadge}</span>
-                  <p>{story.tag}</p>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
-
         <section className="photo-strip" aria-label="Photo highlights">
           <div className="strip-header">
             <p className="eyebrow">{t.stripEyebrow}</p>
@@ -735,9 +640,9 @@ export default function App() {
           </div>
           {[
             { title: t.footerCol1Title, links: [
-              { label: t.footerCol1L1, href: '#gallery' },
-              { label: t.footerCol1L2, href: '#gallery' },
-              { label: t.footerCol1L3, href: '#gallery' },
+              { label: t.footerCol1L1, href: '#operations' },
+              { label: t.footerCol1L2, href: '#operations' },
+              { label: t.footerCol1L3, href: '#operations' },
               { label: t.footerCol1L4, href: '#contact' },
               { label: t.footerCol1L5, href: '#contact' },
             ]},
@@ -751,7 +656,7 @@ export default function App() {
             { title: t.footerCol3Title, links: [
               { label: t.footerCol3L1, href: '#why-us' },
               { label: t.footerCol3L2, href: '#why-us' },
-              { label: t.footerCol3L3, href: '#gallery' },
+              { label: t.footerCol3L3, href: '#video' },
               { label: t.footerCol3L4, href: '#contact' },
               { label: t.footerCol3L5, href: whatsappLink },
             ]},
