@@ -831,10 +831,10 @@ export default function App() {
 
     {/* ── FLOATING SOCIAL CLUSTER (bottom-right) ── */}
     <div className="fab-socials">
-      {socialLinks.filter(l => l.label !== 'WhatsApp').map(link => (
+      {socialLinks.map(link => (
         <a
           key={link.href}
-          className="fab-social-icon"
+          className={`fab-social-icon${link.label === 'WhatsApp' ? ' fab-social-icon--wa' : ''}`}
           href={link.href}
           aria-label={link.label}
           target="_blank"
@@ -844,18 +844,6 @@ export default function App() {
         </a>
       ))}
     </div>
-
-    {/* ── FLOATING WHATSAPP FAB ── */}
-    <a
-      className="fab-wa"
-      href={whatsappLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={t.fabLabel}
-    >
-      <i className="bi bi-whatsapp"></i>
-      <span>{t.fabLabel}</span>
-    </a>
     </>
   );
 }
