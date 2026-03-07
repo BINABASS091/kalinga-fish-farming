@@ -6,11 +6,8 @@ export default function SplashScreen({ onDone }) {
   const [phase, setPhase] = useState('enter'); // 'enter' | 'hold' | 'exit'
 
   useEffect(() => {
-    // Phase 1 — enter animations play (0 → 800ms)
     const holdTimer = setTimeout(() => setPhase('hold'), 800);
-    // Phase 2 — hold for ~8.7s
     const exitTimer = setTimeout(() => setPhase('exit'), 9500);
-    // Phase 3 — exit fade plays (500ms), then unmount at 10s
     const doneTimer = setTimeout(() => onDone(), 10000);
     return () => {
       clearTimeout(holdTimer);
@@ -22,8 +19,13 @@ export default function SplashScreen({ onDone }) {
   return (
     <div className={`splash-shell splash--${phase}`} aria-hidden="true">
 
-      {/* Animated dot grid background */}
-      <div className="splash-dots" />
+      {/* Deep background layers */}
+      <div className="splash-bg">
+        <div className="splash-bg__grad" />
+        <div className="splash-bg__orb splash-bg__orb--teal" />
+        <div className="splash-bg__orb splash-bg__orb--blue" />
+        <div className="splash-dots" />
+      </div>
 
       {/* Ripple rings */}
       <div className="splash-rings">
@@ -35,9 +37,16 @@ export default function SplashScreen({ onDone }) {
       {/* Centre content */}
       <div className="splash-centre">
 
+        {/* Badge chip */}
+        <div className="splash-badge">
+          <span className="splash-badge__dot" />
+          Est. 2014 · Iringa, Tanzania
+        </div>
+
         {/* Logo circle */}
         <div className="splash-logo-wrap">
           <div className="splash-logo-ring" />
+          <div className="splash-logo-ring splash-logo-ring--outer" />
           <div className="splash-logo-circle">
             <img src={LOGO_SRC} alt="Kalinga Fish Farm logo" />
           </div>
@@ -49,12 +58,21 @@ export default function SplashScreen({ onDone }) {
           <p className="splash-sub">Premium Freshwater Aquaculture · Iringa, Tanzania</p>
         </div>
 
+        {/* Divider */}
+        <div className="splash-divider" />
+
         {/* Loading bar */}
         <div className="splash-bar-track">
-          <div className="splash-bar-fill" />
+          <div className="splash-bar-fill">
+            <div className="splash-bar-sheen" />
+          </div>
         </div>
 
-        <p className="splash-hint">Preparing your experience…</p>
+        {/* Hint */}
+        <p className="splash-hint">
+          <span className="splash-hint__dot" />
+          Preparing your experience…
+        </p>
       </div>
     </div>
   );
