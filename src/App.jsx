@@ -831,18 +831,25 @@ export default function App() {
 
     {/* ── FLOATING SOCIAL CLUSTER (bottom-right) ── */}
     <div className="fab-socials">
-      {socialLinks.map(link => (
-        <a
-          key={link.href}
-          className={`fab-social-icon${link.label === 'WhatsApp' ? ' fab-social-icon--wa' : ''}`}
-          href={link.href}
-          aria-label={link.label}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className={`bi ${link.icon}`}></i>
-        </a>
-      ))}
+      {socialLinks.map(link => {
+        const mod = link.label === 'WhatsApp' ? 'wa'
+                  : link.label === 'Instagram' ? 'instagram'
+                  : link.label === 'Gmail'     ? 'gmail'
+                  : link.label === 'Facebook'  ? 'facebook'
+                  : '';
+        return (
+          <a
+            key={link.href}
+            className={`fab-social-icon${mod ? ` fab-social-icon--${mod}` : ''}`}
+            href={link.href}
+            aria-label={link.label}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className={`bi ${link.icon}`}></i>
+          </a>
+        );
+      })}
     </div>
     </>
   );

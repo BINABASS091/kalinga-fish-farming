@@ -2348,14 +2348,19 @@ main { display:flex; flex-direction:column; }
               border-color var(--t) var(--ease), transform var(--t) var(--ease-spring),
               box-shadow var(--t) var(--ease);
 }
-.fab-social-icon:hover {
+.fab-social-icon:not([class*="fab-social-icon--"]):hover {
   background: #2ed5a9;
   border-color: #2ed5a9;
   color: #011a12;
   transform: scale(1.14);
   box-shadow: 0 6px 22px rgba(46,213,169,.42);
 }
-/* WhatsApp — always green so it stands out */
+/* All branded icons scale on hover */
+.fab-social-icon--wa:hover,
+.fab-social-icon--instagram:hover,
+.fab-social-icon--gmail:hover,
+.fab-social-icon--facebook:hover { transform: scale(1.14); }
+/* WhatsApp — green */
 .fab-social-icon--wa {
   background: #25d366;
   border-color: #25d366;
@@ -2367,6 +2372,44 @@ main { display:flex; flex-direction:column; }
   border-color: #1ebe57;
   color: #ffffff;
   box-shadow: 0 8px 28px rgba(37,211,102,.55);
+}
+/* Instagram — brand gradient */
+.fab-social-icon--instagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(214,36,159,.38);
+}
+.fab-social-icon--instagram:hover {
+  filter: brightness(1.12) saturate(1.1);
+  color: #ffffff;
+  box-shadow: 0 8px 28px rgba(214,36,159,.5);
+}
+/* Gmail — Google red */
+.fab-social-icon--gmail {
+  background: #EA4335;
+  border-color: #EA4335;
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(234,67,53,.38);
+}
+.fab-social-icon--gmail:hover {
+  background: #d33426;
+  border-color: #d33426;
+  color: #ffffff;
+  box-shadow: 0 8px 28px rgba(234,67,53,.5);
+}
+/* Facebook — brand blue */
+.fab-social-icon--facebook {
+  background: #1877F2;
+  border-color: #1877F2;
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(24,119,242,.38);
+}
+.fab-social-icon--facebook:hover {
+  background: #0f65d8;
+  border-color: #0f65d8;
+  color: #ffffff;
+  box-shadow: 0 8px 28px rgba(24,119,242,.5);
 }
 /* On mobile keep them but slightly smaller */
 @media (max-width: 480px) {
