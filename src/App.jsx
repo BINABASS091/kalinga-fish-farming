@@ -338,7 +338,7 @@ export default function App() {
           <div className="brand-logo-ring">
             <img src={remoteLogoSrc} alt="Kalinga Fish Farm logo" onError={applyLogoFallback} />
           </div>
-          <div>
+          <div className="brand-text">
             <p className="brand-title">Kalinga Fish Farm</p>
             <span>Iringa · Tanzania</span>
           </div>
