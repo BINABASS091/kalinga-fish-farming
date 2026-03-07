@@ -942,14 +942,20 @@ main { display:flex; flex-direction:column; }
 /* ================================================================
    CONTACT
    ================================================================ */
-.contact-grid {
+.contact-channels {
+  max-width: 720px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 48px;
-  align-items: start;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
 
-.contact-channels { display:flex; flex-direction:column; gap:10px; }
+.channel-socials {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 9px;
+  padding-top: 6px;
+}
 
 .channel-card {
   display: flex;
@@ -995,7 +1001,6 @@ main { display:flex; flex-direction:column; }
   word-break: break-all;
 }
 
-.channel-socials { display:flex; gap:9px; padding-top:14px; }
 .channel-socials a {
   width: 42px; height: 42px;
   display: grid; place-items: center;
@@ -1012,63 +1017,6 @@ main { display:flex; flex-direction:column; }
   transform: scale(1.14);
   box-shadow: 0 0 0 3px rgba(46,213,169,.15);
 }
-
-/* Form */
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding: 36px 32px;
-  border-radius: var(--r-2xl);
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.1);
-  backdrop-filter: blur(20px);
-}
-
-.contact-form label {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  font-size: .68rem;
-  font-weight: 800;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.5);
-}
-.contact-form input,
-.contact-form textarea {
-  padding: 13px 16px;
-  border-radius: var(--r-md);
-  border: 1.5px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.05);
-  color: rgba(255,255,255,.92);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: .94rem;
-  line-height: 1.5;
-  transition: border-color var(--t) var(--ease), box-shadow var(--t) var(--ease), background var(--t) var(--ease);
-  -webkit-appearance: none;
-}
-.contact-form input::placeholder,
-.contact-form textarea::placeholder { color: rgba(255,255,255,.25); }
-.contact-form input:focus,
-.contact-form textarea:focus {
-  outline: none;
-  border-color: #2ed5a9;
-  background: rgba(46,213,169,.06);
-  box-shadow: 0 0 0 3px rgba(46,213,169,.18);
-}
-.contact-form textarea { resize:vertical; min-height:140px; }
-
-.contact-form .btn-solid { width:100%; justify-content:center; margin-top:8px; font-size:.93rem; }
-.contact-form .btn-solid:disabled { opacity:.38; cursor:not-allowed; transform:none !important; box-shadow:none !important; filter:none !important; }
-
-.form-hint { font-size:.78rem; color:rgba(255,255,255,.35); text-align:center; line-height:1.65; margin-top:4px; }
-.form-feedback {
-  font-size:.86rem; font-weight:700; text-align:center;
-  padding:11px 18px; border-radius:var(--r-md);
-}
-.form-feedback--success { color:var(--teal);  background:rgba(46,213,169,.09);  border:1px solid rgba(46,213,169,.24); }
-.form-feedback--error   { color:#ff7070; background:rgba(255,90,90,.07);  border:1px solid rgba(255,90,90,.2); }
 
 /* ================================================================
    FOOTER
@@ -1222,7 +1170,6 @@ main { display:flex; flex-direction:column; }
 
 /* ── 860px: collapse two-column layouts ── */
 @media (max-width: 860px) {
-  .contact-grid      { grid-template-columns: 1fr; gap: 32px; }
   .footer-inner      { grid-template-columns: 1fr 1fr; gap: 24px; }
   .footer-nav        { justify-content: flex-start; }
   .values-grid       { grid-template-columns: repeat(2,1fr); }
@@ -1305,9 +1252,6 @@ main { display:flex; flex-direction:column; }
   /* Why-us section padding */
   .why-us          { padding: 64px clamp(16px,4vw,28px); }
   .photo-strip     { padding: 48px 0; }
-
-  /* Contact form */
-  .contact-form    { padding: 28px 20px; }
 }
 
 /* ── 480px: single-column everything ── */
@@ -1340,7 +1284,7 @@ main { display:flex; flex-direction:column; }
 
   .values-grid                   { grid-template-columns: 1fr; }
   .btn-solid                     { justify-content: center; width: 100%; }
-  .contact-form                  { padding: 22px 16px; }
+  .contact-channels              { grid-template-columns: 1fr; }
 
   .footer-inner                  { grid-template-columns: 1fr; gap: 28px; }
   .footer-brand                  { grid-column: auto; }

@@ -1,12 +1,7 @@
-import { useRef, useState, useCallback, useEffect } from 'react';
-import emailjs from '@emailjs/browser';
+import { useState, useCallback, useEffect } from 'react';
 import heroFallback from './assets/hero-fallback.svg';
 import logoFallback from './assets/logo-fallback.svg';
 import SplashScreen from './SplashScreen';
-
-const EMAIL_SERVICE_ID = import.meta.env.VITE_EMAIL_SERVICE_ID ?? '';
-const EMAIL_TEMPLATE_ID = import.meta.env.VITE_EMAIL_TEMPLATE_ID ?? '';
-const EMAIL_PUBLIC_KEY = import.meta.env.VITE_EMAIL_PUBLIC_KEY ?? '';
 
 const whatsappLink = 'https://wa.me/255672411558';
 const facebookLink = 'https://www.facebook.com/claus.angelo';
@@ -259,9 +254,6 @@ const applyImageFallback = event => {
 };
 
 export default function App() {
-  const formRef    = useRef(null);
-  const messageRef  = useRef(null);
-  const [formStatus, setFormStatus] = useState({ state: 'idle', message: '' });
   const [inquiry, setInquiry] = useState({ product: 'Tilapia', date: '', volume: '' });
   const [showSplash, setShowSplash] = useState(true);
   const handleSplashDone = useCallback(() => setShowSplash(false), []);
@@ -284,40 +276,12 @@ export default function App() {
   }, []);
 
   const handleRequestQuote = () => {
-    const parts = [
-      `Product: ${inquiry.product}`,
-      `Preferred date: ${inquiry.date || 'Flexible'}`,
-      `Volume: ${inquiry.volume ? inquiry.volume + ' kg' : 'To discuss'}`,
-    ];
-    if (messageRef.current) messageRef.current.value = parts.join('\n');
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => messageRef.current?.focus(), 600);
   };
-  const isEmailConfigured = Boolean(EMAIL_SERVICE_ID && EMAIL_TEMPLATE_ID && EMAIL_PUBLIC_KEY);
-  const isSubmitting = formStatus.state === 'loading';
   const currentYear = new Date().getFullYear();
 
   const handlePrev = () => setHeroSlide(prev => (prev - 1 + heroSlides.length) % heroSlides.length);
   const handleNext = () => setHeroSlide(prev => (prev + 1) % heroSlides.length);
-
-  const handleContactSubmit = event => {
-    event.preventDefault();
-    if (!formRef.current) return;
-    if (!isEmailConfigured) {
-      setFormStatus({ state: 'error', message: 'Email service is offline. Use phone or WhatsApp for immediate assistance.' });
-      return;
-    }
-    setFormStatus({ state: 'loading', message: '' });
-    emailjs
-      .sendForm(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, formRef.current, { publicKey: EMAIL_PUBLIC_KEY })
-      .then(() => {
-        setFormStatus({ state: 'success', message: 'Message received. Our operations desk will call you shortly.' });
-        formRef.current?.reset();
-      })
-      .catch(() => {
-        setFormStatus({ state: 'error', message: 'Delivery failed. Kindly retry or reach out via WhatsApp.' });
-      });
-  };
 
   return (
     <>
@@ -652,63 +616,29 @@ export default function App() {
               Share your volume targets, preferred dispatch windows, and compliance requirements. We respond within one business day — often sooner.
             </p>
           </header>
-          <div className="contact-grid">
-            <div className="contact-channels">
-              {contactChannels.map(channel => (
-                <a
-                  key={channel.label}
-                  className="channel-card"
-                  href={channel.link ?? '#'}
-                  target={channel.link?.startsWith('http') ? '_blank' : undefined}
-                  rel={channel.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
-                >
-                  <i className={`bi ${channel.icon}`}></i>
-                  <div>
-                    <span>{channel.label}</span>
-                    <strong>{channel.value}</strong>
-                  </div>
+          <div className="contact-channels">
+            {contactChannels.map(channel => (
+              <a
+                key={channel.label}
+                className="channel-card"
+                href={channel.link ?? '#'}
+                target={channel.link?.startsWith('http') ? '_blank' : undefined}
+                rel={channel.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                <i className={`bi ${channel.icon}`}></i>
+                <div>
+                  <span>{channel.label}</span>
+                  <strong>{channel.value}</strong>
+                </div>
+              </a>
+            ))}
+            <div className="channel-socials">
+              {socialLinks.map(link => (
+                <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
+                  <i className={`bi ${link.icon}`}></i>
                 </a>
               ))}
-              <div className="channel-socials">
-                {socialLinks.map(link => (
-                  <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
-                    <i className={`bi ${link.icon}`}></i>
-                  </a>
-                ))}
-              </div>
             </div>
-
-            <form className="contact-form" ref={formRef} onSubmit={handleContactSubmit} noValidate>
-              <label>
-                Full name
-                <input type="text" name="from_name" placeholder="Jane Doe" required />
-              </label>
-              <label>
-                Phone number
-                <input type="tel" name="phone_number" placeholder="+255 7XX XXX XXX" required />
-              </label>
-              <label>
-                Email address
-                <input type="email" name="from_email" placeholder="you@example.com" required />
-              </label>
-              <label>
-                Message
-                <textarea name="message" rows="6" placeholder="Volume, product mix, delivery cadence" ref={messageRef} required></textarea>
-              </label>
-              <button type="submit" className="btn-solid" disabled={isSubmitting || !isEmailConfigured}>
-                {isSubmitting ? 'Dispatching…' : 'Submit request'}
-              </button>
-              {!isEmailConfigured && (
-                <p className="form-hint">
-                  Contact us directly via phone or WhatsApp — our team responds same business day.
-                </p>
-              )}
-              {formStatus.state !== 'idle' && (
-                <p className={`form-feedback form-feedback--${formStatus.state === 'success' ? 'success' : 'error'}`}>
-                  {formStatus.message}
-                </p>
-              )}
-            </form>
           </div>
         </section>
       </main>
