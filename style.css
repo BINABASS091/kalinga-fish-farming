@@ -2277,6 +2277,46 @@ main { display:flex; flex-direction:column; }
 }
 
 /* ================================================================
+   LANGUAGE TOGGLE BUTTON
+   ================================================================ */
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(46,213,169,.40);
+  background: rgba(46,213,169,.08);
+  color: #2ed5a9;
+  font-size: .67rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--t), transform var(--t), border-color var(--t);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.lang-toggle .bi {
+  font-size: .8rem;
+  flex-shrink: 0;
+}
+.lang-toggle:hover {
+  background: rgba(46,213,169,.20);
+  border-color: rgba(46,213,169,.70);
+  transform: scale(1.05);
+}
+/* Inside header-actions — slightly larger */
+.lang-toggle--header {
+  padding: 6px 14px;
+  font-size: .7rem;
+  border-color: rgba(46,213,169,.30);
+}
+@media (max-width: 767px) {
+  .lang-toggle--header { padding: 5px 11px; font-size: .65rem; }
+}
+
+/* ================================================================
    FLOATING WHATSAPP FAB
    ================================================================ */
 .fab-wa {

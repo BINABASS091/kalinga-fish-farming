@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import heroFallback from './assets/hero-fallback.svg';
 import logoFallback from './assets/logo-fallback.svg';
 import SplashScreen from './SplashScreen';
+import translations from './translations';
 
 const whatsappLink = 'https://wa.me/255672411558';
 const facebookLink = 'https://www.facebook.com/claus.angelo';
@@ -257,6 +258,9 @@ const applyImageFallback = event => {
 };
 
 export default function App() {
+  const [lang, setLang] = useState('en');
+  const t = translations[lang];
+
   const [inquiry, setInquiry] = useState({ product: 'Tilapia', date: '', volume: '', unit: 'KG' });
   const [showSplash, setShowSplash] = useState(true);
   const handleSplashDone = useCallback(() => setShowSplash(false), []);
@@ -280,9 +284,9 @@ export default function App() {
 
   const handleRequestQuote = () => {
     const product = inquiry.product;
-    const vol = inquiry.volume ? ` — ${inquiry.volume} ${inquiry.unit}` : '';
-    const date = inquiry.date ? `, preferred delivery: ${inquiry.date}` : '';
-    const msg = `Hello Kalinga Fish Farm! I'd like to request a quote for ${product}${vol}${date}. Please confirm availability and pricing.`;
+    const vol  = inquiry.volume ? t.waVol(inquiry.volume, inquiry.unit) : '';
+    const date = inquiry.date   ? t.waDate(inquiry.date) : '';
+    const msg  = t.waMsg(product, vol, date);
     window.open(`https://wa.me/255672411558?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -303,7 +307,15 @@ export default function App() {
             <span><i className="bi bi-geo-alt-fill"></i> Iringa, Tanzania</span>
           </div>
           <div className="top-bar-right">
-            <span className="top-bar-badge"><i className="bi bi-patch-check-fill"></i> Certified Aquaculture</span>
+            <span className="top-bar-badge"><i className="bi bi-patch-check-fill"></i> {t.topBadge}</span>
+            <button
+              className="lang-toggle"
+              onClick={() => setLang(l => l === 'en' ? 'sw' : 'en')}
+              aria-label="Switch language"
+            >
+              <i className="bi bi-translate"></i>
+              <span>{t.langSwitchLabel}</span>
+            </button>
             {socialLinks.map(link => (
               <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
                 <i className={`bi ${link.icon}`}></i>
@@ -326,18 +338,27 @@ export default function App() {
         </a>
 
         <nav className={`primary-nav${menuOpen ? ' nav--open' : ''}`} aria-label="Primary">
-          {navLinks.map(link => (
-            <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>
-              <span>{link.label}</span>
-            </a>
-          ))}
+          <a href="#home"    onClick={() => setMenuOpen(false)}><span>{t.navHome}</span></a>
+          <a href="#why-us"  onClick={() => setMenuOpen(false)}><span>{t.navWhyUs}</span></a>
+          <a href="#operations" onClick={() => setMenuOpen(false)}><span>{t.navOperations}</span></a>
+          <a href="#gallery" onClick={() => setMenuOpen(false)}><span>{t.navMedia}</span></a>
+          <a href="#contact" onClick={() => setMenuOpen(false)}><span>{t.navContact}</span></a>
         </nav>
 
         <div className="header-actions">
           <a className="nav-cta" href={whatsappLink} target="_blank" rel="noopener noreferrer">
             <i className="bi bi-whatsapp"></i>
-            <span>WhatsApp</span>
+            <span>{t.navWhatsApp}</span>
           </a>
+          <button
+            className="lang-toggle lang-toggle--header"
+            onClick={() => setLang(l => l === 'en' ? 'sw' : 'en')}
+            aria-label="Switch language"
+            title={lang === 'en' ? 'Badilisha hadi Kiswahili' : 'Switch to English'}
+          >
+            <i className="bi bi-translate"></i>
+            <span>{t.langSwitchLabel}</span>
+          </button>
           <div className="header-socials">
             {socialLinks.map(link => (
               <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
@@ -377,18 +398,20 @@ export default function App() {
         {/* Centred content */}
         <div className="hero-content">
           <div className="hero-copy">
-            <p className="status-chip">Trusted aquaculture supply · Since 2014</p>
+            <p className="status-chip">{t.statusChip}</p>
             <h1>
-              Your Gateway to{' '}
-              <span className="text-gradient">Premium</span>{' '}
-              Freshwater Fish
+              {t.heroTitle1}{' '}
+              <span className="text-gradient">{t.heroTitle2}</span>{' '}
+              {t.heroTitle3}
             </h1>
-            <p className="hero-lead">
-              Official harvest partner for East African retailers, hoteliers, and institutional buyers.
-              Full transparency from water management to final dispatch.
-            </p>
+            <p className="hero-lead">{t.heroLead}</p>
             <div className="metric-grid">
-              {proofMetrics.map(metric => (
+              {[
+                { value: '12',   label: t.metric1Label },
+                { value: '1.2T', label: t.metric2Label },
+                { value: '72h',  label: t.metric3Label },
+                { value: '200+', label: t.metric4Label },
+              ].map(metric => (
                 <article className="metric" key={metric.label}>
                   <span>{metric.value}</span>
                   <p>{metric.label}</p>
@@ -397,20 +420,20 @@ export default function App() {
             </div>
             <div className="inquiry-widget">
               <div className="inquiry-field">
-                <label>PRODUCT</label>
+                <label>{t.inquiryProduct}</label>
                 <select
                   name="product"
                   value={inquiry.product}
                   onChange={e => setInquiry(prev => ({ ...prev, product: e.target.value }))}
                 >
-                  <option>Tilapia</option>
-                  <option>Catfish</option>
-                  <option>Mixed Order</option>
-                  <option>Nile Perch</option>
+                  <option>{t.optTilapia}</option>
+                  <option>{t.optCatfish}</option>
+                  <option>{t.optMixed}</option>
+                  <option>{t.optNilePerch}</option>
                 </select>
               </div>
               <div className="inquiry-field">
-                <label>PREFERRED DATE</label>
+                <label>{t.inquiryDate}</label>
                 <input
                   type="date"
                   name="preferred_date"
@@ -419,7 +442,7 @@ export default function App() {
                 />
               </div>
               <div className="inquiry-field">
-                <label>VOLUME ({inquiry.unit})</label>
+                <label>{t.inquiryVolume} ({inquiry.unit})</label>
                 <div className="volume-input-group">
                   <input
                     type="number"
@@ -441,7 +464,7 @@ export default function App() {
                 </div>
               </div>
               <button type="button" className="btn-solid inquiry-btn" onClick={handleRequestQuote}>
-                REQUEST QUOTE
+                {t.inquiryBtn}
               </button>
             </div>
           </div>
@@ -485,16 +508,19 @@ export default function App() {
         {/* ── WHY CHOOSE US ── */}
         <section className="why-us" id="why-us">
           <header className="section-lede">
-            <p className="eyebrow">OUR CORE VALUES</p>
-            <h2>Why Partner With Kalinga?</h2>
-            <p>Four pillars that set us apart as the most reliable freshwater fish supplier in the Iringa highland region.</p>
+            <p className="eyebrow">{t.whyEyebrow}</p>
+            <h2>{t.whyH2}</h2>
+            <p>{t.whyP}</p>
           </header>
           <div className="values-grid">
-            {coreValues.map(val => (
+            {[
+              { icon:'bi-award',        tag:t.val1Tag, title:t.val1Title, description:t.val1Desc },
+              { icon:'bi-truck',        tag:t.val2Tag, title:t.val2Title, description:t.val2Desc },
+              { icon:'bi-patch-check',  tag:t.val3Tag, title:t.val3Title, description:t.val3Desc },
+              { icon:'bi-headset',      tag:t.val4Tag, title:t.val4Title, description:t.val4Desc },
+            ].map(val => (
               <article className="value-card" key={val.title}>
-                <div className="value-icon">
-                  <i className={`bi ${val.icon}`}></i>
-                </div>
+                <div className="value-icon"><i className={`bi ${val.icon}`}></i></div>
                 <span className="value-tag">{val.tag}</span>
                 <h3>{val.title}</h3>
                 <p>{val.description}</p>
@@ -506,16 +532,26 @@ export default function App() {
         {/* ── OPERATIONS ── */}
         <section className="operations" id="operations">
           <header className="section-lede">
-            <p className="eyebrow">REAL-TIME OPERATIONS</p>
-            <h2>Live from Our Farm Floor.</h2>
-            <p>Each operational track combines an engineered workflow with live imagery so partners can audit us visually at any time.</p>
+            <p className="eyebrow">{t.opsEyebrow}</p>
+            <h2>{t.opsH2}</h2>
+            <p>{t.opsP}</p>
             <div className="live-badge">
               <span className="live-pulse"></span>
-              3 PROGRAMS CURRENTLY ACTIVE
+              {t.opsLiveBadge}
             </div>
           </header>
           <div className="operations-grid">
-            {capabilityTracks.map(track => (
+            {[
+              { tag:t.ops1Tag, title:t.ops1Title, desc:t.ops1Desc, bullets:[t.ops1b1,t.ops1b2,t.ops1b3],
+                image:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_580/v1772540685/WhatsApp_Image_2026-03-03_at_15.19.07_qdknt1.jpg',
+                alt:'Water-filled fish pond used for aquaculture.' },
+              { tag:t.ops2Tag, title:t.ops2Title, desc:t.ops2Desc, bullets:[t.ops2b1,t.ops2b2,t.ops2b3],
+                image:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_580/v1772540684/WhatsApp_Image_2026-03-03_at_15.19.01_e9fs06.jpg',
+                alt:'Group meeting discussing fish farming project.' },
+              { tag:t.ops3Tag, title:t.ops3Title, desc:t.ops3Desc, bullets:[t.ops3b1,t.ops3b2,t.ops3b3],
+                image:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_580/v1772540683/WhatsApp_Image_2026-03-03_at_15.19.02_ll7cih.jpg',
+                alt:'Participants touring aquaculture facility.' },
+            ].map(track => (
               <article className="capability-card" key={track.title}>
                 <figure className="capability-img">
                   <img src={track.image} alt={track.alt} loading="lazy" onError={applyImageFallback} />
@@ -523,13 +559,13 @@ export default function App() {
                 </figure>
                 <div className="capability-body">
                   <h3>{track.title}</h3>
-                  <p>{track.description}</p>
+                  <p>{track.desc}</p>
                   <ul>
                     {track.bullets.map(point => (
                       <li key={point}><i className="bi bi-check2-circle-fill"></i>{point}</li>
                     ))}
                   </ul>
-                  <a className="card-cta" href="#contact">VIEW DETAILS <i className="bi bi-arrow-right"></i></a>
+                  <a className="card-cta" href="#contact">{t.viewDetails} <i className="bi bi-arrow-right"></i></a>
                 </div>
               </article>
             ))}
@@ -539,37 +575,32 @@ export default function App() {
         <section className="video-showcase" id="video">
           <div className="video-showcase-inner">
             <header className="section-lede">
-              <p className="eyebrow">FARM FOOTAGE</p>
-              <h2>Watch the Operation Live.</h2>
-              <p>
-                Unedited footage from our latest harvests — real conditions, real output,
-                full transparency for every procurement decision.
-              </p>
+              <p className="eyebrow">{t.vidEyebrow}</p>
+              <h2>{t.vidH2}</h2>
+              <p>{t.vidP}</p>
               <div className="video-rec-badge">
                 <span className="rec-dot"></span>
-                2 RECORDINGS AVAILABLE
+                {t.vidRecBadge}
               </div>
             </header>
             <div className="video-grid">
-              {videoShowcase.map(video => (
+              {[
+                { id:'vid1', type:'video', num:'01',
+                  src:'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=fish35_orgaov',
+                  tag:t.vid1Tag, title:t.vid1Title, subtitle:t.vid1Sub },
+                { id:'vid2', type:'video', num:'02',
+                  src:'https://player.cloudinary.com/embed/?cloud_name=diyy8h0d9&public_id=WhatsApp_Video_2026-03-03_at_15.18.51_1_dd8dba',
+                  tag:t.vid2Tag, title:t.vid2Title, subtitle:t.vid2Sub },
+              ].map(video => (
                 <div className="video-card" key={video.id}>
                   <div className="video-frame">
-                    {video.type === 'image' ? (
-                      <img
-                        src={video.src}
-                        alt={video.title}
-                        loading="lazy"
-                        onError={applyImageFallback}
-                      />
-                    ) : (
-                      <iframe
-                        src={video.src}
-                        title={video.title}
-                        allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-                        allowFullScreen
-                        loading="lazy"
-                      />
-                    )}
+                    <iframe
+                      src={video.src}
+                      title={video.title}
+                      allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                      allowFullScreen
+                      loading="lazy"
+                    />
                     <div className="video-frame-overlay">
                       <span className="video-live-chip">
                         <span className="rec-dot rec-dot--red"></span>
@@ -583,7 +614,7 @@ export default function App() {
                     <strong className="video-title">{video.title}</strong>
                     <p className="video-sub">{video.subtitle}</p>
                     <a className="video-cta" href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                      <i className="bi bi-whatsapp"></i> Request farm visit
+                      <i className="bi bi-whatsapp"></i> {t.vidFarmVisit}
                     </a>
                   </div>
                 </div>
@@ -594,18 +625,29 @@ export default function App() {
 
         <section className="gallery" id="gallery">
           <header className="section-lede">
-            <p className="eyebrow">VISUAL JOURNEY</p>
-            <h2>Our Aquaculture Gallery</h2>
-            <p className="section-lede-italic">
-              A glimpse into the heart of the farm — through the eyes of our team and our partners.
-            </p>
+            <p className="eyebrow">{t.galEyebrow}</p>
+            <h2>{t.galH2}</h2>
+            <p className="section-lede-italic">{t.galSub}</p>
           </header>
           <div className="gallery-grid">
-            {galleryStories.map(story => (
+            {[
+              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540689/WhatsApp_Image_2026-03-03_at_15.18.56_2_einjij.jpg',  tag:t.gal1Tag,  alt:'Group participating in practical fish farming training.' },
+              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771848224/fish1_tbbpc4.jpg',  tag:t.gal2Tag,  alt:'Crew hauling a seine net from the pond.' },
+              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540688/WhatsApp_Image_2026-03-03_at_15.19.08_2_yg1xpu.jpg',  tag:t.gal3Tag,  alt:'Outdoor fish pond facility for aquaculture production.' },
+              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771856251/fish66_kfhgex.jpg',  tag:t.gal4Tag,  alt:'Catfish being graded for uniform sizing.' },
+              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540688/WhatsApp_Image_2026-03-03_at_15.18.56_bwz1yq.jpg',  tag:t.gal5Tag,  alt:'Individual holding freshly harvested fish from pond.' },
+              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771856241/fish74_c4lxma.jpg',  tag:t.gal6Tag,  alt:'Fresh tilapia arranged for QA photos.' },
+              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540688/WhatsApp_Image_2026-03-03_at_15.18.57_1_dbjsln.jpg',  tag:t.gal7Tag,  alt:'Participants attending aquaculture awareness meeting.' },
+              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771856240/fish75_drzgls.jpg',  tag:t.gal8Tag,  alt:'Crates being sealed for transport to Dar es Salaam.' },
+              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540687/WhatsApp_Image_2026-03-03_at_15.18.57_qnxwml.jpg',  tag:t.gal9Tag,  alt:'Team inspecting fish pond during field visit.' },
+              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771848223/fish5_zik1l7.jpg',  tag:t.gal10Tag, alt:'Close-up of catfish showing sheen and health.' },
+              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1772540686/WhatsApp_Image_2026-03-03_at_15.18.59_1_davy2w.jpg',  tag:t.gal11Tag, alt:'Display of harvested fish after pond draining.' },
+              { src:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_600,h_740/v1771856264/fish57_mjcpsb.jpg',  tag:t.gal12Tag, alt:'Sunlight reflecting on still pond water.' },
+            ].map(story => (
               <figure className="gallery-card" key={story.src}>
                 <img src={story.src} alt={story.alt} loading="lazy" onError={applyImageFallback} />
                 <figcaption>
-                  <span className="gallery-ops-badge">KALINGA PHOTO OPS</span>
+                  <span className="gallery-ops-badge">{t.galBadge}</span>
                   <p>{story.tag}</p>
                 </figcaption>
               </figure>
@@ -615,7 +657,7 @@ export default function App() {
 
         <section className="photo-strip" aria-label="Photo highlights">
           <div className="strip-header">
-            <p className="eyebrow">FOLLOW OUR INSTAGRAM</p>
+            <p className="eyebrow">{t.stripEyebrow}</p>
             <a href={instagramLink} target="_blank" rel="noopener noreferrer" className="strip-ig-handle">
               <i className="bi bi-instagram"></i> @KALINGA_FISH_FARM_IRINGA
             </a>
@@ -634,18 +676,16 @@ export default function App() {
         <section className="credentials">
           <div className="credentials-inner">
             <div className="credentials-badge-col">
-              <div className="cred-shield">
-                <i className="bi bi-shield-fill-check"></i>
-              </div>
-              <p className="cred-caption">VERIFIED OPERATOR</p>
+              <div className="cred-shield"><i className="bi bi-shield-fill-check"></i></div>
+              <p className="cred-caption">{t.credBadge}</p>
             </div>
             <div className="credentials-content">
-              <p className="eyebrow cred-eyebrow">CREDENTIALS & MEMBERSHIP</p>
-              <h2>Independently Audited.<br/>Open for Inspection.</h2>
-              <p className="cred-sub">Every buyer can request farm access, compliance documents, and third-party audit reports within 48 hours.</p>
+              <p className="eyebrow cred-eyebrow">{t.credEyebrow}</p>
+              <h2>{t.credH2a}<br/>{t.credH2b}</h2>
+              <p className="cred-sub">{t.credSub}</p>
               <ul className="accolade-list">
-                {accolades.map((item, idx) => (
-                  <li key={item}>
+                {[t.accolade1, t.accolade2, t.accolade3, t.accolade4].map((item, idx) => (
+                  <li key={idx}>
                     <span className="cred-num">{String(idx + 1).padStart(2,'0')}</span>
                     <i className="bi bi-check2-circle"></i>
                     {item}
@@ -658,14 +698,17 @@ export default function App() {
 
         <section className="contact" id="contact">
           <header className="section-lede">
-            <p className="eyebrow">CONNECT WITH OPERATIONS</p>
-            <h2>Direct Line to Our Harvest Planning Desk.</h2>
-            <p>
-              Share your volume targets, preferred dispatch windows, and compliance requirements. We respond within one business day — often sooner.
-            </p>
+            <p className="eyebrow">{t.contactEyebrow}</p>
+            <h2>{t.contactH2}</h2>
+            <p>{t.contactP}</p>
           </header>
           <div className="contact-channels">
-            {contactChannels.map(channel => (
+            {[
+              { icon:'bi-telephone', label:t.chCall,     value:'+255 672 411 558',        link:'tel:+255672411558' },
+              { icon:'bi-whatsapp',  label:t.chWhatsApp, value:'+255 672 411 558',        link:whatsappLink },
+              { icon:'bi-envelope',  label:t.chEmail,    value:'kalingaklaus3@gmail.com', link:'mailto:kalingaklaus3@gmail.com' },
+              { icon:'bi-geo-alt',   label:t.chVisit,    value:'Iringa, Tanzania',        link:'https://maps.google.com/?q=Iringa,Tanzania' },
+            ].map(channel => (
               <a
                 key={channel.label}
                 className="channel-card"
@@ -695,14 +738,14 @@ export default function App() {
       <div className="cta-band">
         <div className="cta-band-inner">
           <div className="cta-band-copy">
-            <p className="cta-band-eyebrow">READY TO ORDER?</p>
-            <h2>Place Your Bulk Order Today.</h2>
-            <p>Our harvest planning desk is standing by. Share your volume targets and we'll confirm availability within one business day.</p>
+            <p className="cta-band-eyebrow">{t.ctaEyebrow}</p>
+            <h2>{t.ctaH2}</h2>
+            <p>{t.ctaP}</p>
           </div>
           <div className="cta-band-actions">
             <a className="cta-band-btn cta-band-btn--primary" href={whatsappLink} target="_blank" rel="noopener noreferrer">
               <i className="bi bi-whatsapp"></i>
-              Chat on WhatsApp
+              {t.ctaChat}
             </a>
             <a className="cta-band-btn cta-band-btn--ghost" href="tel:+255672411558">
               <i className="bi bi-telephone-fill"></i>
@@ -718,18 +761,38 @@ export default function App() {
             <img src={remoteLogoSrc} alt="Kalinga Fish Farm" onError={applyLogoFallback} />
             <div>
               <p className="footer-brand-name">Kalinga Fish Farm</p>
-              <span>Premium freshwater aquaculture · Iringa, Tanzania</span>
+              <span>{t.footerTagline}</span>
             </div>
-            <p className="footer-desc">
-              Delivering certified, farm-fresh fish to East African retailers, hotels, and institutions since 2014. Transparency and quality at every step.
-            </p>
+            <p className="footer-desc">{t.footerDesc}</p>
             <address className="footer-contact-info">
               <a href="tel:+255672411558"><i className="bi bi-telephone-fill"></i> +255 672 411 558</a>
               <a href="mailto:kalingaklaus3@gmail.com"><i className="bi bi-envelope-fill"></i> kalingaklaus3@gmail.com</a>
               <span><i className="bi bi-geo-alt-fill"></i> Iringa, Tanzania</span>
             </address>
           </div>
-          {footerCategories.map(cat => (
+          {[
+            { title: t.footerCol1Title, links: [
+              { label: t.footerCol1L1, href: '#gallery' },
+              { label: t.footerCol1L2, href: '#gallery' },
+              { label: t.footerCol1L3, href: '#gallery' },
+              { label: t.footerCol1L4, href: '#contact' },
+              { label: t.footerCol1L5, href: '#contact' },
+            ]},
+            { title: t.footerCol2Title, links: [
+              { label: t.footerCol2L1, href: '#contact' },
+              { label: t.footerCol2L2, href: '#contact' },
+              { label: t.footerCol2L3, href: '#contact' },
+              { label: t.footerCol2L4, href: '#contact' },
+              { label: t.footerCol2L5, href: '#operations' },
+            ]},
+            { title: t.footerCol3Title, links: [
+              { label: t.footerCol3L1, href: '#why-us' },
+              { label: t.footerCol3L2, href: '#why-us' },
+              { label: t.footerCol3L3, href: '#gallery' },
+              { label: t.footerCol3L4, href: '#contact' },
+              { label: t.footerCol3L5, href: whatsappLink },
+            ]},
+          ].map(cat => (
             <div className="footer-col" key={cat.title}>
               <h4>{cat.title}</h4>
               <ul>
@@ -748,7 +811,7 @@ export default function App() {
             </div>
           ))}
           <div className="footer-social-col">
-            <h4>FOLLOW US</h4>
+            <h4>{t.footerFollow}</h4>
             <div className="footer-social">
               {socialLinks.map(link => (
                 <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
@@ -760,10 +823,10 @@ export default function App() {
           </div>
         </div>
         <div className="footer-legal">
-          <span>CERTIFIED AQUACULTURE OPERATORS</span>
-          <span>TANZANIA FISHERIES BOARD MEMBER</span>
-          <span>© {currentYear} KALINGA FISH FARM. ALL RIGHTS RESERVED.</span>
-          <span>DESIGNED FOR THE MODERN BUYER.</span>
+          <span>{t.footerLegal1}</span>
+          <span>{t.footerLegal2}</span>
+          <span>{t.footerLegal3(currentYear)}</span>
+          <span>{t.footerLegal4}</span>
         </div>
       </footer>
     </div>
@@ -774,10 +837,10 @@ export default function App() {
       href={whatsappLink}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat on WhatsApp"
+      aria-label={t.fabLabel}
     >
       <i className="bi bi-whatsapp"></i>
-      <span>Chat with us</span>
+      <span>{t.fabLabel}</span>
     </a>
     </>
   );
