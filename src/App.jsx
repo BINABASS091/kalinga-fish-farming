@@ -357,13 +357,6 @@ export default function App() {
             <i className="bi bi-translate"></i>
             <span>{t.langSwitchLabel}</span>
           </button>
-          <div className="header-socials">
-            {socialLinks.map(link => (
-              <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
-                <i className={`bi ${link.icon}`}></i>
-              </a>
-            ))}
-          </div>
           <button
             className={`nav-toggle${menuOpen ? ' nav-toggle--open' : ''}`}
             aria-label="Toggle menu"
