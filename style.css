@@ -2359,6 +2359,223 @@ main { display:flex; flex-direction:column; }
   .fab-wa span { display: none; }
   .fab-wa { padding: 14px; }
 }
+
+/* ================================================================
+   COMPREHENSIVE RESPONSIVE SYSTEM — FULL DEVICE COVERAGE
+   Breakpoints: 1200 · 1080 · 1020 · 940 · 860 · 720 · 600 · 480 · 360
+   ================================================================ */
+
+/* ── 1080px: footer starts reflowing ── */
+@media (max-width: 1080px) {
+  .footer-inner {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px 28px;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+  }
+  .footer-brand img  { flex-shrink: 0; }
+  .footer-social-col {
+    grid-column: 1 / -1;
+  }
+  .footer-social-col .footer-social {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .footer-social-col .footer-social a {
+    width: auto;
+    flex: 1 1 auto;
+    max-width: 160px;
+  }
+}
+
+/* ── 1020px: footer → 2-col link block ── */
+@media (max-width: 1020px) {
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .footer-brand     { grid-column: 1 / -1; }
+  .footer-social-col{ grid-column: 1 / -1; }
+}
+
+/* ── 940px: tighten section padding across the board ── */
+@media (max-width: 940px) {
+  .operations,
+  .credentials,
+  .contact         { padding: 72px clamp(20px, 4vw, 48px); }
+  .why-us          { padding: 80px clamp(20px, 4vw, 48px); }
+  .gallery         { padding: 72px clamp(20px, 4vw, 48px); }
+  .video-showcase  { padding: 80px clamp(20px, 4vw, 48px); }
+  .photo-strip     { padding: 52px 0; }
+  .values-grid     { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── 860px additions (supplement existing block) ── */
+@media (max-width: 860px) {
+  .footer-inner      { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .footer-brand      { grid-column: 1 / -1; }
+  .footer-social-col { grid-column: 1 / -1; }
+  .footer-social-col .footer-social { flex-direction: row; flex-wrap: wrap; }
+  .footer-social-col .footer-social a { width: auto; flex: 1 1 auto; max-width: 150px; }
+}
+
+/* ── 720px additions (supplement existing block) ── */
+@media (max-width: 720px) {
+  /* Top-bar lang-toggle hidden — already in header */
+  .top-bar-right .lang-toggle { display: none; }
+
+  /* Tighter dark sections */
+  .operations         { padding: 60px clamp(16px, 4vw, 28px); }
+  .credentials        { padding: 60px clamp(16px, 4vw, 28px); }
+  .contact            { padding: 60px clamp(16px, 4vw, 28px); }
+  .gallery            { padding: 60px clamp(16px, 4vw, 28px); }
+  .video-showcase     { padding: 60px clamp(16px, 4vw, 28px); }
+
+  /* Hero copy top padding — prevent content hiding under sticky header */
+  .hero-content       { padding-top: clamp(12px, 6vh, 40px); }
+
+  /* Inquiry widget */
+  .inquiry-widget     { flex-direction: column; gap: 12px; }
+  .inquiry-field      { flex: unset; width: 100%; }
+  .inquiry-btn        { width: 100%; justify-content: center; }
+
+  /* Section lede full width */
+  .section-lede       { max-width: 100%; }
+
+  /* Strip header */
+  .strip-header       { padding: 28px clamp(16px, 4vw, 28px) 16px; }
+
+  /* Footer */
+  .footer-inner       { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .footer-brand       { grid-column: 1 / -1;
+                        flex-direction: column;
+                        gap: 10px; }
+  .footer-social-col  { grid-column: 1 / -1; }
+
+  /* Credential grid */
+  .credentials-inner  { grid-template-columns: 1fr; gap: 28px; }
+  .credentials-badge-col {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 18px;
+  }
+  .cred-shield        { width: 72px; height: 72px; font-size: 2rem; }
+
+  /* Gallery 2-col on mid-tablet */
+  .gallery-grid       { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .gallery-card:first-child  { grid-row: span 1; aspect-ratio: 3/4; }
+  .gallery-card:nth-child(6) { grid-column: span 1; aspect-ratio: 3/4; }
+}
+
+/* ── 600px: contact + gallery fully single-column ── */
+@media (max-width: 600px) {
+  .contact-channels   { grid-template-columns: 1fr; gap: 10px; }
+  .gallery-grid       { grid-template-columns: 1fr; gap: 10px; }
+  .gallery-card       { aspect-ratio: 16/9; }
+  .gallery-card:first-child  { aspect-ratio: 16/9; }
+  .gallery-card:nth-child(6) { grid-column: span 1; aspect-ratio: 16/9; }
+  .footer-inner       { grid-template-columns: 1fr; gap: 24px; }
+  .footer-brand       { grid-column: 1; }
+  .footer-social-col  { grid-column: 1; }
+  .footer-social-col .footer-social { flex-direction: column; }
+  .footer-social-col .footer-social a { max-width: 100%; }
+  /* Values 1-col */
+  .values-grid        { grid-template-columns: 1fr; }
+}
+
+/* ── 480px additions (supplement existing block) ── */
+@media (max-width: 480px) {
+  .footer-inner       { grid-template-columns: 1fr; gap: 24px; }
+  .strip-header       { padding: 20px 18px 12px; }
+  .cta-band-inner     { padding: 42px 18px; }
+  .cta-band-copy h2   { font-size: 1.5rem; }
+  .contact-channels   { grid-template-columns: 1fr; }
+  .channel-card       { padding: 14px 16px; }
+  .gallery-grid       { grid-template-columns: 1fr; gap: 8px; }
+  /* Prevent translateX overflow on narrow screens */
+  .accolade-list li:hover  { transform: none; }
+  .channel-card:hover      { transform: none; box-shadow: none; }
+  .footer-col ul li a:hover{ gap: 6px; }
+  /* Inquiry */
+  .inquiry-btn             { font-size: .76rem; }
+  /* Why-us */
+  .value-card              { padding: 24px 20px; }
+  /* Video */
+  .video-caption           { padding: 16px 16px 18px; }
+  .video-title             { font-size: .94rem; }
+  .video-sub               { font-size: .78rem; }
+  /* Credentials */
+  .cred-shield             { width: 56px; height: 56px; font-size: 1.6rem; }
+  .accolade-list li        { padding: 11px 14px; font-size: .8rem; gap: 10px; }
+}
+
+/* ── 360px: micro-screen extras ── */
+@media (max-width: 360px) {
+  /* Lang toggle in header: icon only */
+  .lang-toggle--header span { display: none; }
+  .lang-toggle--header      { padding: 6px 9px; }
+
+  /* Nav CTA: already icon-only at 720px — keep it */
+  .nav-cta { padding: 8px 12px; }
+
+  /* Layout */
+  .hero-copy h1          { font-size: 1.55rem; letter-spacing: -.02em; }
+  .metric-grid           { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .metric span           { font-size: 1.2rem; }
+  .metric                { padding: 10px 12px; }
+  .hero-arrows           { display: none; }
+  .hero-controls         { gap: 6px; }
+
+  /* Strip */
+  .strip-item            { width: 140px; height: 160px; }
+
+  /* Buttons full-width */
+  .btn-solid             { width: 100%; justify-content: center; }
+  .cta-band-btn          { width: 100%; justify-content: center; }
+  .cta-band-actions      { width: 100%; }
+
+  /* Contact */
+  .channel-card          { padding: 12px 14px; gap: 12px; }
+  .channel-card strong   { font-size: .82rem; word-break: break-word; }
+
+  /* Footer */
+  .footer-inner          { padding: 44px 16px 28px; gap: 20px; }
+  .footer-legal          { padding: 14px 16px; gap: 4px; }
+
+  /* Credentials */
+  .accolade-list li      { padding: 10px 12px; font-size: .78rem; }
+  .cred-shield           { width: 48px; height: 48px; font-size: 1.4rem; }
+}
+
+/* ── Touch devices: disable transform-based hover effects ── */
+@media (hover: none) and (pointer: coarse) {
+  .accolade-list li:hover  { transform: none; }
+  .channel-card:hover      { transform: none; box-shadow: none; }
+  .capability-card:hover   { transform: none; box-shadow: none; }
+  .gallery-card:hover img  { transform: none; }
+  .value-card:hover        { transform: none; box-shadow: none; }
+  .video-card:hover        { transform: none; box-shadow: none; }
+  .metric:hover            { transform: none; }
+  .nav-cta:hover           { transform: none; box-shadow: none; }
+  .btn-solid:hover         { transform: none; filter: none; }
+  .hero-arrow:hover        { transform: none; }
+  .footer-social a:hover   { transform: none; box-shadow: none; }
+  .card-cta:hover          { transform: none; }
+  .video-cta:hover         { transform: none; }
+  .strip-item:hover        { transform: none; }
+  .footer-brand img:hover  { transform: none; box-shadow: none; }
+  .cta-band-btn--primary:hover { transform: none; filter: none; }
+  .cta-band-btn--ghost:hover   { transform: none; }
+  .lang-toggle:hover       { transform: none; }
+}
+
 .splash-shell {
   position: fixed;
   inset: 0;
