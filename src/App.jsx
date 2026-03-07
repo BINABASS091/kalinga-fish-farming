@@ -82,24 +82,31 @@ const socialLinks = [
   { icon: 'bi-facebook', href: facebookLink, label: 'Facebook' }
 ];
 
+// Product-shot transform: c_pad fills white/transparent bg with dark navy, ar_16:9 fits the hero frame
+const PAD = 'f_auto,q_auto,c_pad,b_rgb:04090f,ar_16:9,w_1400,g_center';
+// Natural/contextual photo transform: standard cover crop
+const COVER = 'f_auto,q_auto,c_fill,ar_16:9,w_1400,g_auto';
+
 const heroSlides = [
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632446/catfish15_mpozfb.jpg',          alt: 'Catfish at Kalinga Fish Farm' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632449/black-tilapia-tilapia_hiqddv.jpg', alt: 'Black tilapia harvest' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632445/black-tilapia-tilapia_1_ihlddc.jpg', alt: 'Premium tilapia freshwater fish' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632444/catfish3_gu3gjl.webp',          alt: 'Catfish ready for dispatch' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632443/catfish4_zjddvp.jpg',           alt: 'Fresh catfish from Kalinga Farm' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632442/catfish10_sbvtuq.jpg',          alt: 'Catfish harvest Iringa Tanzania' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632442/catfish16_okpryh.jpg',          alt: 'Catfish farming operations' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632442/catfish7_dvdox8.jpg',           alt: 'Freshwater catfish supply' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632441/catfish8_ckz2rs.jpg',           alt: 'Certified aquaculture catfish' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632441/catfish9_hwcsba.jpg',           alt: 'Catfish pond Kalinga' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632441/catfish11_e9ktqx.jpg',          alt: 'Premium catfish East Africa' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632440/catfish13_ovxgev.jpg',          alt: 'Catfish bulk order supply' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632440/catfish1_ya4s2y.jpg',           alt: 'Farm-fresh catfish Tanzania' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632439/catfish15_kmcxhj.jpg',          alt: 'Kalinga catfish harvest' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632439/catfish14_vg1p0y.jpg',          alt: 'Catfish aquaculture Iringa' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632439/catfish17_regowx.jpg',          alt: 'Catfish dispatch Kalinga Farm' },
-  { src: 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,w_1100/v1772632439/catfish18_vz8hrx.jpg',          alt: 'Quality catfish freshwater fish' },
+  // ── Contextual farm / action photos ─────────────────────────────
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${COVER}/v1772632446/catfish15_mpozfb.jpg`,           alt: 'Catfish at Kalinga Fish Farm' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${COVER}/v1772632444/catfish3_gu3gjl.webp`,           alt: 'Catfish ready for dispatch' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${COVER}/v1772632441/catfish11_e9ktqx.jpg`,           alt: 'Premium catfish East Africa' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${COVER}/v1772632440/catfish1_ya4s2y.jpg`,            alt: 'Farm-fresh catfish Tanzania' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${COVER}/v1772632439/catfish17_regowx.jpg`,           alt: 'Catfish dispatch Kalinga Farm' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${COVER}/v1772632439/catfish18_vz8hrx.jpg`,           alt: 'Quality catfish freshwater fish' },
+  // ── Product studio shots — padded onto dark navy background ──────
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632449/black-tilapia-tilapia_hiqddv.jpg`, alt: 'Black tilapia — premium grade' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632445/black-tilapia-tilapia_1_ihlddc.jpg`, alt: 'Premium tilapia freshwater fish' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632443/catfish4_zjddvp.jpg`,              alt: 'Fresh catfish from Kalinga Farm' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632442/catfish10_sbvtuq.jpg`,             alt: 'Catfish harvest Iringa Tanzania' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632442/catfish16_okpryh.jpg`,             alt: 'Catfish farming operations' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632442/catfish7_dvdox8.jpg`,              alt: 'Freshwater catfish supply' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632441/catfish8_ckz2rs.jpg`,              alt: 'Certified aquaculture catfish' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632441/catfish9_hwcsba.jpg`,              alt: 'Catfish pond Kalinga' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632440/catfish13_ovxgev.jpg`,             alt: 'Catfish bulk order supply' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632439/catfish15_kmcxhj.jpg`,             alt: 'Kalinga catfish harvest' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632439/catfish14_vg1p0y.jpg`,             alt: 'Catfish aquaculture Iringa' },
 ];
 
 const proofMetrics = [
