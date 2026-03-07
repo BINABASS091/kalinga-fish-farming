@@ -77,10 +77,13 @@ const footerCategories = [
   }
 ];
 
+const gmailLink = 'mailto:kalingaklaus3@gmail.com';
+
 const socialLinks = [
-  { icon: 'bi-whatsapp', href: whatsappLink, label: 'WhatsApp' },
-  { icon: 'bi-instagram', href: instagramLink, label: 'Instagram' },
-  { icon: 'bi-facebook', href: facebookLink, label: 'Facebook' }
+  { icon: 'bi-whatsapp',    href: whatsappLink,  label: 'WhatsApp'  },
+  { icon: 'bi-instagram',   href: instagramLink, label: 'Instagram' },
+  { icon: 'bi-envelope-at-fill', href: gmailLink, label: 'Gmail'   },
+  { icon: 'bi-facebook',    href: facebookLink,  label: 'Facebook'  },
 ];
 
 // Product-shot transform: c_pad fills white/transparent bg with dark navy, ar_16:9 fits the hero frame
