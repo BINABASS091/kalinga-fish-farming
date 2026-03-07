@@ -423,55 +423,6 @@ export default function App() {
                 </article>
               ))}
             </div>
-            <div className="inquiry-widget">
-              <div className="inquiry-field">
-                <label>{t.inquiryProduct}</label>
-                <select
-                  name="product"
-                  value={inquiry.product}
-                  onChange={e => setInquiry(prev => ({ ...prev, product: e.target.value }))}
-                >
-                  <option>{t.optTilapia}</option>
-                  <option>{t.optCatfish}</option>
-                  <option>{t.optMixed}</option>
-                  <option>{t.optNilePerch}</option>
-                </select>
-              </div>
-              <div className="inquiry-field">
-                <label>{t.inquiryDate}</label>
-                <input
-                  type="date"
-                  name="preferred_date"
-                  value={inquiry.date}
-                  onChange={e => setInquiry(prev => ({ ...prev, date: e.target.value }))}
-                />
-              </div>
-              <div className="inquiry-field">
-                <label>{t.inquiryVolume} ({inquiry.unit})</label>
-                <div className="volume-input-group">
-                  <input
-                    type="number"
-                    name="volume_kg"
-                    placeholder="e.g. 500"
-                    min="1"
-                    value={inquiry.volume}
-                    onChange={e => setInquiry(prev => ({ ...prev, volume: e.target.value }))}
-                  />
-                  <select
-                    className="unit-select"
-                    value={inquiry.unit}
-                    onChange={e => setInquiry(prev => ({ ...prev, unit: e.target.value }))}
-                    aria-label="Unit"
-                  >
-                    <option value="KG">KG</option>
-                    <option value="TONNE">TONNE</option>
-                  </select>
-                </div>
-              </div>
-              <button type="button" className="btn-solid inquiry-btn" onClick={handleRequestQuote}>
-                {t.inquiryBtn}
-              </button>
-            </div>
           </div>
         </div>
 
