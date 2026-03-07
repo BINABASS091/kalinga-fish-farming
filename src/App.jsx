@@ -319,11 +319,6 @@ export default function App() {
               <i className="bi bi-translate"></i>
               <span>{t.langSwitchLabel}</span>
             </button>
-            {socialLinks.map(link => (
-              <a key={link.href} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
-                <i className={`bi ${link.icon}`}></i>
-              </a>
-            ))}
           </div>
         </div>
       </div>
@@ -832,6 +827,22 @@ export default function App() {
           <span>{t.footerLegal4}</span>
         </div>
       </footer>
+    </div>
+
+    {/* ── FLOATING SOCIAL CLUSTER (bottom-right) ── */}
+    <div className="fab-socials">
+      {socialLinks.filter(l => l.label !== 'WhatsApp').map(link => (
+        <a
+          key={link.href}
+          className="fab-social-icon"
+          href={link.href}
+          aria-label={link.label}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i className={`bi ${link.icon}`}></i>
+        </a>
+      ))}
     </div>
 
     {/* ── FLOATING WHATSAPP FAB ── */}
