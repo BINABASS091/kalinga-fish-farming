@@ -254,7 +254,7 @@ const applyImageFallback = event => {
 };
 
 export default function App() {
-  const [inquiry, setInquiry] = useState({ product: 'Tilapia', date: '', volume: '' });
+  const [inquiry, setInquiry] = useState({ product: 'Tilapia', date: '', volume: '', unit: 'KG' });
   const [showSplash, setShowSplash] = useState(true);
   const handleSplashDone = useCallback(() => setShowSplash(false), []);
 
@@ -413,15 +413,26 @@ export default function App() {
                 />
               </div>
               <div className="inquiry-field">
-                <label>VOLUME (KG)</label>
-                <input
-                  type="number"
-                  name="volume_kg"
-                  placeholder="e.g. 500"
-                  min="1"
-                  value={inquiry.volume}
-                  onChange={e => setInquiry(prev => ({ ...prev, volume: e.target.value }))}
-                />
+                <label>VOLUME ({inquiry.unit})</label>
+                <div className="volume-input-group">
+                  <input
+                    type="number"
+                    name="volume_kg"
+                    placeholder="e.g. 500"
+                    min="1"
+                    value={inquiry.volume}
+                    onChange={e => setInquiry(prev => ({ ...prev, volume: e.target.value }))}
+                  />
+                  <select
+                    className="unit-select"
+                    value={inquiry.unit}
+                    onChange={e => setInquiry(prev => ({ ...prev, unit: e.target.value }))}
+                    aria-label="Unit"
+                  >
+                    <option value="KG">KG</option>
+                    <option value="TONNE">TONNE</option>
+                  </select>
+                </div>
               </div>
               <button type="button" className="btn-solid inquiry-btn" onClick={handleRequestQuote}>
                 REQUEST QUOTE

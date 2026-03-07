@@ -1496,6 +1496,51 @@ main { display:flex; flex-direction:column; }
   padding: 10px 22px !important;
 }
 
+/* Volume field with inline unit selector */
+.volume-input-group {
+  display: flex;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color var(--t) var(--ease);
+}
+.volume-input-group:focus-within { border-color: var(--teal); }
+.volume-input-group input {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255,255,255,.05);
+  border: none;
+  border-radius: 0;
+  color: var(--heading);
+  font-family: inherit;
+  font-size: .84rem;
+  padding: 9px 12px;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.unit-select {
+  flex-shrink: 0;
+  background: rgba(46,213,169,.1);
+  border: none;
+  border-left: 1px solid var(--border);
+  border-radius: 0;
+  color: #2ed5a9;
+  font-family: inherit;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  padding: 0 10px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  text-align: center;
+  transition: background var(--t) var(--ease);
+}
+.unit-select:hover { background: rgba(46,213,169,.18); }
+.unit-select option { background: #0d1f3c; color: #ffffff; }
+
 /* ================================================================
    WHY US — CORE VALUES
    ================================================================ */
