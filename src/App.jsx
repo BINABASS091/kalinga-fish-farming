@@ -94,6 +94,7 @@ const heroSlides = [
   { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632442/catfish10_sbvtuq.jpg`,             alt: 'Catfish harvest Iringa Tanzania' },
   { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${COVER}/v1772632439/catfish18_vz8hrx.jpg`,           alt: 'Quality catfish freshwater fish' },
   { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632439/catfish14_vg1p0y.jpg`,             alt: 'Catfish aquaculture Iringa' },
+  { src: `https://res.cloudinary.com/diyy8h0d9/image/upload/${PAD}/v1772632440/catfish2_d2spxc.jpg`,              alt: 'Catfish ready for market' },
 ];
 
 const proofMetrics = [
