@@ -503,16 +503,19 @@ export default function App() {
           <div className="operations-grid">
             {[
               { tag:t.ops1Tag, title:t.ops1Title, desc:t.ops1Desc, bullets:[t.ops1b1,t.ops1b2,t.ops1b3],
-                image:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_580/v1772540685/WhatsApp_Image_2026-03-03_at_15.19.07_qdknt1.jpg',
+                status:'active',
+                image:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_600/v1772540685/WhatsApp_Image_2026-03-03_at_15.19.07_qdknt1.jpg',
                 alt:'Water-filled fish pond used for aquaculture.' },
               { tag:t.ops2Tag, title:t.ops2Title, desc:t.ops2Desc, bullets:[t.ops2b1,t.ops2b2,t.ops2b3],
-                image:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_580/v1772540684/WhatsApp_Image_2026-03-03_at_15.19.01_e9fs06.jpg',
+                status:'flagship',
+                image:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_600/v1772540684/WhatsApp_Image_2026-03-03_at_15.19.01_e9fs06.jpg',
                 alt:'Group meeting discussing fish farming project.' },
               { tag:t.ops3Tag, title:t.ops3Title, desc:t.ops3Desc, bullets:[t.ops3b1,t.ops3b2,t.ops3b3],
-                image:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_580/v1772540683/WhatsApp_Image_2026-03-03_at_15.19.02_ll7cih.jpg',
+                status:'certified',
+                image:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_600/v1772540683/WhatsApp_Image_2026-03-03_at_15.19.02_ll7cih.jpg',
                 alt:'Participants touring aquaculture facility.' },
             ].map(track => (
-              <article className="capability-card" key={track.title}>
+              <article className="capability-card" data-status={track.status} key={track.title}>
                 <figure className="capability-img">
                   <img src={track.image} alt={track.alt} loading="lazy" onError={applyImageFallback} />
                   <span className="capability-tag">{track.tag}</span>
