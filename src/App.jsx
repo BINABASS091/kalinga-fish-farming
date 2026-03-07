@@ -400,6 +400,13 @@ export default function App() {
         {/* Cinematic dark overlay */}
         <div className="hero-overlay" />
 
+        {/* Ambient glow orbs */}
+        <div className="hero-ambient" aria-hidden="true">
+          <span className="h-orb h-orb--teal" />
+          <span className="h-orb h-orb--blue" />
+          <span className="h-orb h-orb--mid" />
+        </div>
+
         {/* Centred content */}
         <div className="hero-content">
           <div className="hero-copy">
@@ -410,18 +417,16 @@ export default function App() {
               {t.heroTitle3}
             </h1>
             <p className="hero-lead">{t.heroLead}</p>
-            <div className="metric-grid">
-              {[
-                { value: '12',   label: t.metric1Label },
-                { value: '1.2T', label: t.metric2Label },
-                { value: '72h',  label: t.metric3Label },
-                { value: '200+', label: t.metric4Label },
-              ].map(metric => (
-                <article className="metric" key={metric.label}>
-                  <span>{metric.value}</span>
-                  <p>{metric.label}</p>
-                </article>
-              ))}
+            <div className="hero-rule" aria-hidden="true" />
+            <div className="hero-cta-row">
+              <a className="btn-solid" href="#operations">
+                <i className="bi bi-chevron-right-circle-fill"></i>
+                {t.heroCta1}
+              </a>
+              <a className="btn-glass" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                <i className="bi bi-whatsapp"></i>
+                {t.heroCta2}
+              </a>
             </div>
           </div>
         </div>

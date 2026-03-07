@@ -22,6 +22,8 @@ const translations = {
     heroTitle2: 'Premium',
     heroTitle3: 'Freshwater Fish',
     heroLead:   'Official harvest partner for East African retailers, hoteliers, and institutional buyers. Full transparency from water management to final dispatch.',
+    heroCta1:   'Explore Our Farm',
+    heroCta2:   'WhatsApp Us',
 
     /* Metrics */
     metric1Label: 'Operational ponds',
@@ -210,6 +212,8 @@ const translations = {
     heroTitle2: 'Samaki Bora',
     heroTitle3: 'wa Maji Baridi',
     heroLead:   'Mshirika rasmi wa mavuno kwa wasambazaji, wamiliki wa hoteli, na wanunuzi wa taasisi Afrika Mashariki. Uwazi kamili kutoka usimamizi wa maji hadi usafirishaji wa mwisho.',
+    heroCta1:   'Chunguza Shamba Letu',
+    heroCta2:   'Piga WhatsApp',
 
     /* Metrics */
     metric1Label: 'Mabwawa yanayofanya kazi',
