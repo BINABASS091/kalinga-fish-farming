@@ -239,6 +239,8 @@ const contactChannels = [
   { icon: 'bi-geo-alt',  label: 'Visit us',   value: 'Iringa, Tanzania',        link: 'https://maps.google.com/?q=Iringa,Tanzania' }
 ];
 
+const currentYear = new Date().getFullYear();
+
 const applyLogoFallback = event => {
   const img = event.currentTarget;
   if (img.dataset.fallbackApplied) return;
@@ -276,9 +278,12 @@ export default function App() {
   }, []);
 
   const handleRequestQuote = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    const product = inquiry.product;
+    const vol = inquiry.volume ? ` — ${inquiry.volume} ${inquiry.unit}` : '';
+    const date = inquiry.date ? `, preferred delivery: ${inquiry.date}` : '';
+    const msg = `Hello Kalinga Fish Farm! I'd like to request a quote for ${product}${vol}${date}. Please confirm availability and pricing.`;
+    window.open(`https://wa.me/255672411558?text=${encodeURIComponent(msg)}`, '_blank');
   };
-  const currentYear = new Date().getFullYear();
 
   const handlePrev = () => setHeroSlide(prev => (prev - 1 + heroSlides.length) % heroSlides.length);
   const handleNext = () => setHeroSlide(prev => (prev + 1) % heroSlides.length);
@@ -520,7 +525,7 @@ export default function App() {
                   <p>{track.description}</p>
                   <ul>
                     {track.bullets.map(point => (
-                      <li key={point}><i className="bi bi-check2"></i>{point}</li>
+                      <li key={point}><i className="bi bi-check2-circle-fill"></i>{point}</li>
                     ))}
                   </ul>
                   <a className="card-cta" href="#contact">VIEW DETAILS <i className="bi bi-arrow-right"></i></a>
@@ -596,7 +601,7 @@ export default function App() {
           <div className="strip-viewport">
             <div className="strip-track" aria-hidden="true">
               {[...photoStrip, ...photoStrip].map((item, i) => (
-                <figure className="strip-item" key={i}>
+                <figure className="strip-item" key={`${item.src}-${i}`}>
                   <img src={item.src} alt={item.alt} loading="lazy" onError={applyImageFallback} />
                 </figure>
               ))}
@@ -605,18 +610,28 @@ export default function App() {
         </section>
 
         <section className="credentials">
-          <div className="section-lede">
-            <p className="eyebrow">CREDENTIALS & MEMBERSHIP</p>
-            <h2>Independently Audited. Open for Inspection.</h2>
+          <div className="credentials-inner">
+            <div className="credentials-badge-col">
+              <div className="cred-shield">
+                <i className="bi bi-shield-fill-check"></i>
+              </div>
+              <p className="cred-caption">VERIFIED OPERATOR</p>
+            </div>
+            <div className="credentials-content">
+              <p className="eyebrow cred-eyebrow">CREDENTIALS & MEMBERSHIP</p>
+              <h2>Independently Audited.<br/>Open for Inspection.</h2>
+              <p className="cred-sub">Every buyer can request farm access, compliance documents, and third-party audit reports within 48 hours.</p>
+              <ul className="accolade-list">
+                {accolades.map((item, idx) => (
+                  <li key={item}>
+                    <span className="cred-num">{String(idx + 1).padStart(2,'0')}</span>
+                    <i className="bi bi-check2-circle"></i>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <ul className="accolade-list">
-            {accolades.map(item => (
-              <li key={item}>
-                <i className="bi bi-check-circle"></i>
-                {item}
-              </li>
-            ))}
-          </ul>
         </section>
 
         <section className="contact" id="contact">
@@ -653,6 +668,27 @@ export default function App() {
           </div>
         </section>
       </main>
+
+      {/* ── PRE-FOOTER CTA BAND ── */}
+      <div className="cta-band">
+        <div className="cta-band-inner">
+          <div className="cta-band-copy">
+            <p className="cta-band-eyebrow">READY TO ORDER?</p>
+            <h2>Place Your Bulk Order Today.</h2>
+            <p>Our harvest planning desk is standing by. Share your volume targets and we'll confirm availability within one business day.</p>
+          </div>
+          <div className="cta-band-actions">
+            <a className="cta-band-btn cta-band-btn--primary" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+              <i className="bi bi-whatsapp"></i>
+              Chat on WhatsApp
+            </a>
+            <a className="cta-band-btn cta-band-btn--ghost" href="tel:+255672411558">
+              <i className="bi bi-telephone-fill"></i>
+              +255 672 411 558
+            </a>
+          </div>
+        </div>
+      </div>
 
       <footer className="site-footer">
         <div className="footer-inner">
@@ -709,6 +745,18 @@ export default function App() {
         </div>
       </footer>
     </div>
+
+    {/* ── FLOATING WHATSAPP FAB ── */}
+    <a
+      className="fab-wa"
+      href={whatsappLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat on WhatsApp"
+    >
+      <i className="bi bi-whatsapp"></i>
+      <span>Chat with us</span>
+    </a>
     </>
   );
 }
