@@ -885,7 +885,6 @@ button    { font-family:inherit; cursor:pointer; }
    ================================================================ */
 main { display:flex; flex-direction:column; }
 
-.operations,
 .contact {
   padding: clamp(80px,9vw,128px) clamp(24px,6vw,80px);
   background: linear-gradient(170deg, #030c1e 0%, #081832 60%, #050d1c 100%);
@@ -906,39 +905,6 @@ main { display:flex; flex-direction:column; }
 .contact .section-lede p  { color: rgba(255,255,255,.62); }
 .contact .eyebrow         { color: #2ed5a9; }
 .contact .eyebrow::before { background: #2ed5a9; }
-
-.operations {
-  padding: clamp(80px,9vw,128px) clamp(24px,6vw,80px);
-  background:
-    radial-gradient(ellipse 72% 52% at 0%  18%, rgba(16,185,129,.16) 0%, transparent 58%),
-    radial-gradient(ellipse 60% 44% at 100% 78%, rgba(245,158,11,.13) 0%, transparent 55%),
-    radial-gradient(ellipse 55% 40% at 55%  5%,  rgba(14,165,233,.10) 0%, transparent 50%),
-    linear-gradient(160deg, #030c1e 0%, #07162e 55%, #030b1c 100%);
-  border-top: 1px solid rgba(255,255,255,.07);
-  position: relative;
-  overflow: hidden;
-}
-/* Subtle grid dot pattern for operations */
-.operations::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(255,255,255,.055) 1px, transparent 1px);
-  background-size: 44px 44px;
-  opacity: .7;
-  pointer-events: none;
-}
-/* Operations section-lede dark text overrides */
-.operations .section-lede h2 {
-  color: #ffffff;
-  background: linear-gradient(120deg, #ffffff 0%, #a7f3d0 55%, #7dd3fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.operations .section-lede p  { color: rgba(200,228,248,.72); }
-.operations .eyebrow          { color: #34d399; letter-spacing: .18em; }
-.operations .eyebrow::before  { background: linear-gradient(90deg, #10b981, #34d399); width: 22px; }
 
 .section-lede { max-width:680px; margin-bottom:clamp(32px,5.5vw,72px); }
 
@@ -974,17 +940,6 @@ main { display:flex; flex-direction:column; }
   line-height: 1.78;
   max-width: 640px;
 }
-
-/* ================================================================
-   OPERATIONS
-   ================================================================ */
-.operations-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 24px;
-}
-
-/* capability-card styles moved to live-badge section below */
 
 /* ================================================================
    CREDENTIALS — redesigned trust section
@@ -1804,228 +1759,6 @@ main { display:flex; flex-direction:column; }
 }
 
 /* ================================================================
-   OPERATIONS — LIVE BADGE + CARD ENHANCEMENTS
-   ================================================================ */
-.live-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  background: rgba(16,185,129,.12);
-  border: 1px solid rgba(16,185,129,.40);
-  border-radius: 999px;
-  padding: 7px 22px;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: #4ade80;
-  margin-top: 18px;
-  box-shadow: 0 0 24px rgba(16,185,129,.16), inset 0 0 12px rgba(16,185,129,.06);
-}
-.live-pulse {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  flex-shrink: 0;
-  animation: pulse 2s ease-in-out infinite;
-  box-shadow: 0 0 0 3px rgba(16,185,129,.28), 0 0 8px rgba(16,185,129,.5);
-}
-
-/* ── Capability / Operations cards ── */
-.capability-card {
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--r-xl);
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.10);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  transition: border-color var(--t) var(--ease), transform var(--t) var(--ease-spring), box-shadow var(--t) var(--ease);
-  position: relative;
-}
-/* Per-status card background tint */
-.capability-card[data-status="active"]   { background: linear-gradient(160deg, rgba(16,185,129,.14) 0%, rgba(6,15,32,.92) 45%); }
-.capability-card[data-status="flagship"]  { background: linear-gradient(160deg, rgba(245,158,11,.12) 0%, rgba(6,15,32,.92) 45%); }
-.capability-card[data-status="certified"] { background: linear-gradient(160deg, rgba(14,165,233,.12) 0%, rgba(6,15,32,.92) 45%); }
-/* Status accent top border */
-.capability-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  border-radius: var(--r-xl) var(--r-xl) 0 0;
-  z-index: 2;
-}
-.capability-card[data-status="active"]::before   { background: linear-gradient(90deg, #059669, #34d399, #a7f3d0); }
-.capability-card[data-status="flagship"]::before  { background: linear-gradient(90deg, #b45309, #f59e0b, #fde68a); }
-.capability-card[data-status="certified"]::before { background: linear-gradient(90deg, #0284c7, #0ea5e9, #7dd3fc); }
-
-.capability-card:hover {
-  border-color: rgba(255,255,255,.22);
-  transform: translateY(-10px);
-}
-.capability-card[data-status="active"]:hover   { box-shadow: 0 32px 64px rgba(0,0,0,.50), 0 0 40px rgba(16,185,129,.18); }
-.capability-card[data-status="flagship"]:hover  { box-shadow: 0 32px 64px rgba(0,0,0,.50), 0 0 40px rgba(245,158,11,.16); }
-.capability-card[data-status="certified"]:hover { box-shadow: 0 32px 64px rgba(0,0,0,.50), 0 0 40px rgba(14,165,233,.16); }
-
-/* Image area — natural dimensions (no cropping) */
-.capability-img {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  flex-shrink: 0;
-  /* no aspect-ratio: images fill their natural 900×600 (3:2) proportions */
-}
-.capability-img img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform .7s var(--ease);
-}
-.capability-card:hover .capability-img img { transform: scale(1.04); }
-
-/* Bottom gradient over image */
-.capability-img::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top,
-    rgba(4,12,26,.88) 0%,
-    rgba(4,12,26,.40) 40%,
-    transparent 72%);
-  pointer-events: none;
-}
-
-/* Status tag badge */
-.capability-tag {
-  position: absolute;
-  top: 14px; left: 14px;
-  z-index: 3;
-  font-size: .60rem;
-  font-weight: 800;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  border-radius: 999px;
-  padding: 4px 13px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-.capability-tag::before {
-  content: '';
-  display: block;
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.capability-card[data-status="active"]   .capability-tag {
-  background: rgba(16,185,129,.22);
-  border: 1px solid rgba(74,222,128,.55);
-  color: #4ade80;
-}
-.capability-card[data-status="active"]   .capability-tag::before { background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,.30); animation: pulse 2s ease infinite; }
-.capability-card[data-status="flagship"]  .capability-tag {
-  background: rgba(245,158,11,.20);
-  border: 1px solid rgba(253,230,138,.55);
-  color: #fde68a;
-}
-.capability-card[data-status="flagship"]  .capability-tag::before { background: #fbbf24; box-shadow: 0 0 6px rgba(251,191,36,.55); }
-.capability-card[data-status="certified"] .capability-tag {
-  background: rgba(14,165,233,.20);
-  border: 1px solid rgba(125,211,252,.55);
-  color: #7dd3fc;
-}
-.capability-card[data-status="certified"] .capability-tag::before { background: #38bdf8; box-shadow: 0 0 6px rgba(56,189,248,.55); }
-
-/* Card body */
-.capability-body {
-  padding: 28px 26px 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-  flex: 1;
-}
-.capability-body h3 {
-  font-size: 1.12rem;
-  font-weight: 800;
-  letter-spacing: -.018em;
-  line-height: 1.22;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.capability-card[data-status="active"]   .capability-body h3 { background: linear-gradient(120deg, #ffffff 0%, #6ee7b7 60%, #34d399 100%); }
-.capability-card[data-status="flagship"]  .capability-body h3 { background: linear-gradient(120deg, #ffffff 0%, #fde68a 60%, #fbbf24 100%); }
-.capability-card[data-status="certified"] .capability-body h3 { background: linear-gradient(120deg, #ffffff 0%, #bae6fd 60%, #38bdf8 100%); }
-
-.capability-body > p {
-  font-size: .875rem;
-  color: rgba(210,232,250,.80);
-  line-height: 1.76;
-  flex: 1;
-}
-
-/* Bullets */
-.capability-body ul { display:flex; flex-direction:column; gap:8px; margin-top:2px; list-style: none; padding: 0; }
-.capability-body li {
-  display: flex;
-  align-items: flex-start;
-  gap: 9px;
-  font-size: .82rem;
-  font-weight: 500;
-  color: rgba(215,235,252,.80);
-  line-height: 1.48;
-}
-.capability-body li::before { display: none; }
-.capability-body li .bi {
-  flex-shrink: 0;
-  margin-top: 1px;
-  font-size: .96rem;
-}
-.capability-card[data-status="active"]   .capability-body li .bi { color: #4ade80; filter: drop-shadow(0 0 5px rgba(74,222,128,.55)); }
-.capability-card[data-status="flagship"]  .capability-body li .bi { color: #fde68a; filter: drop-shadow(0 0 5px rgba(253,230,138,.55)); }
-.capability-card[data-status="certified"] .capability-body li .bi { color: #7dd3fc; filter: drop-shadow(0 0 5px rgba(125,211,252,.55)); }
-
-/* VIEW DETAILS CTA */
-.card-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: .78rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  border-radius: 999px;
-  padding: 10px 24px;
-  margin-top: 10px;
-  transition: background var(--t) var(--ease), color var(--t) var(--ease), transform var(--t) var(--ease-spring), box-shadow var(--t) var(--ease);
-  text-decoration: none;
-  width: fit-content;
-  border: 1px solid;
-  position: relative;
-  overflow: hidden;
-}
-.card-cta::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.18) 50%, transparent 70%);
-  transform: translateX(-120%);
-  transition: transform .5s ease;
-  pointer-events: none;
-}
-.card-cta:hover::after { transform: translateX(120%); }
-.capability-card[data-status="active"]   .card-cta { color: #4ade80;  border-color: rgba(74,222,128,.45);  background: rgba(16,185,129,.12); }
-.capability-card[data-status="flagship"]  .card-cta { color: #fde68a;  border-color: rgba(253,230,138,.45); background: rgba(245,158,11,.12);  }
-.capability-card[data-status="certified"] .card-cta { color: #7dd3fc;  border-color: rgba(125,211,252,.45); background: rgba(14,165,233,.12);  }
-.capability-card[data-status="active"]   .card-cta:hover { background: linear-gradient(130deg,#059669,#10b981); color: #f0fdf4; border-color: transparent; box-shadow: 0 10px 28px rgba(16,185,129,.42); transform: translateY(-3px); }
-.capability-card[data-status="flagship"]  .card-cta:hover { background: linear-gradient(130deg,#b45309,#f59e0b); color: #fffbeb; border-color: transparent; box-shadow: 0 10px 28px rgba(245,158,11,.42); transform: translateY(-3px); }
-.capability-card[data-status="certified"] .card-cta:hover { background: linear-gradient(130deg,#0284c7,#0ea5e9); color: #f0f9ff; border-color: transparent; box-shadow: 0 10px 28px rgba(14,165,233,.42); transform: translateY(-3px); }
-
-/* ================================================================
    GALLERY EXTRAS
    ================================================================ */
 .section-lede-italic {
@@ -2487,7 +2220,6 @@ main { display:flex; flex-direction:column; }
     max-width: 160px;
   }
   .values-grid     { grid-template-columns: repeat(2,1fr); }
-  .operations-grid { grid-template-columns: repeat(2,1fr); }
 }
 
 /* ── 1020px: footer → 2-col links ── */
@@ -2608,8 +2340,7 @@ main { display:flex; flex-direction:column; }
   .section-lede   { max-width: 100%; }
   .section-lede h2 { font-size: clamp(1.6rem,5vw,2.4rem); }
 
-  /* Operations 1-col */
-  .operations-grid { grid-template-columns: 1fr; }
+  /* Operations 1-col removed */
 
   /* Values 2-col */
   .values-grid    { grid-template-columns: repeat(2,1fr); }
@@ -2659,9 +2390,8 @@ main { display:flex; flex-direction:column; }
   .cta-band-actions   { flex-direction: row; flex-wrap: wrap; width: 100%; }
 }
 
-/* ── 540px: operations 1-col, inquiry tighten ── */
+/* ── 540px: inquiry tighten ── */
 @media (max-width: 540px) {
-  .operations-grid    { grid-template-columns: 1fr; }
   /* .capability-card figure aspect-ratio removed — natural image dimensions */
   .inquiry-widget     { padding: 14px 14px; }
   .video-caption      { padding: 18px 18px 20px; }

@@ -12,7 +12,7 @@ const remoteLogoSrc = 'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,
 const navLinks = [
   { label: 'Home', href: '#home' },
   { label: 'Why Us', href: '#why-us' },
-  { label: 'Operations', href: '#operations' },
+  { label: 'Operations', href: '#why-us' },
   { label: 'Media', href: '#video' },
   { label: 'Contact', href: '#contact' }
 ];
@@ -62,7 +62,7 @@ const footerCategories = [
       { label: 'Farm Visits',        href: '#contact' },
       { label: 'Custom Packaging',   href: '#contact' },
       { label: 'Training Programs',  href: '#contact' },
-      { label: 'Hatchery Supply',    href: '#operations' },
+      { label: 'Hatchery Supply',    href: '#contact' },
     ]
   },
   {
@@ -283,7 +283,7 @@ export default function App() {
         <nav className={`primary-nav${menuOpen ? ' nav--open' : ''}`} aria-label="Primary">
           <a href="#home"    onClick={() => setMenuOpen(false)}><span>{t.navHome}</span></a>
           <a href="#why-us"  onClick={() => setMenuOpen(false)}><span>{t.navWhyUs}</span></a>
-          <a href="#operations" onClick={() => setMenuOpen(false)}><span>{t.navOperations}</span></a>
+          <a href="#why-us" onClick={() => setMenuOpen(false)}><span>{t.navOperations}</span></a>
           <a href="#video" onClick={() => setMenuOpen(false)}><span>{t.navMedia}</span></a>
           <a href="#contact" onClick={() => setMenuOpen(false)}><span>{t.navContact}</span></a>
         </nav>
@@ -355,7 +355,7 @@ export default function App() {
             <p className="hero-lead">{t.heroLead}</p>
             <div className="hero-rule" aria-hidden="true" />
             <div className="hero-cta-row">
-              <a className="btn-solid" href="#operations">
+              <a className="btn-solid" href="#why-us">
                 <i className="bi bi-chevron-right-circle-fill"></i>
                 {t.heroCta1}
               </a>
@@ -426,52 +426,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* ── OPERATIONS ── */}
-        <section className="operations" id="operations">
-          <header className="section-lede">
-            <p className="eyebrow">{t.opsEyebrow}</p>
-            <h2>{t.opsH2}</h2>
-            <p>{t.opsP}</p>
-            <div className="live-badge">
-              <span className="live-pulse"></span>
-              {t.opsLiveBadge}
-            </div>
-          </header>
-          <div className="operations-grid">
-            {[
-              { tag:t.ops1Tag, title:t.ops1Title, desc:t.ops1Desc, bullets:[t.ops1b1,t.ops1b2,t.ops1b3],
-                status:'active',
-                image:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_600/v1772540685/WhatsApp_Image_2026-03-03_at_15.19.07_qdknt1.jpg',
-                alt:'Water-filled fish pond used for aquaculture.' },
-              { tag:t.ops2Tag, title:t.ops2Title, desc:t.ops2Desc, bullets:[t.ops2b1,t.ops2b2,t.ops2b3],
-                status:'flagship',
-                image:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_600/v1772540684/WhatsApp_Image_2026-03-03_at_15.19.01_e9fs06.jpg',
-                alt:'Group meeting discussing fish farming project.' },
-              { tag:t.ops3Tag, title:t.ops3Title, desc:t.ops3Desc, bullets:[t.ops3b1,t.ops3b2,t.ops3b3],
-                status:'certified',
-                image:'https://res.cloudinary.com/diyy8h0d9/image/upload/f_auto,q_auto,c_fill,w_900,h_600/v1772540683/WhatsApp_Image_2026-03-03_at_15.19.02_ll7cih.jpg',
-                alt:'Participants touring aquaculture facility.' },
-            ].map(track => (
-              <article className="capability-card" data-status={track.status} key={track.title}>
-                <figure className="capability-img">
-                  <img src={track.image} alt={track.alt} loading="lazy" onError={applyImageFallback} />
-                  <span className="capability-tag">{track.tag}</span>
-                </figure>
-                <div className="capability-body">
-                  <h3>{track.title}</h3>
-                  <p>{track.desc}</p>
-                  <ul>
-                    {track.bullets.map(point => (
-                      <li key={point}><i className="bi bi-check2-circle-fill"></i>{point}</li>
-                    ))}
-                  </ul>
-                  <a className="card-cta" href="#contact">{t.viewDetails} <i className="bi bi-arrow-right"></i></a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
+        {/* ── VIDEO SHOWCASE ── */}
         <section className="video-showcase" id="video">
           <div className="video-showcase-inner">
             <header className="section-lede">
@@ -640,9 +595,9 @@ export default function App() {
           </div>
           {[
             { title: t.footerCol1Title, links: [
-              { label: t.footerCol1L1, href: '#operations' },
-              { label: t.footerCol1L2, href: '#operations' },
-              { label: t.footerCol1L3, href: '#operations' },
+              { label: t.footerCol1L1, href: '#contact' },
+              { label: t.footerCol1L2, href: '#contact' },
+              { label: t.footerCol1L3, href: '#contact' },
               { label: t.footerCol1L4, href: '#contact' },
               { label: t.footerCol1L5, href: '#contact' },
             ]},
@@ -651,7 +606,7 @@ export default function App() {
               { label: t.footerCol2L2, href: '#contact' },
               { label: t.footerCol2L3, href: '#contact' },
               { label: t.footerCol2L4, href: '#contact' },
-              { label: t.footerCol2L5, href: '#operations' },
+              { label: t.footerCol2L5, href: '#contact' },
             ]},
             { title: t.footerCol3Title, links: [
               { label: t.footerCol3L1, href: '#why-us' },
